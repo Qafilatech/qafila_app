@@ -1,0 +1,46 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "ride",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "orderStatus",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_on",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "ride",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "order_ID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_on",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "ride",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "is_driver_assigned",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_on",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ]
+}
