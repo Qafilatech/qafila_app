@@ -1,6 +1,6 @@
 # QafilaTech-Cust
 
-A new Flutter project.
+Flutter SDK will be needed prior to running
 
 ## Getting Started
 
