@@ -13,7 +13,7 @@ FlutterFlow projects are built to run on the Flutter _stable_ release.
 - **assets/**: Contains various assets like images, fonts, audios, videos, etc.
 - **firebase/**: Contains Firebase configuration files and rules.
 - **ios/**: Contains the iOS-specific files and configurations.
-- **lib/**: Contains the Dart source code for the application.
+- **lib/**: Contains the Dart source code for the application. (Entry point of the application)
 - **pubspec.yaml**: The Dart package configuration file.
 - **README.md**: This file.
 
