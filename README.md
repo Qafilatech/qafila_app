@@ -96,3 +96,5 @@ flutter:
 
     to clean the project:
         flutter clean
+
+## Developed by Tariq Y. (The Moist Marauder)
