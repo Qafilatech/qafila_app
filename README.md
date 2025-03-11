@@ -1,100 +1,245 @@
-# QafilaTech-Cust
+# QafilaTech Customer Application
 
-Flutter SDK will be needed prior to running
+<p align="center">
+  <img src="assets/images/QAFILATECH.png" alt="QafilaTech Logo" width="200"/>
+</p>
 
-## Getting Started
+QafilaTech is a sophisticated Flutter-based mobile application that provides seamless transportation and delivery services. The application offers a dual-language interface (English and Arabic) and integrates advanced features for ride-hailing and delivery management.
 
-FlutterFlow projects are built to run on the Flutter _stable_ release.
+## Table of Contents
 
+- [Features](#features)
+- [Technical Architecture](#technical-architecture)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Development](#development)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Security](#security)
+- [Contributing](#contributing)
+- [License](#license)
 
-### Key Directories and Files
+## Features
 
-- **android/**: Contains the Android-specific files and configurations.
-- **assets/**: Contains various assets like images, fonts, audios, videos, etc.
-- **firebase/**: Contains Firebase configuration files and rules.
-- **ios/**: Contains the iOS-specific files and configurations.
-- **lib/**: Contains the Dart source code for the application. (Entry point of the application)
-- **pubspec.yaml**: The Dart package configuration file.
-- **README.md**: This file.
+### Core Functionality
+- **User Authentication**
+  - Multi-platform sign-in (Email, Google, Apple)
+  - Secure authentication flow
+  - Profile management system
 
-## Firebase Configuration
+- **Transportation Services**
+  - Real-time ride tracking
+  - Dynamic route optimization
+  - Fare estimation
+  - Driver-passenger matching
 
-The Firebase configuration is located in the `firebase/` directory. Key files include:
+- **Delivery Management**
+  - Order tracking system
+  - Real-time delivery status
+  - Multi-point delivery support
+  - Delivery history
 
-- `firebase.json`: Firebase configuration file.
-- `firestore.rules`: Firestore security rules.
-- `firestore.indexes.json`: Firestore indexes configuration.
-- `storage.rules`: Firebase Storage security rules.
+- **Location Services**
+  - Real-time GPS tracking
+  - Intelligent route planning
+  - Geofencing capabilities
+  - Location history
 
-## Assets
+### User Interface
+- **Multilingual Support**
+  - English and Arabic interfaces
+  - RTL/LTR layout support
+  - Dynamic language switching
 
-Assets are organized into subdirectories under `assets/`:
+- **Theme Customization**
+  - Light/Dark mode support
+  - Dynamic theme switching
+  - Custom theme configuration
 
-- `assets/audios/`: Audio files.
-- `assets/fonts/`: Font files.
-- `assets/images/`: Image files.
-- `assets/jsons/`: JSON files.
-- `assets/pdfs/`: PDF files.
-- `assets/rive_animations/`: Rive animation files.
-- `assets/videos/`: Video files.
+- **Navigation**
+  - Intuitive bottom navigation
+  - Gesture-based interactions
+  - Seamless screen transitions
 
-## Adding Assets
+## Technical Architecture
 
-To add assets to your application, update the `pubspec.yaml` file. For example:
+### Technology Stack
+- **Frontend Framework**: Flutter (Stable Channel)
+- **State Management**: Provider
+- **Backend Services**: Firebase
+- **Database**: Cloud Firestore
+- **Authentication**: Firebase Auth
+- **Storage**: Firebase Storage
+- **Maps Integration**: Google Maps
+- **Location Services**: Geolocator
+- **API Integration**: RESTful APIs
 
+### Dependencies
 ```yaml
-flutter:
-  assets:
-    - assets/fonts/
-    - assets/images/
-    - assets/videos/
-    - assets/audios/
-    - assets/rive_animations/
-    - assets/pdfs/
-    - assets/jsons/
+Key Dependencies:
+- firebase_core: ^3.8.0
+- cloud_firestore: ^5.5.0
+- firebase_auth: ^5.3.3
+- google_maps_flutter: ^2.9.0
+- provider: ^6.1.2
+- geolocator: ^13.0.1
+- flutter_localizations
+```
 
-## Custom Fonts
-Adding custom fonts will have to be updated in pubspec.yaml
+## Prerequisites
 
-flutter:
-  fonts:
-    - family: Schyler
-      fonts:
-        - asset: fonts/Schyler-Regular.ttf
-        - asset: fonts/Schyler-Italic.ttf
-          style: italic
-    - family: Trajan Pro
-      fonts:
-        - asset: fonts/TrajanPro.ttf
-        - asset: fonts/TrajanPro_Bold.ttf
-          weight: 700
+- Flutter SDK (Latest Stable Version)
+- Dart SDK (>=3.0.0 <4.0.0)
+- Android Studio / VS Code
+- Firebase Account
+- Google Maps API Key
+- iOS Developer Account (for iOS deployment)
 
-## Android Configuration
-    The Android configuration is located in the android directory. Key files include:
+## Installation
 
-    - build.gradle: The main build configuration file for the Android project.
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd qafila_app
+```
 
-## iOS Configuration
-    The iOS configuration is located in the ios directory. Key files include:
+2. Install dependencies:
+```bash
+flutter pub get
+```
 
-    - Runner.xcworkspace: The Xcode workspace for the iOS project.
-    -Podfile: The CocoaPods configuration file.
-## Firestore Utilities
-    Firestore utilities are located in the firestore_util.dart file. This includes utility classes and functions for working with Firestore.
+3. Configure Firebase:
+   - Add `google-services.json` to `/android/app`
+   - Add `GoogleService-Info.plist` to `/ios/Runner`
 
-## Building the Project 
-    - For Android:
-        flutter build apk
+4. Configure Google Maps:
+   - Add API key to Android Manifest
+   - Add API key to iOS AppDelegate
 
-    -For iOS:
-        flutter build ios
+5. Run the application:
+```bash
+flutter run
+```
 
-## Running the project
+## Project Structure
 
-    Run the following command to run/debug:
-        flutter run
+```
+qafila_app/
+├── android/                 # Android-specific configurations
+├── ios/                    # iOS-specific configurations
+├── lib/
+│   ├── account_profile_creation/  # Profile management
+│   ├── auth/               # Authentication logic
+│   ├── backend/           # Backend service integrations
+│   ├── components/        # Reusable UI components
+│   ├── custom_code/       # Custom implementations
+│   ├── flutter_flow/      # FlutterFlow configurations
+│   ├── pages/             # Application screens
+│   └── main.dart          # Application entry point
+├── assets/                # Application resources
+├── test/                 # Test files
+└── pubspec.yaml          # Project configuration
+```
 
-    to clean the project:
-        flutter clean
+## Configuration
 
-## Developed by Tariq Y. (The Moist Marauder)
+### Environment Variables
+Create a `.env` file in the project root:
+```
+GOOGLE_MAPS_API_KEY=your_api_key
+FIREBASE_API_KEY=your_firebase_key
+```
+
+### Firebase Setup
+1. Create a Firebase project
+2. Enable Authentication methods
+3. Configure Firestore rules
+4. Set up Storage rules
+
+### Google Maps Configuration
+1. Obtain API key from Google Cloud Console
+2. Enable required APIs:
+   - Maps SDK for Android/iOS
+   - Places API
+   - Directions API
+
+## Development
+
+### Code Style
+- Follow Flutter's official style guide
+- Use meaningful variable and function names
+- Comment complex logic
+- Maintain consistent file structure
+
+### State Management
+- Use Provider for app-wide state
+- Implement local state where appropriate
+- Follow unidirectional data flow
+
+### Error Handling
+- Implement proper error boundaries
+- Use try-catch blocks
+- Display user-friendly error messages
+
+## Testing
+
+### Unit Tests
+```bash
+flutter test test/unit/
+```
+
+### Integration Tests
+```bash
+flutter test integration_test/
+```
+
+### Widget Tests
+```bash
+flutter test test/widget/
+```
+
+## Deployment
+
+### Android
+1. Update version in `pubspec.yaml`
+2. Create release build:
+```bash
+flutter build apk --release
+```
+
+### iOS
+1. Update version in `pubspec.yaml`
+2. Create release build:
+```bash
+flutter build ios --release
+```
+
+## Security
+
+- Implement secure authentication flows
+- Use Firebase Security Rules
+- Encrypt sensitive data
+- Implement proper session management
+- Regular security audits
+
+## Contributing
+
+1. Fork the repository
+2. Create feature branch
+3. Commit changes
+4. Push to branch
+5. Create Pull Request
+
+## License
+
+This project is proprietary software. All rights reserved.
+
+## Support
+
+For support, email [support@qafilatech.com](mailto:support@qafilatech.com)
+
+---
+
+Developed with ❤️ by QafilaTech Team
