@@ -2,7 +2,11 @@ import '/components/toast/toast_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'other_issue_menu_model.dart';
 export 'other_issue_menu_model.dart';
 
@@ -11,11 +15,13 @@ class OtherIssueMenuWidget extends StatefulWidget {
     super.key,
     String? title,
     String? desc,
+    required this.categoryTitle,
   })  : this.title = title ?? 'n/a',
         this.desc = desc ?? 'n/a';
 
   final String title;
   final String desc;
+  final String? categoryTitle;
 
   @override
   State<OtherIssueMenuWidget> createState() => _OtherIssueMenuWidgetState();
@@ -90,7 +96,7 @@ class _OtherIssueMenuWidgetState extends State<OtherIssueMenuWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    widget.title,
+                    widget!.title,
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
                           fontFamily: 'Readex Pro',
                           letterSpacing: 0.0,
@@ -108,7 +114,7 @@ class _OtherIssueMenuWidgetState extends State<OtherIssueMenuWidget> {
                 scrollDirection: Axis.vertical,
                 children: [
                   Text(
-                    widget.desc,
+                    widget!.desc,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
                           letterSpacing: 0.0,

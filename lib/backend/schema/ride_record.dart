@@ -186,6 +186,11 @@ class RideRecord extends FirestoreRecord {
   int get assistance => _assistance ?? 0;
   bool hasAssistance() => _assistance != null;
 
+  // "driverPhoto_url" field.
+  String? _driverPhotoUrl;
+  String get driverPhotoUrl => _driverPhotoUrl ?? '';
+  bool hasDriverPhotoUrl() => _driverPhotoUrl != null;
+
   void _initializeFields() {
     _userUid = snapshotData['user_uid'] as String?;
     _driverLocation = snapshotData['driver_location'] as LatLng?;
@@ -221,6 +226,7 @@ class RideRecord extends FirestoreRecord {
     _coordinates = getDataList(snapshotData['coordinates']);
     _addresses = getDataList(snapshotData['addresses']);
     _assistance = castToType<int>(snapshotData['assistance']);
+    _driverPhotoUrl = snapshotData['driverPhoto_url'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -287,6 +293,7 @@ Map<String, dynamic> createRideRecordData({
   String? receivingParty,
   String? orderDetails,
   int? assistance,
+  String? driverPhotoUrl,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -320,6 +327,7 @@ Map<String, dynamic> createRideRecordData({
       'receivingParty': receivingParty,
       'orderDetails': orderDetails,
       'assistance': assistance,
+      'driverPhoto_url': driverPhotoUrl,
     }.withoutNulls,
   );
 
@@ -366,7 +374,8 @@ class RideRecordDocumentEquality implements Equality<RideRecord> {
         e1?.orderDetails == e2?.orderDetails &&
         listEquality.equals(e1?.coordinates, e2?.coordinates) &&
         listEquality.equals(e1?.addresses, e2?.addresses) &&
-        e1?.assistance == e2?.assistance;
+        e1?.assistance == e2?.assistance &&
+        e1?.driverPhotoUrl == e2?.driverPhotoUrl;
   }
 
   @override
@@ -404,7 +413,8 @@ class RideRecordDocumentEquality implements Equality<RideRecord> {
         e?.orderDetails,
         e?.coordinates,
         e?.addresses,
-        e?.assistance
+        e?.assistance,
+        e?.driverPhotoUrl
       ]);
 
   @override

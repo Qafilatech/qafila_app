@@ -19,21 +19,11 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "order_ID",
+          "fieldPath": "orderStatus",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "created_on",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "ride",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "is_driver_assigned",
+          "fieldPath": "user_name",
           "order": "ASCENDING"
         },
         {

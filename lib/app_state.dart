@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
+import '/backend/api_requests/api_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -105,14 +107,4 @@ class FFAppState extends ChangeNotifier {
   set locationStatus(bool value) {
     _locationStatus = value;
   }
-}
-
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
-  }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
 }

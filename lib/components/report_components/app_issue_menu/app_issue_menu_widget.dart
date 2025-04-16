@@ -1,12 +1,21 @@
 import '/components/report_components/other_issue_menu/other_issue_menu_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'app_issue_menu_model.dart';
 export 'app_issue_menu_model.dart';
 
 class AppIssueMenuWidget extends StatefulWidget {
-  const AppIssueMenuWidget({super.key});
+  const AppIssueMenuWidget({
+    super.key,
+    required this.categoryTitle,
+  });
+
+  final String? categoryTitle;
 
   @override
   State<AppIssueMenuWidget> createState() => _AppIssueMenuWidgetState();
@@ -121,6 +130,7 @@ class _AppIssueMenuWidgetState extends State<AppIssueMenuWidget> {
                                   title: 'App Crashes/Freezes',
                                   desc:
                                       'Please fill in the description of your incident, if possible. (Optional)',
+                                  categoryTitle: widget!.categoryTitle!,
                                 ),
                               ),
                             );
@@ -191,6 +201,7 @@ class _AppIssueMenuWidgetState extends State<AppIssueMenuWidget> {
                                   title: 'Payment Issue',
                                   desc:
                                       'Please fill in the description of your incident, if possible. (Optional)',
+                                  categoryTitle: widget!.categoryTitle!,
                                 ),
                               ),
                             );
@@ -261,6 +272,7 @@ class _AppIssueMenuWidgetState extends State<AppIssueMenuWidget> {
                                   title: 'Account/Login Issue',
                                   desc:
                                       'Please fill in the description of your incident, if possible. (Optional)',
+                                  categoryTitle: widget!.categoryTitle!,
                                 ),
                               ),
                             );
@@ -331,6 +343,7 @@ class _AppIssueMenuWidgetState extends State<AppIssueMenuWidget> {
                                   title: 'Location Issue',
                                   desc:
                                       'Please fill in the description of your incident, if possible. (Optional)',
+                                  categoryTitle: widget!.categoryTitle!,
                                 ),
                               ),
                             );
@@ -401,6 +414,7 @@ class _AppIssueMenuWidgetState extends State<AppIssueMenuWidget> {
                                   title: 'UI/Usability Issue',
                                   desc:
                                       'Please fill in the description of your incident, if possible. (Optional)',
+                                  categoryTitle: widget!.categoryTitle!,
                                 ),
                               ),
                             );

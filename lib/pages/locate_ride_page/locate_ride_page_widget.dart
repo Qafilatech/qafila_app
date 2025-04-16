@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/card10_rating/card10_rating_widget.dart';
 import '/components/report_components/report_issue_menu/report_issue_menu_widget.dart';
@@ -6,15 +7,20 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/main.dart';
+import 'dart:math';
+import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'locate_ride_page_model.dart';
 export 'locate_ride_page_model.dart';
 
@@ -27,7 +33,7 @@ class LocateRidePageWidget extends StatefulWidget {
   final DocumentReference? rideDetailsReference;
 
   static String routeName = 'LocateRidePage';
-  static String routePath = '/locateRidePage';
+  static String routePath = 'locateRidePage';
 
   @override
   State<LocateRidePageWidget> createState() => _LocateRidePageWidgetState();
@@ -85,7 +91,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<RideRecord>(
-      stream: RideRecord.getDocument(widget.rideDetailsReference!),
+      stream: RideRecord.getDocument(widget!.rideDetailsReference!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -126,54 +132,25 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                   ),
                   child: Stack(
                     children: [
-                      if (locateRidePageRideRecord.isDriverAssigned)
-                        Container(
+                      Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: custom_widgets.GoogleMapsRouteWithPins(
                           width: double.infinity,
                           height: double.infinity,
-                          child: custom_widgets.RouteViewLiveMulti(
-                            width: double.infinity,
-                            height: double.infinity,
-                            lineColor: FlutterFlowTheme.of(context).secondary,
-                            iOSGoogleMapsApiKey:
-                                'AIzaSyBMwBGynKTbtb1lutB-9BvMXxTmrNYoN7s',
-                            androidGoogleMapsApiKey:
-                                'AIzaSyCX-tNBeRrqwCim7XsOr1FMzQOHG12CphE',
-                            webGoogleMapsApiKey:
-                                'AIzaSyB1LAg6t2HCKT2K0C6P5mR5gqmpeWIkG5I',
-                            addresses: locateRidePageRideRecord.addresses,
-                            coordinates: locateRidePageRideRecord.coordinates,
-                            rideDetailsReference:
-                                locateRidePageRideRecord.reference,
-                          ),
+                          initialZoom: 14.0,
+                          routeColor: FlutterFlowTheme.of(context).secondary,
+                          avoidTolls: true,
+                          padding: 80.0,
+                          latLngPoints: locateRidePageRideRecord.coordinates,
+                          webGoogleMapsApiKey:
+                              'AIzaSyCiNMFffqr5OOC34dErQHrtlNejHuTonSg',
+                          iOSGoogleMapsApiKey:
+                              'AIzaSyBs27pNi0E9-zm6LbmLMSZamDSopqgBJoM',
+                          androidGoogleMapsApiKey:
+                              'AIzaSyBQXqUEd-aaNwdxFxqJWbg34ixwCjDwryE',
                         ),
-                      if (!locateRidePageRideRecord.isDriverAssigned)
-                        Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: custom_widgets.RouteViewStatic(
-                            width: double.infinity,
-                            height: double.infinity,
-                            iOSGoogleMapsApiKey:
-                                'AIzaSyBMwBGynKTbtb1lutB-9BvMXxTmrNYoN7s',
-                            androidGoogleMapsApiKey:
-                                'AIzaSyCX-tNBeRrqwCim7XsOr1FMzQOHG12CphE',
-                            webGoogleMapsApiKey:
-                                'AIzaSyB1LAg6t2HCKT2K0C6P5mR5gqmpeWIkG5I',
-                            startAddress: valueOrDefault<String>(
-                              locateRidePageRideRecord.addresses.firstOrNull,
-                              'N/A',
-                            ),
-                            destinationAddress: valueOrDefault<String>(
-                              locateRidePageRideRecord.addresses.lastOrNull,
-                              'N/A',
-                            ),
-                            lineColor: FlutterFlowTheme.of(context).secondary,
-                            startCoordinate: locateRidePageRideRecord
-                                .coordinates.firstOrNull!,
-                            endCoordinate: locateRidePageRideRecord
-                                .coordinates.lastOrNull!,
-                          ),
-                        ),
+                      ),
                       Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -215,19 +192,12 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                           icon: Icon(
                                             Icons.home_rounded,
                                             color: FlutterFlowTheme.of(context)
-                                                .primary,
+                                                .secondary,
                                             size: 30.0,
                                           ),
                                           onPressed: () async {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    NavBarPage(
-                                                        initialPage:
-                                                            'Home-Individual'),
-                                              ),
-                                            );
+                                            context.pushNamed(
+                                                HomeWidget.routeName);
                                           },
                                         ),
                                       ),
@@ -240,28 +210,46 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                         children: [
                                           Text(
                                             FFLocalizations.of(context).getText(
-                                              'hcdlcj45' /* Tracking Order */,
+                                              'myuwohl1' /* Tracking Order */,
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Inter',
-                                                  letterSpacing: 0.0,
-                                                ),
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                              shadows: [
+                                                Shadow(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  offset: Offset(2.0, 2.0),
+                                                  blurRadius: 4.0,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                           Text(
                                             locateRidePageRideRecord.orderID,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Poppins',
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 25.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
+                                              shadows: [
+                                                Shadow(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryText,
-                                                  fontSize: 25.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                                      .alternate,
+                                                  offset: Offset(2.0, 2.0),
+                                                  blurRadius: 4.0,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -335,7 +323,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                                         MediaQuery.viewInsetsOf(
                                                             context),
                                                     child: Container(
-                                                      height: 450.0,
+                                                      height: 475.0,
                                                       child:
                                                           ReportIssueMenuWidget(),
                                                     ),
@@ -384,20 +372,28 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                         Align(
                                           alignment:
                                               AlignmentDirectional(0.0, 0.0),
-                                          child: Text(
-                                            FFLocalizations.of(context).getText(
-                                              '6fyin2c6' /* Found Ride */,
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8.0, 0.0, 0.0, 0.0),
+                                            child: Text(
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'mkmzome3' /* Found Ride */,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .info,
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
                                             ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                ),
                                           ),
                                         ),
                                         Icon(
@@ -414,7 +410,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                 alignment: AlignmentDirectional(0.0, 1.0),
                                 child: Container(
                                   width: double.infinity,
-                                  height: 150.0,
+                                  height: 160.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -439,7 +435,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                                 Text(
                                                   FFLocalizations.of(context)
                                                       .getText(
-                                                    'yl7bg9nq' /* Order Created */,
+                                                    'wmdmg7m6' /* Order Created */,
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -461,7 +457,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                                   child: Text(
                                                     FFLocalizations.of(context)
                                                         .getText(
-                                                      '60ba75q4' /* Finding Ride... */,
+                                                      'vie6s4zy' /* Finding Ride... */,
                                                     ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -531,16 +527,10 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                                     ) ??
                                                     false;
                                             if (confirmDialogResponse) {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      NavBarPage(
-                                                          initialPage:
-                                                              'Home-Individual'),
-                                                ),
-                                              );
-                                              await widget
+                                              context.pushNamed(
+                                                  HomeWidget.routeName);
+
+                                              await widget!
                                                   .rideDetailsReference!
                                                   .delete();
                                               return;
@@ -550,7 +540,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                           },
                                           text: FFLocalizations.of(context)
                                               .getText(
-                                            'guxnbnrp' /* Cancel */,
+                                            '9gm9rrle' /* Cancel */,
                                           ),
                                           options: FFButtonOptions(
                                             width: double.infinity,
@@ -587,8 +577,17 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                 child: Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryBackground
+                                      ],
+                                      stops: [0.0, 1.0],
+                                      begin: AlignmentDirectional(0.0, -1.0),
+                                      end: AlignmentDirectional(0, 1.0),
+                                    ),
                                     borderRadius: BorderRadius.circular(0.0),
                                   ),
                                   child: Padding(
@@ -649,7 +648,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                                       FFLocalizations.of(
                                                               context)
                                                           .getText(
-                                                        'xpi5cth9' /* Arriving in - */,
+                                                        't8687lsn' /* Arriving in - */,
                                                       ),
                                                       style: FlutterFlowTheme
                                                               .of(context)
@@ -675,7 +674,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                                     MainAxisAlignment
                                                         .spaceAround,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     valueOrDefault<String>(
@@ -839,7 +838,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                                                   },
                                                                   child:
                                                                       Card10RatingWidget(
-                                                                    rideRef: widget
+                                                                    rideRef: widget!
                                                                         .rideDetailsReference!,
                                                                   ),
                                                                 ),
@@ -1020,18 +1019,25 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                                       ) ??
                                                       false;
                                               if (confirmDialogResponse) {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        NavBarPage(
-                                                            initialPage:
-                                                                'Home-Individual'),
-                                                  ),
-                                                );
-                                                await widget
+                                                context.pushNamed(
+                                                    HomeWidget.routeName);
+
+                                                await widget!
                                                     .rideDetailsReference!
-                                                    .delete();
+                                                    .update({
+                                                  ...createRideRecordData(
+                                                    orderStatus: 'Cancelled',
+                                                    userUid: '',
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'driver_location':
+                                                          FieldValue.delete(),
+                                                      'is_driver_assigned':
+                                                          FieldValue.delete(),
+                                                    },
+                                                  ),
+                                                });
                                                 return;
                                               } else {
                                                 return;
@@ -1039,7 +1045,7 @@ class _LocateRidePageWidgetState extends State<LocateRidePageWidget>
                                             },
                                             text: FFLocalizations.of(context)
                                                 .getText(
-                                              'afup8zv6' /* Cancel */,
+                                              'weoj09fm' /* Cancel */,
                                             ),
                                             options: FFButtonOptions(
                                               width: double.infinity,

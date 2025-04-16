@@ -4,12 +4,18 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/order_summary/order_summary_widget.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
+import 'dart:ui';
 import '/index.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'order_history_model.dart';
 export 'order_history_model.dart';
 
@@ -17,7 +23,7 @@ class OrderHistoryWidget extends StatefulWidget {
   const OrderHistoryWidget({super.key});
 
   static String routeName = 'OrderHistory';
-  static String routePath = '/orderHistory';
+  static String routePath = 'orderHistory';
 
   @override
   State<OrderHistoryWidget> createState() => _OrderHistoryWidgetState();
@@ -81,7 +87,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: Drawer(
           elevation: 16.0,
         ),
@@ -104,9 +110,6 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                     stops: [0.0, 0.5, 1.0],
                     begin: AlignmentDirectional(-1.0, -1.0),
                     end: AlignmentDirectional(1.0, 1.0),
-                  ),
-                  border: Border.all(
-                    color: Colors.transparent,
                   ),
                 ),
                 child: Container(
@@ -136,70 +139,76 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 12.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderRadius: 8.0,
-                                icon: Icon(
-                                  Icons.menu_sharp,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 30.0,
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 0.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 12.0, 0.0),
+                                child: FlutterFlowIconButton(
+                                  borderRadius: 8.0,
+                                  icon: Icon(
+                                    Icons.menu_sharp,
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    size: 30.0,
+                                  ),
+                                  onPressed: () async {
+                                    scaffoldKey.currentState!.openDrawer();
+                                  },
                                 ),
-                                onPressed: () async {
-                                  scaffoldKey.currentState!.openDrawer();
-                                },
                               ),
-                            ),
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'ifwq2r9e' /* Order History */,
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  'ifwq2r9e' /* Order History */,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 25.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Poppins',
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 16.0, 0.0),
+                                child: FlutterFlowIconButton(
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).accent2,
+                                  borderRadius: 12.0,
+                                  borderWidth: 1.0,
+                                  buttonSize: 40.0,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).accent4,
+                                  icon: FaIcon(
+                                    FontAwesomeIcons.solidBell,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
-                                    fontSize: 25.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
+                                    size: 18.0,
                                   ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 16.0, 0.0),
-                              child: FlutterFlowIconButton(
-                                borderColor:
-                                    FlutterFlowTheme.of(context).accent2,
-                                borderRadius: 12.0,
-                                borderWidth: 1.0,
-                                buttonSize: 40.0,
-                                fillColor: FlutterFlowTheme.of(context).accent4,
-                                icon: FaIcon(
-                                  FontAwesomeIcons.solidBell,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 18.0,
+                                  onPressed: () async {
+                                    scaffoldKey.currentState!.openEndDrawer();
+                                  },
                                 ),
-                                onPressed: () async {
-                                  scaffoldKey.currentState!.openEndDrawer();
-                                },
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 16.0, 0.0),
-                              child: FlutterFlowIconButton(
+                              FlutterFlowIconButton(
                                 borderColor:
                                     FlutterFlowTheme.of(context).accent2,
                                 borderRadius: 12.0,
@@ -228,7 +237,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
                                           child: Container(
-                                            height: 450.0,
+                                            height: 475.0,
                                             child: ReportIssueMenuWidget(),
                                           ),
                                         ),
@@ -237,8 +246,8 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                   ).then((value) => safeSetState(() {}));
                                 },
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -248,7 +257,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                   animationsMap['containerOnPageLoadAnimation']!),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 8.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
               child: Text(
                 FFLocalizations.of(context).getText(
                   'rmvw7pfe' /* Below are a summary of your in... */,
@@ -358,15 +367,15 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      OrderSummaryWidget(
-                                                    rideRef: listViewRideRecord
+                                              context.pushNamed(
+                                                OrderSummaryWidget.routeName,
+                                                queryParameters: {
+                                                  'rideRef': serializeParam(
+                                                    listViewRideRecord
                                                         .reference,
+                                                    ParamType.DocumentReference,
                                                   ),
-                                                ),
+                                                }.withoutNulls,
                                               );
                                             },
                                             child: Container(
@@ -377,14 +386,14 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
+                                                        .secondaryBackground,
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 border: Border.all(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .alternate,
-                                                  width: 2.0,
+                                                  width: 1.0,
                                                 ),
                                               ),
                                               child: Padding(
@@ -541,7 +550,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                           fontFamily:
                                                                               'Inter',
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primary,
+                                                                              FlutterFlowTheme.of(context).secondary,
                                                                           letterSpacing:
                                                                               0.0,
                                                                         ),
@@ -677,15 +686,14 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  OrderSummaryWidget(
-                                                rideRef: listViewRideRecord
-                                                    .reference,
+                                          context.pushNamed(
+                                            OrderSummaryWidget.routeName,
+                                            queryParameters: {
+                                              'rideRef': serializeParam(
+                                                listViewRideRecord.reference,
+                                                ParamType.DocumentReference,
                                               ),
-                                            ),
+                                            }.withoutNulls,
                                           );
                                         },
                                         child: Container(
@@ -991,15 +999,15 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      OrderSummaryWidget(
-                                                    rideRef: listViewRideRecord
+                                              context.pushNamed(
+                                                OrderSummaryWidget.routeName,
+                                                queryParameters: {
+                                                  'rideRef': serializeParam(
+                                                    listViewRideRecord
                                                         .reference,
+                                                    ParamType.DocumentReference,
                                                   ),
-                                                ),
+                                                }.withoutNulls,
                                               );
                                             },
                                             child: Container(

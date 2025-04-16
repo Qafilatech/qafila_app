@@ -2,13 +2,14 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/address_edit/address_edit_widget.dart';
 import '/components/contact/contact_widget.dart';
-import '/components/fav_save_widget.dart';
+import '/components/fav_save/fav_save_widget.dart';
+import '/components/pay/pay_widget.dart';
 import '/components/report_components/report_issue_menu/report_issue_menu_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
-import '/flutter_flow/flutter_flow_credit_card_form.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -18,21 +19,28 @@ import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/place.dart';
 import '/flutter_flow/upload_data.dart';
-import '/pages/locate_ride_page/locate_ride_page_widget.dart';
+import 'dart:io';
+import 'dart:math';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
-import '/flutter_flow/permissions_util.dart';
 import '/index.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
+import 'package:provider/provider.dart';
 import 'delivery_screen_large_model.dart';
 export 'delivery_screen_large_model.dart';
 
@@ -53,7 +61,7 @@ class DeliveryScreenLargeWidget extends StatefulWidget {
   final int? dropCount;
 
   static String routeName = 'DeliveryScreen-large';
-  static String routePath = '/deliveryScreenLarge';
+  static String routePath = 'deliveryScreenLarge';
 
   @override
   State<DeliveryScreenLargeWidget> createState() =>
@@ -65,7 +73,6 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
   late DeliveryScreenLargeModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  LatLng? currentUserLocationValue;
   var hasContainerTriggered = false;
   final animationsMap = <String, AnimationInfo>{};
 
@@ -76,12 +83,15 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await requestPermission(locationPermission);
-      await requestPermission(photoLibraryPermission);
+      if (widget!.favStatus) {
+        _model.locList = widget!.favCoordinates!.toList().cast<LatLng>();
+        _model.locListAddy = widget!.favAddress!.toList().cast<String>();
+        _model.locationStatus = true;
+        _model.dropCount = widget!.dropCount;
+        safeSetState(() {});
+      }
     });
 
-    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
-        .then((loc) => safeSetState(() => currentUserLocationValue = loc));
     _model.commentsTextFieldTextController ??= TextEditingController();
     _model.commentsTextFieldFocusNode ??= FocusNode();
 
@@ -152,21 +162,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (currentUserLocationValue == null) {
-      return Container(
-        color: FlutterFlowTheme.of(context).primaryBackground,
-        child: Center(
-          child: SizedBox(
-            width: 50.0,
-            height: 50.0,
-            child: SpinKitThreeBounce(
-              color: FlutterFlowTheme.of(context).primary,
-              size: 50.0,
-            ),
-          ),
-        ),
-      );
-    }
+    context.watch<FFAppState>();
 
     return GestureDetector(
       onTap: () {
@@ -190,13 +186,8 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                   onCameraIdle: (latLng) =>
                       safeSetState(() => _model.googleMapsCenter1 = latLng),
                   initialLocation: _model.googleMapsCenter1 ??=
-                      _model.pickUp == null
-                          ? currentUserLocationValue!
-                          : _model.pickUp!,
-                  markers: ((widget.favStatus
-                              ? widget.favCoordinates
-                              : _model.locList) ??
-                          [])
+                      FFAppState().pickUpLocation!,
+                  markers: _model.locList
                       .map(
                         (marker) => FlutterFlowMarker(
                           marker.serialize(),
@@ -475,7 +466,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                     colors: [
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .primaryBackground,
+                                                          .secondaryBackground,
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .alternate
@@ -578,7 +569,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                     colors: [
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .primaryBackground,
+                                                          .secondaryBackground,
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .alternate
@@ -674,7 +665,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                     colors: [
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .primaryBackground,
+                                                          .secondaryBackground,
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .alternate
@@ -691,7 +682,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                   border: Border.all(
                                                     color:
                                                         valueOrDefault<Color>(
-                                                      _model.appliance
+                                                      _model.material
                                                           ? FlutterFlowTheme.of(
                                                                   context)
                                                               .secondary
@@ -788,7 +779,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                   border: Border.all(
                                                     color:
                                                         valueOrDefault<Color>(
-                                                      _model.appliance
+                                                      _model.machinery
                                                           ? FlutterFlowTheme.of(
                                                                   context)
                                                               .secondary
@@ -885,7 +876,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                   border: Border.all(
                                                     color:
                                                         valueOrDefault<Color>(
-                                                      _model.appliance
+                                                      _model.others
                                                           ? FlutterFlowTheme.of(
                                                                   context)
                                                               .secondary
@@ -1305,6 +1296,11 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
                                             shape: BoxShape.rectangle,
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .accent1,
+                                            ),
                                           ),
                                           child: FlutterFlowCountController(
                                             decrementIconBuilder: (enabled) =>
@@ -1431,7 +1427,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                           selectedChipStyle: ChipStyle(
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
-                                                    .primary,
+                                                    .secondary,
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -1521,7 +1517,9 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                 ),
                                               ),
                                             ),
-                                            if (_model.uploadedFileUrl != '')
+                                            if (_model.uploadedFileUrl !=
+                                                    null &&
+                                                _model.uploadedFileUrl != '')
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
@@ -1766,7 +1764,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                                 0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .secondaryBackground,
+                                                        .alternate,
                                                     textStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .titleSmall
@@ -1782,7 +1780,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primary,
+                                                              .accent1,
                                                       width: 2.0,
                                                     ),
                                                     borderRadius:
@@ -1837,11 +1835,11 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                         2.0, 2.0, 2.0, 2.0),
                                     child: FlutterFlowPlacePicker(
                                       iOSGoogleMapsApiKey:
-                                          'AIzaSyBMwBGynKTbtb1lutB-9BvMXxTmrNYoN7s',
+                                          'AIzaSyBs27pNi0E9-zm6LbmLMSZamDSopqgBJoM',
                                       androidGoogleMapsApiKey:
-                                          'AIzaSyCX-tNBeRrqwCim7XsOr1FMzQOHG12CphE',
+                                          'AIzaSyBQXqUEd-aaNwdxFxqJWbg34ixwCjDwryE',
                                       webGoogleMapsApiKey:
-                                          'AIzaSyB1LAg6t2HCKT2K0C6P5mR5gqmpeWIkG5I',
+                                          'AIzaSyCiNMFffqr5OOC34dErQHrtlNejHuTonSg',
                                       onSelect: (place) async {
                                         safeSetState(() =>
                                             _model.placePickerValue = place);
@@ -1923,26 +1921,6 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                               if ((_model.apiResultzqa
                                                       ?.succeeded ??
                                                   true)) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Location is set successfully',
-                                                      style: TextStyle(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                  ),
-                                                );
                                                 _model.addToLocList(
                                                     _model.googleMapsCenter1!);
                                                 _model.pickUp =
@@ -2033,19 +2011,42 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                 null)
                                             ? null
                                             : () async {
-                                                await _model
-                                                    .googleMapsController1
-                                                    .future
-                                                    .then(
-                                                  (c) => c.animateCamera(
-                                                    CameraUpdate.newLatLng(
-                                                        _model
-                                                            .placePickerValue
-                                                            .latLng
-                                                            .toGoogleMaps()),
-                                                  ),
-                                                );
-                                                                                            },
+                                                if (_model.placePickerValue !=
+                                                    null) {
+                                                  await _model
+                                                      .googleMapsController1
+                                                      .future
+                                                      .then(
+                                                    (c) => c.animateCamera(
+                                                      CameraUpdate.newLatLng(
+                                                          _model
+                                                              .placePickerValue
+                                                              .latLng
+                                                              .toGoogleMaps()),
+                                                    ),
+                                                  );
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'please select a location first !',
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                        ),
+                                                      ),
+                                                      duration: Duration(
+                                                          milliseconds: 4000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                    ),
+                                                  );
+                                                }
+                                              },
                                       ),
                                     ),
                                   ),
@@ -2064,7 +2065,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                           () {
                             if (_model.dropCount == 0) {
                               return 190.0;
-                            } else if (widget.favStatus) {
+                            } else if (widget!.favStatus) {
                               return 320.0;
                             } else {
                               return valueOrDefault<double>(
@@ -2097,6 +2098,9 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                             bottomRight: Radius.circular(0.0),
                             topLeft: Radius.circular(12.0),
                             topRight: Radius.circular(12.0),
+                          ),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).alternate,
                           ),
                         ),
                         child: Column(
@@ -2140,7 +2144,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 8.0, 8.0),
                                           child: Container(
-                                            width: 130.0,
+                                            width: 140.0,
                                             height: 50.0,
                                             decoration: BoxDecoration(
                                               color:
@@ -2157,7 +2161,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      10.0, 0.0, 12.0, 0.0),
+                                                      10.0, 0.0, 0.0, 0.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
@@ -2194,6 +2198,15 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                           'pzcfk9ph' /* Now */,
                                                         ),
                                                         dateTimeFormat(
+                                                                      "M/d H:mm",
+                                                                      _model
+                                                                          .datePicked,
+                                                                      locale: FFLocalizations.of(
+                                                                              context)
+                                                                          .languageCode,
+                                                                    ) !=
+                                                                    null &&
+                                                                dateTimeFormat(
                                                                       "M/d H:mm",
                                                                       _model
                                                                           .datePicked,
@@ -2378,6 +2391,9 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                           safeSetState(() {});
                                                         } else {
                                                           _model.scheduleTime =
+                                                              getCurrentTimestamp;
+                                                          safeSetState(() {});
+                                                          _model.scheduleTime =
                                                               _model.datePicked;
                                                           _model.scheduleType =
                                                               _model
@@ -2385,7 +2401,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                           safeSetState(() {});
                                                         }
                                                       },
-                                                      width: 100.0,
+                                                      width: 95.0,
                                                       textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -2428,7 +2444,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                               .fromSTEB(
                                                                   16.0,
                                                                   0.0,
-                                                                  16.0,
+                                                                  1.0,
                                                                   0.0),
                                                       hidesUnderline: true,
                                                       isOverButton: true,
@@ -2467,14 +2483,16 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                           ),
                                         ),
                                         child: Visibility(
-                                          visible: _model.locList.isNotEmpty,
+                                          visible:
+                                              (_model.locList.isNotEmpty) ==
+                                                  true,
                                           child: ToggleIcon(
                                             onPressed: () async {
                                               safeSetState(() =>
                                                   _model.locationStatus =
                                                       !_model.locationStatus);
                                               var _shouldSetState = false;
-                                              if (widget.favStatus) {
+                                              if (_model.locationStatus) {
                                                 await showModalBottomSheet(
                                                   isScrollControlled: true,
                                                   backgroundColor:
@@ -2505,19 +2523,21 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
 
                                                 _shouldSetState = true;
 
-                                                var favouriteLocationsRecordReference =
-                                                    FavouriteLocationsRecord
-                                                        .createDoc(
-                                                            currentUserReference!);
-                                                await favouriteLocationsRecordReference
+                                                var savedLocationsRecordReference =
+                                                    SavedLocationsRecord
+                                                        .collection
+                                                        .doc();
+                                                await savedLocationsRecordReference
                                                     .set({
-                                                  ...createFavouriteLocationsRecordData(
+                                                  ...createSavedLocationsRecordData(
                                                     locationStatus: true,
                                                     locationName:
                                                         _model.titleFav,
                                                     locationType:
                                                         'Heavy Delivery',
                                                     dropCount: _model.dropCount,
+                                                    userRef:
+                                                        currentUserReference,
                                                   ),
                                                   ...mapToFirestore(
                                                     {
@@ -2530,15 +2550,17 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                   ),
                                                 });
                                                 _model.newFav =
-                                                    FavouriteLocationsRecord
+                                                    SavedLocationsRecord
                                                         .getDocumentFromData({
-                                                  ...createFavouriteLocationsRecordData(
+                                                  ...createSavedLocationsRecordData(
                                                     locationStatus: true,
                                                     locationName:
                                                         _model.titleFav,
                                                     locationType:
                                                         'Heavy Delivery',
                                                     dropCount: _model.dropCount,
+                                                    userRef:
+                                                        currentUserReference,
                                                   ),
                                                   ...mapToFirestore(
                                                     {
@@ -2549,14 +2571,39 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                           _model.locListAddy,
                                                     },
                                                   ),
-                                                }, favouriteLocationsRecordReference);
+                                                }, savedLocationsRecordReference);
                                                 _shouldSetState = true;
                                               } else {
-                                                if (_model.newFav?.reference !=
-                                                    null) {
+                                                if (_model.newFav?.reference
+                                                            .id !=
+                                                        null &&
+                                                    _model.newFav?.reference
+                                                            .id !=
+                                                        '') {
                                                   await _model.newFav!.reference
                                                       .delete();
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Warning: Please set a location first!',
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                        ),
+                                                      ),
+                                                      duration: Duration(
+                                                          milliseconds: 4000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .warning,
+                                                    ),
+                                                  );
                                                 }
+
                                                 if (_shouldSetState)
                                                   safeSetState(() {});
                                                 return;
@@ -2595,11 +2642,8 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                     16.0, 0.0, 16.0, 70.0),
                                 child: Builder(
                                   builder: (context) {
-                                    final locationList = ((widget.favStatus
-                                                    ? widget.favAddress
-                                                    : _model.locListAddy)
-                                                ?.toList() ??
-                                            [])
+                                    final locationList = _model.locListAddy
+                                        .toList()
                                         .take(4)
                                         .toList();
 
@@ -2614,19 +2658,18 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                         return Slidable(
                                           endActionPane: ActionPane(
                                             motion: const ScrollMotion(),
-                                            extentRatio: 0.25,
+                                            extentRatio: 0.5,
                                             children: [
                                               SlidableAction(
                                                 label:
                                                     FFLocalizations.of(context)
                                                         .getText(
-                                                  '2h7oxn3p' /* Delete */,
+                                                  '2h7oxn3p' /* Clear */,
                                                 ),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
-                                                        .error,
-                                                icon: Icons
-                                                    .delete_outline_rounded,
+                                                        .primaryBackground,
+                                                icon: Icons.clear,
                                                 onPressed: (_) async {
                                                   _model
                                                       .removeAtIndexFromLocList(
@@ -2636,6 +2679,71 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                           locationListIndex);
                                                   safeSetState(() {});
                                                 },
+                                              ),
+                                              Builder(
+                                                builder: (context) =>
+                                                    SlidableAction(
+                                                  label: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    'b82gm23r' /* Edit */,
+                                                  ),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryBackground,
+                                                  icon: Icons.edit,
+                                                  onPressed: (_) async {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder: (dialogContext) {
+                                                        return Dialog(
+                                                          elevation: 0,
+                                                          insetPadding:
+                                                              EdgeInsets.zero,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          alignment: AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              FocusScope.of(
+                                                                      dialogContext)
+                                                                  .unfocus();
+                                                              FocusManager
+                                                                  .instance
+                                                                  .primaryFocus
+                                                                  ?.unfocus();
+                                                            },
+                                                            child:
+                                                                AddressEditWidget(
+                                                              addressName:
+                                                                  locationListItem,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() =>
+                                                            _model.newAddyName =
+                                                                value));
+
+                                                    _model
+                                                        .updateLocListAddyAtIndex(
+                                                      locationListIndex,
+                                                      (_) =>
+                                                          _model.newAddyName!,
+                                                    );
+                                                    safeSetState(() {});
+
+                                                    safeSetState(() {});
+                                                  },
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -2662,7 +2770,23 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                         ),
                                               ),
                                               subtitle: Text(
-                                                locationListItem,
+                                                _model.locListEdit.elementAtOrNull(
+                                                                locationListIndex) !=
+                                                            null &&
+                                                        _model.locListEdit
+                                                                .elementAtOrNull(
+                                                                    locationListIndex) !=
+                                                            ''
+                                                    ? valueOrDefault<String>(
+                                                        _model.locListEdit
+                                                            .elementAtOrNull(
+                                                                locationListIndex),
+                                                        'n/a',
+                                                      )
+                                                    : valueOrDefault<String>(
+                                                        locationListItem,
+                                                        'n/a',
+                                                      ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyLarge
@@ -2681,9 +2805,6 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                         .secondaryText,
                                                 size: 24.0,
                                               ),
-                                              tileColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
                                               dense: false,
                                               contentPadding:
                                                   EdgeInsetsDirectional
@@ -2787,11 +2908,11 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                       markerColor: GoogleMarkerColor.violet,
                                       mapType: MapType.normal,
                                       style: GoogleMapStyle.standard,
-                                      initialZoom: 14.0,
+                                      initialZoom: 12.0,
                                       allowInteraction: false,
                                       allowZoom: false,
                                       showZoomControls: false,
-                                      showLocation: true,
+                                      showLocation: false,
                                       showCompass: false,
                                       showMapToolbar: false,
                                       showTraffic: false,
@@ -2970,7 +3091,10 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                               Text(
                                                 valueOrDefault<String>(
                                                   summaryListItem,
-                                                  'nill',
+                                                  'n/a',
+                                                ).maybeHandleOverflow(
+                                                  maxChars: 18,
+                                                  replacement: '…',
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -3076,6 +3200,9 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                       'N/A',
                                                     ),
                                               'N/A',
+                                            ).maybeHandleOverflow(
+                                              maxChars: 18,
+                                              replacement: '…',
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -3127,6 +3254,9 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                   'N/A',
                                                 ),
                                           'N/A',
+                                        ).maybeHandleOverflow(
+                                          maxChars: 18,
+                                          replacement: '…',
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -3165,6 +3295,9 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                               .choiceChipsValues
                                               ?.toList()),
                                           'N/A',
+                                        ).maybeHandleOverflow(
+                                          maxChars: 18,
+                                          replacement: '…',
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -3230,6 +3363,9 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                   'N/A',
                                                 ),
                                           'N/A',
+                                        ).maybeHandleOverflow(
+                                          maxChars: 18,
+                                          replacement: '…',
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -3266,6 +3402,9 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                         valueOrDefault<String>(
                                           _model.choiceChipsAPValue,
                                           'n/a',
+                                        ).maybeHandleOverflow(
+                                          maxChars: 18,
+                                          replacement: '…',
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -3561,7 +3700,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                               ? FlutterFlowTheme
                                                                       .of(
                                                                           context)
-                                                                  .primary
+                                                                  .secondary
                                                               : FlutterFlowTheme
                                                                       .of(context)
                                                                   .alternate,
@@ -3684,7 +3823,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                         colors: [
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primaryBackground,
+                                                              .secondaryBackground,
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .alternate
@@ -3707,7 +3846,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                               ? FlutterFlowTheme
                                                                       .of(
                                                                           context)
-                                                                  .primary
+                                                                  .secondary
                                                               : FlutterFlowTheme
                                                                       .of(context)
                                                                   .alternate,
@@ -3841,7 +3980,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                               ? FlutterFlowTheme
                                                                       .of(
                                                                           context)
-                                                                  .primary
+                                                                  .secondary
                                                               : FlutterFlowTheme
                                                                       .of(context)
                                                                   .alternate,
@@ -3964,7 +4103,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                         colors: [
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primaryBackground,
+                                                              .secondaryBackground,
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .alternate
@@ -3987,7 +4126,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                                               ? FlutterFlowTheme
                                                                       .of(
                                                                           context)
-                                                                  .primary
+                                                                  .secondary
                                                               : FlutterFlowTheme
                                                                       .of(context)
                                                                   .alternate,
@@ -4311,7 +4450,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                               selectedChipStyle: ChipStyle(
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                        .secondary,
                                                 textStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -4591,14 +4730,14 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                             onChanged: (newValue) async {
                                               safeSetState(() => _model
                                                       .switchReceivingPartyValue =
-                                                  newValue);
+                                                  newValue!);
                                             },
                                             activeColor:
                                                 FlutterFlowTheme.of(context)
                                                     .alternate,
                                             activeTrackColor:
                                                 FlutterFlowTheme.of(context)
-                                                    .primary,
+                                                    .secondary,
                                             inactiveTrackColor:
                                                 FlutterFlowTheme.of(context)
                                                     .alternate,
@@ -4675,366 +4814,542 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 140.0, 16.0, 16.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 4.0, 0.0, 0.0),
-                                    child: Container(
-                                      width: 60.0,
-                                      height: 4.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFF1F4F8),
-                                        borderRadius:
-                                            BorderRadius.circular(2.0),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 12.0, 0.0, 0.0),
-                                child: Row(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
                                   mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              FlutterFlowIconButton(
-                                                borderRadius: 8.0,
-                                                buttonSize: 40.0,
-                                                icon: Icon(
-                                                  Icons.arrow_back,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  size: 24.0,
-                                                ),
-                                                onPressed: () async {
-                                                  _model.payment = false;
-                                                  _model.summary = true;
-                                                  safeSetState(() {});
-                                                },
-                                              ),
-                                              Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  'adorqgvx' /* Checkout */,
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily: 'Outfit',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          fontSize: 24.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 4.0, 0.0, 0.0),
-                                            child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'n1gmfyy9' /* Fill in the information below ... */,
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                            ),
-                                          ),
-                                        ],
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 4.0, 0.0, 0.0),
+                                      child: Container(
+                                        width: 60.0,
+                                        height: 4.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFF1F4F8),
+                                          borderRadius:
+                                              BorderRadius.circular(2.0),
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              Divider(
-                                height: 24.0,
-                                thickness: 2.0,
-                                color: FlutterFlowTheme.of(context).alternate,
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 32.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 12.0, 0.0),
-                                      child: FlutterFlowCreditCardForm(
-                                        formKey: _model.creditCardFormKey,
-                                        creditCardModel: _model.creditCardInfo,
-                                        obscureNumber: true,
-                                        obscureCvv: true,
-                                        spacing: 10.0,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Plus Jakarta Sans',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                        inputDecoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent1,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent1,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 4.0, 0.0, 4.0),
-                                      child: Material(
-                                        color: Colors.transparent,
-                                        child: Theme(
-                                          data: ThemeData(
-                                            checkboxTheme: CheckboxThemeData(
-                                              visualDensity:
-                                                  VisualDensity.compact,
-                                              materialTapTargetSize:
-                                                  MaterialTapTargetSize
-                                                      .shrinkWrap,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                              ),
-                                            ),
-                                            unselectedWidgetColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
-                                          ),
-                                          child: CheckboxListTile(
-                                            value: _model
-                                                .checkboxListTileValue ??= true,
-                                            onChanged: (newValue) async {
-                                              safeSetState(() =>
-                                                  _model.checkboxListTileValue =
-                                                      newValue!);
-                                            },
-                                            title: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'mwlokmib' /* Save card details */,
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 12.0, 0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                FlutterFlowIconButton(
+                                                  borderRadius: 8.0,
+                                                  buttonSize: 40.0,
+                                                  icon: Icon(
+                                                    Icons.arrow_back,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                  onPressed: () async {
+                                                    _model.payment = false;
+                                                    _model.summary = true;
+                                                    safeSetState(() {});
+                                                  },
+                                                ),
+                                                Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'adorqgvx' /* Checkout */,
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .headlineSmall
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        fontFamily: 'Outfit',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryText,
+                                                        fontSize: 24.0,
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
+                                                ),
+                                              ],
                                             ),
-                                            subtitle: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'bjo3d0cv' /* Your details can be used for l... */,
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(
+                                  height: 20.0,
+                                  thickness: 2.0,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 4.0, 0.0, 8.0),
+                                  child: Text(
+                                    FFLocalizations.of(context).getText(
+                                      'n1gmfyy9' /* Please choose one of the payme... */,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Plus Jakarta Sans',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      6.0, 0.0, 6.0, 32.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          StreamBuilder<
+                                              List<PaymentMethodsRecord>>(
+                                            stream: queryPaymentMethodsRecord(
+                                              parent: currentUserReference,
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child: SpinKitThreeBounce(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 50.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              List<PaymentMethodsRecord>
+                                                  listViewPaymentMethodsRecordList =
+                                                  snapshot.data!;
+
+                                              return ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                shrinkWrap: true,
+                                                scrollDirection: Axis.vertical,
+                                                itemCount:
+                                                    listViewPaymentMethodsRecordList
+                                                        .length,
+                                                itemBuilder:
+                                                    (context, listViewIndex) {
+                                                  final listViewPaymentMethodsRecord =
+                                                      listViewPaymentMethodsRecordList[
+                                                          listViewIndex];
+                                                  return Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 4.0,
+                                                                0.0, 4.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                        ),
                                                       ),
-                                            ),
-                                            tileColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            activeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                            checkColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .info,
-                                            dense: false,
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12.0, 0.0, 12.0, 0.0),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    6.0,
+                                                                    16.0,
+                                                                    6.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    'Ends with - ${valueOrDefault<String>(
+                                                                      functions
+                                                                          .cardLastDigits(
+                                                                              listViewPaymentMethodsRecord.cardNumber)
+                                                                          ?.toString(),
+                                                                      'n/a',
+                                                                    )}',
+                                                                    'n/a',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLarge
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                                Text(
+                                                                  listViewPaymentMethodsRecord
+                                                                      .expiryDate
+                                                                      .toString(),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w300,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            ToggleIcon(
+                                                              onPressed:
+                                                                  () async {
+                                                                await listViewPaymentMethodsRecord
+                                                                    .reference
+                                                                    .update({
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'active':
+                                                                          !listViewPaymentMethodsRecord
+                                                                              .active,
+                                                                    },
+                                                                  ),
+                                                                });
+                                                              },
+                                                              value:
+                                                                  listViewPaymentMethodsRecord
+                                                                      .active,
+                                                              onIcon: Icon(
+                                                                Icons.check_box,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                                size: 24.0,
+                                                              ),
+                                                              offIcon: Icon(
+                                                                Icons
+                                                                    .check_box_outline_blank,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                size: 24.0,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 0.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () {
-                                          print('Button pressed ...');
-                                        },
-                                        text:
-                                            FFLocalizations.of(context).getText(
-                                          'ieoh5hw8' /* Apple Pay */,
-                                        ),
-                                        icon: FaIcon(
-                                          FontAwesomeIcons.apple,
-                                          color: Colors.white,
-                                          size: 15.0,
-                                        ),
-                                        options: FFButtonOptions(
-                                          width: 270.0,
-                                          height: 50.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: Color(0xFF14181B),
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Outfit',
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 4.0, 0.0, 4.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: PayWidget(
+                                                      cardNumber: 0,
+                                                      expiryDates: 0,
+                                                    ),
                                                   ),
-                                          elevation: 2.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 0.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () {
-                                          print('Button pressed ...');
-                                        },
-                                        text:
-                                            FFLocalizations.of(context).getText(
-                                          'vfpfjp5i' /* Pay w/Paypal */,
-                                        ),
-                                        icon: FaIcon(
-                                          FontAwesomeIcons.paypal,
-                                          color: Colors.white,
-                                          size: 15.0,
-                                        ),
-                                        options: FFButtonOptions(
-                                          width: 270.0,
-                                          height: 50.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: Color(0xFF14181B),
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Outfit',
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                          elevation: 2.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 0.0),
-                                      child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'eakk7oer' /* Or use an option above */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Plus Jakarta Sans',
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.normal,
+                                                      .primaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                              ),
                                             ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 6.0, 16.0, 6.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'g4pewoc0' /* Add a new card */,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  FlutterFlowIconButton(
+                                                    borderRadius: 8.0,
+                                                    buttonSize: 40.0,
+                                                    icon: Icon(
+                                                      Icons.add,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .info,
+                                                      size: 24.0,
+                                                    ),
+                                                    onPressed: () async {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return GestureDetector(
+                                                            onTap: () {
+                                                              FocusScope.of(
+                                                                      context)
+                                                                  .unfocus();
+                                                              FocusManager
+                                                                  .instance
+                                                                  .primaryFocus
+                                                                  ?.unfocus();
+                                                            },
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child: PayWidget(
+                                                                cardNumber: 0,
+                                                                expiryDates: 0,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() {}));
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 20.0, 0.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () {
+                                            print('Button pressed ...');
+                                          },
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'ieoh5hw8' /* Apple Pay */,
+                                          ),
+                                          icon: FaIcon(
+                                            FontAwesomeIcons.apple,
+                                            color: Colors.white,
+                                            size: 15.0,
+                                          ),
+                                          options: FFButtonOptions(
+                                            width: 270.0,
+                                            height: 50.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Color(0xFF14181B),
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Outfit',
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ),
+                                            elevation: 2.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () {
+                                            print('Button pressed ...');
+                                          },
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'vfpfjp5i' /* Pay w/Paypal */,
+                                          ),
+                                          icon: FaIcon(
+                                            FontAwesomeIcons.paypal,
+                                            color: Colors.white,
+                                            size: 15.0,
+                                          ),
+                                          options: FFButtonOptions(
+                                            width: 270.0,
+                                            height: 50.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Color(0xFF14181B),
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Outfit',
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ),
+                                            elevation: 2.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 0.0),
+                                        child: Text(
+                                          FFLocalizations.of(context).getText(
+                                            'eakk7oer' /* Or use an option above */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -5120,9 +5435,6 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                   315.0,
                                 ))),
                       ),
-                      border: Border.all(
-                        color: Colors.transparent,
-                      ),
                     ),
                     child: Container(
                       width: 100.0,
@@ -5170,12 +5482,12 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                     borderRadius: 8.0,
                                     icon: Icon(
                                       Icons.home,
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
                                       size: 30.0,
                                     ),
                                     onPressed: () async {
-                                      Navigator.pop(context);
+                                      context.safePop();
                                     },
                                   ),
                                 ),
@@ -5186,13 +5498,21 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Poppins',
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 25.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [
+                                      Shadow(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 25.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                            .alternate,
+                                        offset: Offset(2.0, 2.0),
+                                        blurRadius: 4.0,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -5255,7 +5575,7 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
                                               child: Container(
-                                                height: 450.0,
+                                                height: 475.0,
                                                 child: ReportIssueMenuWidget(),
                                               ),
                                             ),
@@ -5281,12 +5601,20 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                   intercepting: isWeb,
                   child: Container(
                     width: double.infinity,
-                    height: _model.payment == true ? 210.0 : 100.0,
+                    height: _model.payment == true ? 225.0 : 100.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      gradient: LinearGradient(
+                        colors: [
+                          FlutterFlowTheme.of(context).primaryBackground,
+                          FlutterFlowTheme.of(context).secondaryBackground
+                        ],
+                        stops: [0.0, 1.0],
+                        begin: AlignmentDirectional(0.0, -1.0),
+                        end: AlignmentDirectional(0, 1.0),
+                      ),
                     ),
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Divider(
@@ -5299,7 +5627,8 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                           false,
                         ))
                           Column(
-                            mainAxisSize: MainAxisSize.max,
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -5497,8 +5826,8 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                 animateFromLastPercent: true,
                                 progressColor:
                                     FlutterFlowTheme.of(context).secondary,
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).accent4,
+                                backgroundColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                                 barRadius: Radius.circular(100.0),
                                 padding: EdgeInsets.zero,
                               ),
@@ -5579,7 +5908,12 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                           await rideRecordReference.set({
                                             ...createRideRecordData(
                                               userUid: currentUserUid,
-                                              userAddress: currentUserEmail,
+                                              userAddress:
+                                                  valueOrDefault<String>(
+                                                _model.locList.firstOrNull
+                                                    ?.toString(),
+                                                '0',
+                                              ),
                                               userName: currentUserDisplayName,
                                               createdOn:
                                                   dateTimeFromSecondsSinceEpoch(
@@ -5731,7 +6065,12 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                               RideRecord.getDocumentFromData({
                                             ...createRideRecordData(
                                               userUid: currentUserUid,
-                                              userAddress: currentUserEmail,
+                                              userAddress:
+                                                  valueOrDefault<String>(
+                                                _model.locList.firstOrNull
+                                                    ?.toString(),
+                                                '0',
+                                              ),
                                               userName: currentUserDisplayName,
                                               createdOn:
                                                   dateTimeFromSecondsSinceEpoch(
@@ -5880,16 +6219,31 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                             ),
                                           }, rideRecordReference);
                                           _shouldSetState = true;
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LocateRidePageWidget(
-                                                rideDetailsReference:
-                                                    _model.rideref?.reference,
+
+                                          await InAppNotificationsRecord
+                                                  .createDoc(
+                                                      currentUserReference!)
+                                              .set(
+                                                  createInAppNotificationsRecordData(
+                                            notifTitle: 'Order Created',
+                                            timeDate: getCurrentTimestamp,
+                                            rideReference:
+                                                _model.rideref?.reference,
+                                            notificationSubtitle:
+                                                'Searching for driver..',
+                                          ));
+
+                                          context.pushNamed(
+                                            LocateRidePageWidget.routeName,
+                                            queryParameters: {
+                                              'rideDetailsReference':
+                                                  serializeParam(
+                                                _model.rideref?.reference,
+                                                ParamType.DocumentReference,
                                               ),
-                                            ),
+                                            }.withoutNulls,
                                           );
+
                                           if (_shouldSetState)
                                             safeSetState(() {});
                                           return;
@@ -5915,15 +6269,16 @@ class _DeliveryScreenLargeWidgetState extends State<DeliveryScreenLargeWidget>
                                     16.0, 0.0, 16.0, 0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: FlutterFlowTheme.of(context).primaryText,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
                                       fontFamily: 'Inter',
-                                      color: Colors.white,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
                                       letterSpacing: 0.0,
                                     ),
-                                elevation: 0.0,
+                                elevation: 3.0,
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),

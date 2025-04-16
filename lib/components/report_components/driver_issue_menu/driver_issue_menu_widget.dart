@@ -1,12 +1,21 @@
 import '/components/report_components/issue_with_order_select/issue_with_order_select_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'driver_issue_menu_model.dart';
 export 'driver_issue_menu_model.dart';
 
 class DriverIssueMenuWidget extends StatefulWidget {
-  const DriverIssueMenuWidget({super.key});
+  const DriverIssueMenuWidget({
+    super.key,
+    required this.categoryTitle,
+  });
+
+  final String? categoryTitle;
 
   @override
   State<DriverIssueMenuWidget> createState() => _DriverIssueMenuWidgetState();
@@ -119,6 +128,9 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: 'Rude or Unprofessional Behaviour',
+                                  categoryTitle: widget!.categoryTitle!,
+                                  desc:
+                                      'Report incidents of rude or unprofessional behavior experienced during delivery. Share specific details to help us take appropriate action and improve our service.',
                                 ),
                               ),
                             );
@@ -187,6 +199,10 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: 'Safety Concerns',
+                                  categoryTitle: widget!.categoryTitle!,
+                                  desc: FFLocalizations.of(context).getText(
+                                    'fp12ki8o' /* Report any safety-related issu... */,
+                                  ),
                                 ),
                               ),
                             );
@@ -255,6 +271,10 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: 'Unresponsive Driver',
+                                  categoryTitle: widget!.categoryTitle!,
+                                  desc: FFLocalizations.of(context).getText(
+                                    '0m4aibe6' /* Report drivers who are unrespo... */,
+                                  ),
                                 ),
                               ),
                             );

@@ -1,13 +1,47 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
+import '/components/address_edit/address_edit_widget.dart';
 import '/components/contact/contact_widget.dart';
-import '/flutter_flow/flutter_flow_credit_card_form.dart';
+import '/components/fav_save/fav_save_widget.dart';
+import '/components/pay/pay_widget.dart';
+import '/components/report_components/report_issue_menu/report_issue_menu_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_choice_chips.dart';
+import '/flutter_flow/flutter_flow_count_controller.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_place_picker.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/place.dart';
+import '/flutter_flow/upload_data.dart';
+import 'dart:io';
+import 'dart:math';
+import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'delivery_screen_large_widget.dart' show DeliveryScreenLargeWidget;
+import 'package:badges/badges.dart' as badges;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
+import 'package:provider/provider.dart';
 
 class DeliveryScreenLargeModel
     extends FlutterFlowModel<DeliveryScreenLargeWidget> {
@@ -99,6 +133,15 @@ class DeliveryScreenLargeModel
 
   bool others = false;
 
+  List<String> locListEdit = [];
+  void addToLocListEdit(String item) => locListEdit.add(item);
+  void removeFromLocListEdit(String item) => locListEdit.remove(item);
+  void removeAtIndexFromLocListEdit(int index) => locListEdit.removeAt(index);
+  void insertAtIndexInLocListEdit(int index, String item) =>
+      locListEdit.insert(index, item);
+  void updateLocListEditAtIndex(int index, Function(String) updateFn) =>
+      locListEdit[index] = updateFn(locListEdit[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for GoogleMap widget.
@@ -127,7 +170,9 @@ class DeliveryScreenLargeModel
   // Stores action output result for [Bottom Sheet - favSave] action in ToggleIcon widget.
   String? titleFav;
   // Stores action output result for [Backend Call - Create Document] action in ToggleIcon widget.
-  FavouriteLocationsRecord? newFav;
+  SavedLocationsRecord? newFav;
+  // Stores action output result for [Alert Dialog - Custom Dialog] action in SlidableActionWidget widget.
+  String? newAddyName;
   // State field(s) for GoogleMap widget.
   LatLng? googleMapsCenter2;
   final googleMapsController2 = Completer<GoogleMapController>();
@@ -148,11 +193,6 @@ class DeliveryScreenLargeModel
   bool? switchReceivingPartyValue;
   // Models for contactRecievingParty.
   late FlutterFlowDynamicModels<ContactModel> contactRecievingPartyModels;
-  // State field(s) for CreditCardForm widget.
-  final creditCardFormKey = GlobalKey<FormState>();
-  CreditCardModel creditCardInfo = emptyCreditCard();
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   RideRecord? rideref;
 

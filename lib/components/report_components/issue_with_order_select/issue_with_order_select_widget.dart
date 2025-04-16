@@ -1,11 +1,17 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'issue_with_order_select_model.dart';
 export 'issue_with_order_select_model.dart';
 
@@ -13,9 +19,13 @@ class IssueWithOrderSelectWidget extends StatefulWidget {
   const IssueWithOrderSelectWidget({
     super.key,
     String? title,
+    required this.categoryTitle,
+    required this.desc,
   }) : this.title = title ?? 'n/a';
 
   final String title;
+  final String? categoryTitle;
+  final String? desc;
 
   @override
   State<IssueWithOrderSelectWidget> createState() =>
@@ -86,19 +96,33 @@ class _IssueWithOrderSelectWidgetState
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    widget.title,
-                    style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          fontFamily: 'Readex Pro',
-                          letterSpacing: 0.0,
-                        ),
+            Align(
+              alignment: AlignmentDirectional(-1.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(26.0, 16.0, 0.0, 0.0),
+                child: Text(
+                  widget!.title,
+                  style: FlutterFlowTheme.of(context).headlineSmall.override(
+                        fontFamily: 'Readex Pro',
+                        letterSpacing: 0.0,
+                      ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: AlignmentDirectional(-1.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(26.0, 6.0, 0.0, 0.0),
+                child: Text(
+                  valueOrDefault<String>(
+                    widget!.desc,
+                    'N/A',
                   ),
-                ],
+                  style: FlutterFlowTheme.of(context).labelSmall.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                      ),
+                ),
               ),
             ),
             Padding(
@@ -139,20 +163,20 @@ class _IssueWithOrderSelectWidgetState
                             ),
                           );
                         }
-                        List<RideRecord> dropDownRideRecordList =
+                        List<RideRecord> orderDropDownRideRecordList =
                             snapshot.data!;
 
                         return FlutterFlowDropDown<String>(
-                          controller: _model.dropDownValueController ??=
+                          controller: _model.orderDropDownValueController ??=
                               FormFieldController<String>(null),
-                          options: dropDownRideRecordList
+                          options: orderDropDownRideRecordList
                               .map((e) => valueOrDefault<String>(
                                     e.orderID,
                                     'n/a',
                                   ))
                               .toList(),
-                          onChanged: (val) =>
-                              safeSetState(() => _model.dropDownValue = val),
+                          onChanged: (val) => safeSetState(
+                              () => _model.orderDropDownValue = val),
                           width: 200.0,
                           height: 40.0,
                           textStyle:
@@ -184,14 +208,17 @@ class _IssueWithOrderSelectWidgetState
                       },
                     ),
                   ),
-                  Text(
-                    FFLocalizations.of(context).getText(
-                      'lnaqxio5' /* Please write a description you... */,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        'lnaqxio5' /* Please write a description you... */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            letterSpacing: 0.0,
+                          ),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
-                          letterSpacing: 0.0,
-                        ),
                   ),
                   Padding(
                     padding:
@@ -258,28 +285,60 @@ class _IssueWithOrderSelectWidgetState
                       ),
                     ),
                   ),
-                  FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
-                    },
-                    text: FFLocalizations.of(context).getText(
-                      'gynbt8xq' /* Submit Ticket */,
-                    ),
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 50.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await IncidentsDBRecord.collection
+                            .doc()
+                            .set(createIncidentsDBRecordData(
+                              incidentID: valueOrDefault<String>(
+                                functions.incidentIDCreate(),
+                                'N/A',
                               ),
-                      elevation: 0.0,
-                      borderRadius: BorderRadius.circular(8.0),
+                              incidentCategory: widget!.categoryTitle,
+                              incidentSubCategory: widget!.title,
+                              orderID: _model.orderDropDownValue,
+                              userID: currentUserUid,
+                              userComments: _model.textController.text,
+                              createdAt: getCurrentTimestamp,
+                              incidentStatus: 'Active',
+                            ));
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Incident Submitted!',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      },
+                      text: FFLocalizations.of(context).getText(
+                        'gynbt8xq' /* Submit Ticket */,
+                      ),
+                      options: FFButtonOptions(
+                        height: 40.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Inter',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ),
                 ],

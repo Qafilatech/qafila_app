@@ -2,13 +2,24 @@ import '/components/report_components/issue_with_order_select/issue_with_order_s
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'delivery_issue_menu_model.dart';
 export 'delivery_issue_menu_model.dart';
 
 class DeliveryIssueMenuWidget extends StatefulWidget {
-  const DeliveryIssueMenuWidget({super.key});
+  const DeliveryIssueMenuWidget({
+    super.key,
+    required this.categoryTitle,
+  });
+
+  final String? categoryTitle;
 
   @override
   State<DeliveryIssueMenuWidget> createState() =>
@@ -141,6 +152,8 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '1. Late Delivery Report',
+                                  categoryTitle: widget!.categoryTitle!,
+                                  desc: '',
                                 ),
                               ),
                             );
@@ -209,6 +222,10 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '2. Damaged Items Report',
+                                  categoryTitle: widget!.categoryTitle!,
+                                  desc: FFLocalizations.of(context).getText(
+                                    'p4s8o6fx' /* Report any damaged items durin... */,
+                                  ),
                                 ),
                               ),
                             );
@@ -277,6 +294,10 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '3. Wrong Items Report',
+                                  categoryTitle: widget!.categoryTitle!,
+                                  desc: FFLocalizations.of(context).getText(
+                                    'kakfnc3h' /* Report items delivered incorre... */,
+                                  ),
                                 ),
                               ),
                             );
@@ -345,6 +366,10 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '4. Failed Delivery Report',
+                                  categoryTitle: widget!.categoryTitle!,
+                                  desc: FFLocalizations.of(context).getText(
+                                    '79x5woih' /* Report unsuccessful delivery a... */,
+                                  ),
                                 ),
                               ),
                             );
@@ -413,6 +438,10 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '5. Partial Delivery Report',
+                                  categoryTitle: widget!.categoryTitle!,
+                                  desc: FFLocalizations.of(context).getText(
+                                    'zhb41b62' /* Report items that were partial... */,
+                                  ),
                                 ),
                               ),
                             );

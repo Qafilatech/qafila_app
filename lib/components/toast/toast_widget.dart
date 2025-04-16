@@ -1,7 +1,11 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'toast_model.dart';
 export 'toast_model.dart';
 
@@ -51,7 +55,7 @@ class _ToastWidgetState extends State<ToastWidget> {
     return Container(
       width: 400.0,
       decoration: BoxDecoration(
-        color: widget.toastColor,
+        color: widget!.toastColor,
         boxShadow: [
           BoxShadow(
             blurRadius: 4.0,
@@ -84,10 +88,10 @@ class _ToastWidgetState extends State<ToastWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsets.all(4.0),
-                        child: widget.toastIcon!,
+                        child: widget!.toastIcon!,
                       ),
                       Text(
-                        widget.toastTitle,
+                        widget!.toastTitle,
                         style: FlutterFlowTheme.of(context).titleSmall.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
@@ -96,7 +100,7 @@ class _ToastWidgetState extends State<ToastWidget> {
                     ].divide(SizedBox(width: 8.0)),
                   ),
                   Text(
-                    widget.toastDesc,
+                    widget!.toastDesc,
                     style: FlutterFlowTheme.of(context).labelMedium.override(
                           fontFamily: 'Inter',
                           color: FlutterFlowTheme.of(context).accent4,
