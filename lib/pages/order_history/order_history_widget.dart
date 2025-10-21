@@ -1,15 +1,16 @@
 import '/backend/backend.dart';
+import '/components/empty/empty_widget.dart';
 import '/components/report_components/report_issue_menu/report_issue_menu_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/order_summary/order_summary_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'order_history_model.dart';
 export 'order_history_model.dart';
 
@@ -17,7 +18,7 @@ class OrderHistoryWidget extends StatefulWidget {
   const OrderHistoryWidget({super.key});
 
   static String routeName = 'OrderHistory';
-  static String routePath = '/orderHistory';
+  static String routePath = 'orderHistory';
 
   @override
   State<OrderHistoryWidget> createState() => _OrderHistoryWidgetState();
@@ -41,6 +42,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
       length: 3,
       initialIndex: 0,
     )..addListener(() => safeSetState(() {}));
+
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
@@ -81,7 +83,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: Drawer(
           elevation: 16.0,
         ),
@@ -93,20 +95,17 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
               child: Container(
                 width: double.infinity,
-                height: 150.0,
+                height: 130.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      FlutterFlowTheme.of(context).primary,
+                      FlutterFlowTheme.of(context).accent2,
                       FlutterFlowTheme.of(context).accent1,
-                      FlutterFlowTheme.of(context).accent2
+                      FlutterFlowTheme.of(context).accent1
                     ],
                     stops: [0.0, 0.5, 1.0],
                     begin: AlignmentDirectional(-1.0, -1.0),
                     end: AlignmentDirectional(1.0, 1.0),
-                  ),
-                  border: Border.all(
-                    color: Colors.transparent,
                   ),
                 ),
                 child: Container(
@@ -119,7 +118,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                           Theme.of(context).brightness == Brightness.dark
                               ? Color(0x00101518)
                               : Color(0x00FFFFFF),
-                          Color(0x00FFFFFF),
+                          Color(0x00101518),
                         ),
                         FlutterFlowTheme.of(context).primaryBackground
                       ],
@@ -136,49 +135,57 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 12.0, 0.0),
-                              child: FlutterFlowIconButton(
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 0.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              FlutterFlowIconButton(
                                 borderRadius: 8.0,
                                 icon: Icon(
                                   Icons.menu_sharp,
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: FlutterFlowTheme.of(context).secondary,
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
                                   scaffoldKey.currentState!.openDrawer();
                                 },
                               ),
-                            ),
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'ifwq2r9e' /* Order History */,
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  'ifwq2r9e' /* Order History */,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 25.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    fontSize: 25.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 16.0, 0.0),
-                              child: FlutterFlowIconButton(
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 24.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              FlutterFlowIconButton(
                                 borderColor:
                                     FlutterFlowTheme.of(context).accent2,
                                 borderRadius: 12.0,
@@ -195,11 +202,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                   scaffoldKey.currentState!.openEndDrawer();
                                 },
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 16.0, 0.0),
-                              child: FlutterFlowIconButton(
+                              FlutterFlowIconButton(
                                 borderColor:
                                     FlutterFlowTheme.of(context).accent2,
                                 borderRadius: 12.0,
@@ -228,7 +231,7 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
                                           child: Container(
-                                            height: 450.0,
+                                            height: 475.0,
                                             child: ReportIssueMenuWidget(),
                                           ),
                                         ),
@@ -237,8 +240,8 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                   ).then((value) => safeSetState(() {}));
                                 },
                               ),
-                            ),
-                          ],
+                            ].divide(SizedBox(width: 8.0)),
+                          ),
                         ),
                       ],
                     ),
@@ -248,14 +251,23 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                   animationsMap['containerOnPageLoadAnimation']!),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 8.0),
+              padding: EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 16.0, 0.0),
               child: Text(
                 FFLocalizations.of(context).getText(
                   'rmvw7pfe' /* Below are a summary of your in... */,
                 ),
                 style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Inter',
+                      font: GoogleFonts.inter(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                      ),
                       letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
                     ),
               ),
             ),
@@ -267,18 +279,31 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                     Align(
                       alignment: Alignment(0.0, 0),
                       child: TabBar(
-                        labelColor: FlutterFlowTheme.of(context).primary,
+                        labelColor: FlutterFlowTheme.of(context).secondary,
                         unselectedLabelColor:
                             FlutterFlowTheme.of(context).secondaryText,
                         labelPadding: EdgeInsetsDirectional.fromSTEB(
                             20.0, 0.0, 20.0, 0.0),
                         labelStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
                                 ),
                         unselectedLabelStyle: TextStyle(),
-                        indicatorColor: FlutterFlowTheme.of(context).primary,
+                        indicatorColor: FlutterFlowTheme.of(context).secondary,
                         padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         tabs: [
@@ -315,11 +340,10 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 12.0, 0.0, 0.0),
-                                child: StreamBuilder<List<RideRecord>>(
-                                  stream: queryRideRecord(
-                                    queryBuilder: (rideRecord) =>
-                                        rideRecord.orderBy('created_on',
-                                            descending: true),
+                                child: StreamBuilder<List<OrdersRecord>>(
+                                  stream: queryOrdersRecord(
+                                    queryBuilder: (ordersRecord) => ordersRecord
+                                        .orderBy('status', descending: true),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -336,17 +360,30 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                         ),
                                       );
                                     }
-                                    List<RideRecord> listViewRideRecordList =
+                                    List<OrdersRecord>
+                                        listViewOrdersRecordList =
                                         snapshot.data!;
+                                    if (listViewOrdersRecordList.isEmpty) {
+                                      return EmptyWidget(
+                                        title: 'No History Available',
+                                        desc:
+                                            'Seems you have not started ordering anything yet. Start ordering to view order histories.',
+                                        icon: Icon(
+                                          Icons.hourglass_empty,
+                                          size: 42.0,
+                                        ),
+                                      );
+                                    }
 
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
-                                      itemCount: listViewRideRecordList.length,
+                                      itemCount:
+                                          listViewOrdersRecordList.length,
                                       itemBuilder: (context, listViewIndex) {
-                                        final listViewRideRecord =
-                                            listViewRideRecordList[
+                                        final listViewOrdersRecord =
+                                            listViewOrdersRecordList[
                                                 listViewIndex];
                                         return Padding(
                                           padding:
@@ -358,15 +395,15 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      OrderSummaryWidget(
-                                                    rideRef: listViewRideRecord
+                                              context.pushNamed(
+                                                OrderSummaryWidget.routeName,
+                                                queryParameters: {
+                                                  'rideRef': serializeParam(
+                                                    listViewOrdersRecord
                                                         .reference,
+                                                    ParamType.DocumentReference,
                                                   ),
-                                                ),
+                                                }.withoutNulls,
                                               );
                                             },
                                             child: Container(
@@ -377,14 +414,14 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
+                                                        .secondaryBackground,
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 border: Border.all(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .alternate,
-                                                  width: 2.0,
+                                                  width: 1.0,
                                                 ),
                                               ),
                                               child: Padding(
@@ -429,19 +466,24 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                   text: FFLocalizations.of(
                                                                           context)
                                                                       .getText(
-                                                                    'm627yg1j' /* Order #:  */,
+                                                                    'm627yg1j' /* Order ID:  */,
                                                                   ),
                                                                   style:
                                                                       TextStyle(),
                                                                 ),
                                                                 TextSpan(
-                                                                  text: listViewRideRecord
-                                                                      .orderID,
+                                                                  text: listViewOrdersRecord
+                                                                      .orderId,
                                                                   style:
                                                                       TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    color: listViewOrdersRecord.status ==
+                                                                            'Active'
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .primary
+                                                                        : (listViewOrdersRecord.status ==
+                                                                                'Complete'
+                                                                            ? FlutterFlowTheme.of(context).secondary
+                                                                            : FlutterFlowTheme.of(context).tertiary),
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -452,10 +494,27 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                       .of(context)
                                                                   .bodyLarge
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyLarge
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyLarge
+                                                                          .fontStyle,
+                                                                    ),
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyLarge
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyLarge
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
@@ -468,20 +527,33 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                         0.0,
                                                                         0.0),
                                                             child: Text(
-                                                              dateTimeFormat(
-                                                                "relative",
-                                                                listViewRideRecord
-                                                                    .createdOn!,
-                                                                locale: FFLocalizations.of(
-                                                                        context)
-                                                                    .languageCode,
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                dateTimeFormat(
+                                                                  "relative",
+                                                                  listViewOrdersRecord
+                                                                      .createdAt,
+                                                                  locale: FFLocalizations.of(
+                                                                          context)
+                                                                      .languageCode,
+                                                                ),
+                                                                'n/a',
                                                               ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .labelMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
@@ -489,6 +561,14 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                         12.0,
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
@@ -497,25 +577,31 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
-                                                                        10.0,
+                                                                        18.0,
                                                                         0.0,
-                                                                        0.0),
+                                                                        6.0),
                                                             child: Container(
                                                               height: 32.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent2,
+                                                                color: listViewOrdersRecord
+                                                                            .status ==
+                                                                        'Active'
+                                                                    ? FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary
+                                                                    : (listViewOrdersRecord.status ==
+                                                                            'Complete'
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .secondary
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .tertiary),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
                                                                             24.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondary,
                                                                   width: 1.0,
                                                                 ),
                                                               ),
@@ -532,18 +618,33 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                           12.0,
                                                                           0.0),
                                                                   child: Text(
-                                                                    listViewRideRecord
-                                                                        .orderStatus,
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      listViewOrdersRecord
+                                                                          .status,
+                                                                      'n/a',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .override(
-                                                                          fontFamily:
-                                                                              'Inter',
+                                                                          font:
+                                                                              GoogleFonts.inter(
+                                                                            fontWeight:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                          ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primary,
+                                                                              FlutterFlowTheme.of(context).primaryText,
                                                                           letterSpacing:
                                                                               0.0,
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
                                                                         ),
                                                                   ),
                                                                 ),
@@ -568,20 +669,25 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
                                                                       0.0,
-                                                                      4.0,
+                                                                      0.0,
                                                                       0.0,
                                                                       12.0),
                                                           child: Text(
-                                                            formatNumber(
-                                                              listViewRideRecord
-                                                                  .orderPrice,
-                                                              formatType:
-                                                                  FormatType
-                                                                      .decimal,
-                                                              decimalType:
-                                                                  DecimalType
-                                                                      .periodDecimal,
-                                                              currency: 'OMR ',
+                                                            valueOrDefault<
+                                                                String>(
+                                                              formatNumber(
+                                                                listViewOrdersRecord
+                                                                    .paymentAmount,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .decimal,
+                                                                decimalType:
+                                                                    DecimalType
+                                                                        .periodDecimal,
+                                                                currency:
+                                                                    'OMR ',
+                                                              ),
+                                                              'n/a',
                                                             ),
                                                             textAlign:
                                                                 TextAlign.end,
@@ -589,12 +695,29 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                     .of(context)
                                                                 .headlineSmall
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontStyle,
+                                                                  ),
                                                                   fontSize:
                                                                       24.0,
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontStyle,
                                                                 ),
                                                           ),
                                                         ),
@@ -633,14 +756,14 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 0.0),
-                            child: StreamBuilder<List<RideRecord>>(
-                              stream: queryRideRecord(
-                                queryBuilder: (rideRecord) => rideRecord
+                            child: StreamBuilder<List<OrdersRecord>>(
+                              stream: queryOrdersRecord(
+                                queryBuilder: (ordersRecord) => ordersRecord
                                     .where(
-                                      'orderStatus',
-                                      isNotEqualTo: 'Completed',
+                                      'status',
+                                      isNotEqualTo: 'Complete',
                                     )
-                                    .orderBy('orderStatus', descending: true),
+                                    .orderBy('status', descending: true),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -657,17 +780,28 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                     ),
                                   );
                                 }
-                                List<RideRecord> listViewRideRecordList =
+                                List<OrdersRecord> listViewOrdersRecordList =
                                     snapshot.data!;
+                                if (listViewOrdersRecordList.isEmpty) {
+                                  return EmptyWidget(
+                                    title: 'No Active Orders',
+                                    desc:
+                                        'Seems that you haven\'t created any orders yet. Go back to the home screen and start your order.',
+                                    icon: Icon(
+                                      Icons.hourglass_empty,
+                                      size: 42.0,
+                                    ),
+                                  );
+                                }
 
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: listViewRideRecordList.length,
+                                  itemCount: listViewOrdersRecordList.length,
                                   itemBuilder: (context, listViewIndex) {
-                                    final listViewRideRecord =
-                                        listViewRideRecordList[listViewIndex];
+                                    final listViewOrdersRecord =
+                                        listViewOrdersRecordList[listViewIndex];
                                     return Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 8.0),
@@ -677,15 +811,14 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  OrderSummaryWidget(
-                                                rideRef: listViewRideRecord
-                                                    .reference,
+                                          context.pushNamed(
+                                            OrderSummaryWidget.routeName,
+                                            queryParameters: {
+                                              'rideRef': serializeParam(
+                                                listViewOrdersRecord.reference,
+                                                ParamType.DocumentReference,
                                               ),
-                                            ),
+                                            }.withoutNulls,
                                           );
                                         },
                                         child: Container(
@@ -742,19 +875,32 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                               text: FFLocalizations
                                                                       .of(context)
                                                                   .getText(
-                                                                'v2i4zhv0' /* Order #:  */,
+                                                                'v2i4zhv0' /* Order ID:  */,
                                                               ),
                                                               style:
                                                                   TextStyle(),
                                                             ),
                                                             TextSpan(
                                                               text:
-                                                                  listViewRideRecord
-                                                                      .orderID,
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                listViewOrdersRecord
+                                                                    .orderId,
+                                                                'n/a',
+                                                              ),
                                                               style: TextStyle(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
+                                                                color: listViewOrdersRecord
+                                                                            .status ==
+                                                                        'Active'
+                                                                    ? FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary
+                                                                    : (listViewOrdersRecord.status ==
+                                                                            'Complete'
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .secondary
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .tertiary),
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -765,10 +911,28 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                   .of(context)
                                                               .bodyLarge
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .fontStyle,
+                                                                ),
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -781,26 +945,48 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                     0.0,
                                                                     0.0),
                                                         child: Text(
-                                                          dateTimeFormat(
-                                                            "yMMMd",
-                                                            listViewRideRecord
-                                                                .createdOn!,
-                                                            locale: FFLocalizations
-                                                                    .of(context)
-                                                                .languageCode,
+                                                          valueOrDefault<
+                                                              String>(
+                                                            dateTimeFormat(
+                                                              "yMMMd",
+                                                              listViewOrdersRecord
+                                                                  .createdAt,
+                                                              locale: FFLocalizations
+                                                                      .of(context)
+                                                                  .languageCode,
+                                                            ),
+                                                            'n/a',
                                                           ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .labelMedium
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
                                                                 fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -809,24 +995,31 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
-                                                                    10.0,
+                                                                    18.0,
                                                                     0.0,
                                                                     0.0),
                                                         child: Container(
                                                           height: 32.0,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent1,
+                                                            color: listViewOrdersRecord.status ==
+                                                                    'Active'
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary
+                                                                : (listViewOrdersRecord.status ==
+                                                                        'Complete'
+                                                                    ? FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondary
+                                                                    : FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .tertiary),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        12.0),
+                                                                        24.0),
                                                             border: Border.all(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
                                                               width: 1.0,
                                                             ),
                                                           ),
@@ -843,19 +1036,38 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                           12.0,
                                                                           0.0),
                                                               child: Text(
-                                                                listViewRideRecord
-                                                                    .orderStatus,
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  listViewOrdersRecord
+                                                                      .status,
+                                                                  'n/a',
+                                                                ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .override(
-                                                                      fontFamily:
-                                                                          'Inter',
+                                                                      font: GoogleFonts
+                                                                          .inter(
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primary,
+                                                                          .info,
                                                                       letterSpacing:
                                                                           0.0,
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
                                                                     ),
                                                               ),
                                                             ),
@@ -883,28 +1095,51 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                   0.0,
                                                                   12.0),
                                                       child: Text(
-                                                        formatNumber(
-                                                          listViewRideRecord
-                                                              .orderPrice,
-                                                          formatType: FormatType
-                                                              .decimal,
-                                                          decimalType:
-                                                              DecimalType
-                                                                  .periodDecimal,
-                                                          currency: 'OMR ',
+                                                        valueOrDefault<String>(
+                                                          formatNumber(
+                                                            listViewOrdersRecord
+                                                                .paymentAmount,
+                                                            formatType:
+                                                                FormatType
+                                                                    .decimal,
+                                                            decimalType:
+                                                                DecimalType
+                                                                    .periodDecimal,
+                                                            currency: 'OMR ',
+                                                          ),
+                                                          'n/a',
                                                         ),
                                                         textAlign:
                                                             TextAlign.end,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .headlineSmall
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Readex Pro',
-                                                              fontSize: 24.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                            ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      24.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontStyle,
+                                                                ),
                                                       ),
                                                     ),
                                                     Padding(
@@ -944,14 +1179,20 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 12.0, 0.0, 0.0),
-                                child: StreamBuilder<List<RideRecord>>(
-                                  stream: queryRideRecord(
-                                    queryBuilder: (rideRecord) => rideRecord
-                                        .where(
-                                          'orderStatus',
-                                          isEqualTo: 'Completed',
-                                        )
-                                        .orderBy('created_on',
+                                child: StreamBuilder<List<OrdersRecord>>(
+                                  stream: queryOrdersRecord(
+                                    queryBuilder: (ordersRecord) => ordersRecord
+                                        .where(Filter.or(
+                                          Filter(
+                                            'status',
+                                            isEqualTo: 'Complete',
+                                          ),
+                                          Filter(
+                                            'status',
+                                            isEqualTo: 'Cancelled',
+                                          ),
+                                        ))
+                                        .orderBy('created_at',
                                             descending: true),
                                   ),
                                   builder: (context, snapshot) {
@@ -969,17 +1210,30 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                         ),
                                       );
                                     }
-                                    List<RideRecord> listViewRideRecordList =
+                                    List<OrdersRecord>
+                                        listViewOrdersRecordList =
                                         snapshot.data!;
+                                    if (listViewOrdersRecordList.isEmpty) {
+                                      return EmptyWidget(
+                                        title: 'No Orders Completed',
+                                        desc:
+                                            'Seems that your orders have not been completed yet. check back later to see if there are any changes.',
+                                        icon: Icon(
+                                          Icons.hourglass_empty,
+                                          size: 42.0,
+                                        ),
+                                      );
+                                    }
 
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
-                                      itemCount: listViewRideRecordList.length,
+                                      itemCount:
+                                          listViewOrdersRecordList.length,
                                       itemBuilder: (context, listViewIndex) {
-                                        final listViewRideRecord =
-                                            listViewRideRecordList[
+                                        final listViewOrdersRecord =
+                                            listViewOrdersRecordList[
                                                 listViewIndex];
                                         return Padding(
                                           padding:
@@ -991,15 +1245,15 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      OrderSummaryWidget(
-                                                    rideRef: listViewRideRecord
+                                              context.pushNamed(
+                                                OrderSummaryWidget.routeName,
+                                                queryParameters: {
+                                                  'rideRef': serializeParam(
+                                                    listViewOrdersRecord
                                                         .reference,
+                                                    ParamType.DocumentReference,
                                                   ),
-                                                ),
+                                                }.withoutNulls,
                                               );
                                             },
                                             child: Container(
@@ -1062,19 +1316,28 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                   text: FFLocalizations.of(
                                                                           context)
                                                                       .getText(
-                                                                    'qn8vmw47' /* Order #:  */,
+                                                                    'qn8vmw47' /* Order ID:  */,
                                                                   ),
                                                                   style:
                                                                       TextStyle(),
                                                                 ),
                                                                 TextSpan(
-                                                                  text: listViewRideRecord
-                                                                      .orderID,
+                                                                  text: valueOrDefault<
+                                                                      String>(
+                                                                    listViewOrdersRecord
+                                                                        .orderId,
+                                                                    'N/A',
+                                                                  ),
                                                                   style:
                                                                       TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    color: listViewOrdersRecord.status ==
+                                                                            'Active'
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .primary
+                                                                        : (listViewOrdersRecord.status ==
+                                                                                'Complete'
+                                                                            ? FlutterFlowTheme.of(context).secondary
+                                                                            : FlutterFlowTheme.of(context).tertiary),
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
@@ -1085,10 +1348,27 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                       .of(context)
                                                                   .bodyLarge
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyLarge
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyLarge
+                                                                          .fontStyle,
+                                                                    ),
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyLarge
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyLarge
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
@@ -1101,20 +1381,33 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                         0.0,
                                                                         0.0),
                                                             child: Text(
-                                                              dateTimeFormat(
-                                                                "yMMMd",
-                                                                listViewRideRecord
-                                                                    .createdOn!,
-                                                                locale: FFLocalizations.of(
-                                                                        context)
-                                                                    .languageCode,
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                dateTimeFormat(
+                                                                  "yMMMd",
+                                                                  listViewOrdersRecord
+                                                                      .createdAt,
+                                                                  locale: FFLocalizations.of(
+                                                                          context)
+                                                                      .languageCode,
+                                                                ),
+                                                                'N/A',
                                                               ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .labelMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
@@ -1122,6 +1415,14 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                         12.0,
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                           ),
@@ -1130,25 +1431,31 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
-                                                                        10.0,
+                                                                        18.0,
                                                                         0.0,
                                                                         0.0),
                                                             child: Container(
                                                               height: 32.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent1,
+                                                                color: listViewOrdersRecord
+                                                                            .status ==
+                                                                        'Active'
+                                                                    ? FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary
+                                                                    : (listViewOrdersRecord.status ==
+                                                                            'Complete'
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .secondary
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .tertiary),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            12.0),
+                                                                            24.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
                                                                   width: 1.0,
                                                                 ),
                                                               ),
@@ -1165,18 +1472,33 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                           12.0,
                                                                           0.0),
                                                                   child: Text(
-                                                                    listViewRideRecord
-                                                                        .orderStatus,
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      listViewOrdersRecord
+                                                                          .status,
+                                                                      'N/A',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .override(
-                                                                          fontFamily:
-                                                                              'Inter',
+                                                                          font:
+                                                                              GoogleFonts.inter(
+                                                                            fontWeight:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                          ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primary,
+                                                                              FlutterFlowTheme.of(context).info,
                                                                           letterSpacing:
                                                                               0.0,
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
                                                                         ),
                                                                   ),
                                                                 ),
@@ -1205,16 +1527,21 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                       0.0,
                                                                       12.0),
                                                           child: Text(
-                                                            formatNumber(
-                                                              listViewRideRecord
-                                                                  .orderPrice,
-                                                              formatType:
-                                                                  FormatType
-                                                                      .decimal,
-                                                              decimalType:
-                                                                  DecimalType
-                                                                      .periodDecimal,
-                                                              currency: 'OMR ',
+                                                            valueOrDefault<
+                                                                String>(
+                                                              formatNumber(
+                                                                listViewOrdersRecord
+                                                                    .paymentAmount,
+                                                                formatType:
+                                                                    FormatType
+                                                                        .decimal,
+                                                                decimalType:
+                                                                    DecimalType
+                                                                        .periodDecimal,
+                                                                currency:
+                                                                    'OMR ',
+                                                              ),
+                                                              'N/A',
                                                             ),
                                                             textAlign:
                                                                 TextAlign.end,
@@ -1222,12 +1549,29 @@ class _OrderHistoryWidgetState extends State<OrderHistoryWidget>
                                                                     .of(context)
                                                                 .headlineSmall
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Readex Pro',
+                                                                  font: GoogleFonts
+                                                                      .readexPro(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontStyle,
+                                                                  ),
                                                                   fontSize:
                                                                       24.0,
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontStyle,
                                                                 ),
                                                           ),
                                                         ),

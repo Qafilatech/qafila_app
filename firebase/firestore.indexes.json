@@ -1,43 +1,33 @@
 {
   "indexes": [
     {
-      "collectionGroup": "ride",
+      "collectionGroup": "Orders",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "orderStatus",
+          "fieldPath": "status",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "created_on",
+          "fieldPath": "created_at",
           "order": "DESCENDING"
         }
       ]
     },
     {
-      "collectionGroup": "ride",
+      "collectionGroup": "Orders",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "order_ID",
+          "fieldPath": "status",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "created_on",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "ride",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "is_driver_assigned",
+          "fieldPath": "customer_id",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "created_on",
+          "fieldPath": "created_at",
           "order": "DESCENDING"
         }
       ]

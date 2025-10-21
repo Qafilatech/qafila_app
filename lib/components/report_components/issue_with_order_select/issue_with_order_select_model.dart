@@ -7,9 +7,9 @@ class IssueWithOrderSelectModel
     extends FlutterFlowModel<IssueWithOrderSelectWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for OrderDropDown widget.
+  String? orderDropDownValue;
+  FormFieldController<String>? orderDropDownValueController;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;

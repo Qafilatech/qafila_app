@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'empty_model.dart';
 export 'empty_model.dart';
 
@@ -58,12 +59,25 @@ class _EmptyWidgetState extends State<EmptyWidget> {
           Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 6.0),
               child: Text(
                 widget.title,
+                textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      fontFamily: 'Readex Pro',
+                      font: GoogleFonts.readexPro(
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .fontStyle,
+                      ),
                       letterSpacing: 0.0,
+                      fontWeight: FlutterFlowTheme.of(context)
+                          .headlineMedium
+                          .fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                     ),
               ),
             ),
@@ -71,12 +85,22 @@ class _EmptyWidgetState extends State<EmptyWidget> {
           Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
               child: Text(
                 widget.desc,
+                textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Inter',
+                      font: GoogleFonts.inter(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                      ),
                       letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
                     ),
               ),
             ),

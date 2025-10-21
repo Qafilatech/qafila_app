@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'toast_model.dart';
 export 'toast_model.dart';
 
@@ -50,6 +51,7 @@ class _ToastWidgetState extends State<ToastWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 400.0,
+      height: 100.0,
       decoration: BoxDecoration(
         color: widget.toastColor,
         boxShadow: [
@@ -89,19 +91,49 @@ class _ToastWidgetState extends State<ToastWidget> {
                       Text(
                         widget.toastTitle,
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily: 'Inter',
+                              font: GoogleFonts.inter(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .fontStyle,
                             ),
                       ),
                     ].divide(SizedBox(width: 8.0)),
                   ),
-                  Text(
-                    widget.toastDesc,
-                    style: FlutterFlowTheme.of(context).labelMedium.override(
-                          fontFamily: 'Inter',
-                          color: FlutterFlowTheme.of(context).accent4,
-                          letterSpacing: 0.0,
-                        ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 0.0, 0.0),
+                    child: Text(
+                      widget.toastDesc,
+                      style: FlutterFlowTheme.of(context).labelMedium.override(
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontStyle,
+                            ),
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .fontStyle,
+                          ),
+                    ),
                   ),
                 ].divide(SizedBox(height: 4.0)),
               ),

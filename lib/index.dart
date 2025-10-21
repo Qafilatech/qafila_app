@@ -1,21 +1,37 @@
 // Export pages
 export '/pages/order_history/order_history_widget.dart' show OrderHistoryWidget;
-export '/account_profile_creation/auth_2_create/auth2_create_widget.dart'
-    show Auth2CreateWidget;
-export '/account_profile_creation/auth_2_login/auth2_login_widget.dart'
-    show Auth2LoginWidget;
-export '/account_profile_creation/auth_2_forgot_password/auth2_forgot_password_widget.dart'
-    show Auth2ForgotPasswordWidget;
-export '/account_profile_creation/auth_2_create_profile/auth2_create_profile_widget.dart'
-    show Auth2CreateProfileWidget;
-export '/account_profile_creation/auth_2_profile/auth2_profile_widget.dart'
-    show Auth2ProfileWidget;
-export '/account_profile_creation/auth_2_edit_profile/auth2_edit_profile_widget.dart'
-    show Auth2EditProfileWidget;
+export '/account_profile_creation/create_start/create_start_widget.dart'
+    show CreateStartWidget;
+export '/account_profile_creation/login_start/login_start_widget.dart'
+    show LoginStartWidget;
+export '/account_profile_creation/forgot_password/forgot_password_widget.dart'
+    show ForgotPasswordWidget;
+export '/pages/user_profile/user_profile_widget.dart' show UserProfileWidget;
+export '/pages/edit_profile/edit_profile_widget.dart' show EditProfileWidget;
 export '/pages/order_summary/order_summary_widget.dart' show OrderSummaryWidget;
-export '/pages/delivery_screen_large/delivery_screen_large_widget.dart'
-    show DeliveryScreenLargeWidget;
-export '/pages/home_individual/home_individual_widget.dart'
-    show HomeIndividualWidget;
+export '/pages/home/home_widget.dart' show HomeWidget;
+export '/account_profile_creation/validate_phone/validate_phone_widget.dart'
+    show ValidatePhoneWidget;
+export '/account_profile_creation/verify_phone/verify_phone_widget.dart'
+    show VerifyPhoneWidget;
+export '/account_profile_creation/create_profile/create_profile_widget.dart'
+    show CreateProfileWidget;
+export '/account_profile_creation/onboarding/onboarding_widget.dart'
+    show OnboardingWidget;
+export '/pages/terms_screen/terms_screen_widget.dart' show TermsScreenWidget;
+export '/pages/chat_menu/chat_menu_widget.dart' show ChatMenuWidget;
+export '/pages/favourites_screen/favourites_screen_widget.dart'
+    show FavouritesScreenWidget;
 export '/pages/locate_ride_page/locate_ride_page_widget.dart'
     show LocateRidePageWidget;
+export '/pages/payment_screen/payment_screen_widget.dart'
+    show PaymentScreenWidget;
+export '/pages/support_page/support_page_widget.dart' show SupportPageWidget;
+export '/account_profile_creation/terms_screen_copy/terms_screen_copy_widget.dart'
+    show TermsScreenCopyWidget;
+export '/invoice_screen/invoice_screen_widget.dart' show InvoiceScreenWidget;
+export '/settings_screen/settings_screen_widget.dart' show SettingsScreenWidget;
+export '/pages/large_delivery_screen/large_delivery_screen_widget.dart'
+    show LargeDeliveryScreenWidget;
+export '/pages/small_delivery_screen/small_delivery_screen_widget.dart'
+    show SmallDeliveryScreenWidget;

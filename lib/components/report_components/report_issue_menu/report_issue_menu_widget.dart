@@ -3,12 +3,13 @@ import '/components/report_components/delivery_issue_menu/delivery_issue_menu_wi
 import '/components/report_components/driver_issue_menu/driver_issue_menu_widget.dart';
 import '/components/report_components/other_issue_menu/other_issue_menu_widget.dart';
 import '/components/report_components/refund_issue_menu/refund_issue_menu_widget.dart';
-import '/components/tracking_issue_menu/tracking_issue_menu_widget.dart';
+import '/components/report_components/tracking_issue_menu/tracking_issue_menu_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'report_issue_menu_model.dart';
 export 'report_issue_menu_model.dart';
 
@@ -75,8 +76,17 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
       ),
       child: Container(
         width: double.infinity,
+        height: 500.0,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).primaryBackground,
+              FlutterFlowTheme.of(context).secondaryBackground
+            ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
+          ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
@@ -108,15 +118,28 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                       '3qxjsyeh' /* Report An Issue */,
                     ),
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          fontFamily: 'Readex Pro',
+                          font: GoogleFonts.readexPro(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontStyle,
                         ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
               child: ListView(
                 padding: EdgeInsets.zero,
                 primary: false,
@@ -142,7 +165,12 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               padding: MediaQuery.viewInsetsOf(context),
                               child: Container(
                                 height: 450.0,
-                                child: DeliveryIssueMenuWidget(),
+                                child: DeliveryIssueMenuWidget(
+                                  categoryTitle:
+                                      FFLocalizations.of(context).getText(
+                                    'smxfdu6n' /* Delivery Issue */,
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -151,11 +179,10 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).accent1,
+                            color: FlutterFlowTheme.of(context).accent3,
                             width: 2.0,
                           ),
                         ),
@@ -173,8 +200,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -207,7 +247,12 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               padding: MediaQuery.viewInsetsOf(context),
                               child: Container(
                                 height: 400.0,
-                                child: AppIssueMenuWidget(),
+                                child: AppIssueMenuWidget(
+                                  categoryTitle:
+                                      FFLocalizations.of(context).getText(
+                                    'y3wmlx4c' /* App or User Experience Issue */,
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -238,8 +283,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -272,7 +330,10 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               padding: MediaQuery.viewInsetsOf(context),
                               child: Container(
                                 height: 300.0,
-                                child: DriverIssueMenuWidget(),
+                                child: DriverIssueMenuWidget(
+                                  categoryTitle:
+                                      'Driver/Delivery Person Issues',
+                                ),
                               ),
                             );
                           },
@@ -303,8 +364,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -337,7 +411,12 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               padding: MediaQuery.viewInsetsOf(context),
                               child: Container(
                                 height: 200.0,
-                                child: TrackingIssueMenuWidget(),
+                                child: TrackingIssueMenuWidget(
+                                  categoryTitle:
+                                      FFLocalizations.of(context).getText(
+                                    'ksu3uahz' /* Order/Delivery Tracking Issues */,
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -368,8 +447,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -402,7 +494,12 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               padding: MediaQuery.viewInsetsOf(context),
                               child: Container(
                                 height: 200.0,
-                                child: RefundIssueMenuWidget(),
+                                child: RefundIssueMenuWidget(
+                                  categoryTitle:
+                                      FFLocalizations.of(context).getText(
+                                    't5dkpswf' /* Refund or Compensation Request... */,
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -433,8 +530,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -471,6 +581,10 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                   title: 'Other',
                                   desc:
                                       'Please write any general feedback/suggestions For any issues or suggestions that don\'t fit the listed categories',
+                                  categoryTitle:
+                                      FFLocalizations.of(context).getText(
+                                    '0gr955nx' /* Other */,
+                                  ),
                                 ),
                               ),
                             );
@@ -502,8 +616,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(

@@ -8,11 +8,41 @@ export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
+/// Start PostgraesGroup Group Code
+
+class PostgraesGroupGroup {
+  static String getBaseUrl() => '10.128.14.185:3001';
+  static Map<String, String> headers = {};
+  static GetTestCall getTestCall = GetTestCall();
+}
+
+class GetTestCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = PostgraesGroupGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetTest',
+      apiUrl: '${baseUrl}/api/v1/auth/health',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: true,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End PostgraesGroup Group Code
+
 class GeocodingAndoidCall {
   static Future<ApiCallResponse> call({
     double? lat,
     double? lng,
-    String? apiKey = 'AIzaSyBMwBGynKTbtb1lutB-9BvMXxTmrNYoN7s',
+    String? apiKey = 'AIzaAIzaSyDAEAbHKxyho9-K0MPATyG76VjCRdX5BR0',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Geocoding Andoid',
@@ -41,7 +71,7 @@ class GeocodingIOSCall {
   static Future<ApiCallResponse> call({
     double? lat,
     double? lng,
-    String? apiKey = 'AIzaSyCX-tNBeRrqwCim7XsOr1FMzQOHG12CphE',
+    String? apiKey = 'AIzaSAIzaSyBd-QNrKLT_VWUbyXRvUNKQnExJrAM9Dtk',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Geocoding IOS',
@@ -49,7 +79,9 @@ class GeocodingIOSCall {
           'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}',
       callType: ApiCallType.GET,
       headers: {},
-      params: {},
+      params: {
+        'key': apiKey,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -74,6 +106,59 @@ class GeocodingIOSCall {
         r'''$.results[:].address_components[:].long_name''',
         true,
       ) as List?;
+}
+
+class GeocodingWEBCall {
+  static Future<ApiCallResponse> call({
+    double? lat,
+    double? lng,
+    String? apiKey = 'AIzaSyD59lDYEREVHxOmkgCIOBBomQqvmVWOKfI',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Geocoding WEB',
+      apiUrl:
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetGoogleDirectionsCall {
+  static Future<ApiCallResponse> call({
+    String? origin = '',
+    String? destination = '',
+    String? waypoints = '',
+    String? apiKey = 'https://maps.googleapis.com/maps/api/directions/json',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getGoogleDirections',
+      apiUrl: 'https://maps.googleapis.com/maps/api/directions/json',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'origin': origin,
+        'destination': destination,
+        'waypoints': waypoints,
+        'key': apiKey,
+        'mode': "DRIVING",
+        'avoid': "tolls",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 class ApiPagingParams {

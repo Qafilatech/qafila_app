@@ -2,22 +2,30 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
-
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'auth/firebase_auth/firebase_user_provider.dart';
 import 'auth/firebase_auth/auth_util.dart';
 
+import '/backend/supabase/supabase.dart';
 import 'backend/firebase/firebase_config.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
+  usePathUrlStrategy();
 
   await initFirebase();
 
+  await SupaFlow.initialize();
+
   await FlutterFlowTheme.initialize();
+
+  await FFLocalizations.initialize();
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -38,13 +46,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? _locale;
+  Locale? _locale = FFLocalizations.getStoredLocale();
 
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
+  late AppStateNotifier _appStateNotifier;
+  late GoRouter _router;
+  String getRoute([RouteMatch? routeMatch]) {
+    final RouteMatch lastMatch =
+        routeMatch ?? _router.routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : _router.routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
+
+  List<String> getRouteStack() =>
+      _router.routerDelegate.currentConfiguration.matches
+          .map((e) => getRoute(e))
+          .toList();
   late Stream<BaseAuthUser> userStream;
-  BaseAuthUser? initialUser;
-  bool displaySplashImage = true;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
 
@@ -52,14 +73,16 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
+    _appStateNotifier = AppStateNotifier.instance;
+    _router = createRouter(_appStateNotifier);
     userStream = qafilaTechCustFirebaseUserStream()
       ..listen((user) {
-        initialUser ?? safeSetState(() => initialUser = user);
+        _appStateNotifier.update(user);
       });
     jwtTokenStream.listen((_) {});
     Future.delayed(
       Duration(milliseconds: 1000),
-      () => safeSetState(() => displaySplashImage = false),
+      () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
 
@@ -72,6 +95,7 @@ class _MyAppState extends State<MyApp> {
 
   void setLocale(String language) {
     safeSetState(() => _locale = createLocale(language));
+    FFLocalizations.storeLocale(language);
   }
 
   void setThemeMode(ThemeMode mode) => safeSetState(() {
@@ -81,7 +105,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'QafilaTech-Cust',
       localizationsDelegates: [
@@ -96,6 +120,7 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [
         Locale('en'),
         Locale('ar'),
+        Locale('ur'),
       ],
       theme: ThemeData(
         brightness: Brightness.light,
@@ -104,28 +129,22 @@ class _MyAppState extends State<MyApp> {
         brightness: Brightness.dark,
       ),
       themeMode: _themeMode,
-      home: initialUser == null || displaySplashImage
-          ? Builder(
-              builder: (context) => Container(
-                color: Colors.transparent,
-                child: Image.asset(
-                  'assets/images/QAFILATECH.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )
-          : currentUser!.loggedIn
-              ? NavBarPage()
-              : Auth2LoginWidget(),
+      routerConfig: _router,
     );
   }
 }
 
 class NavBarPage extends StatefulWidget {
-  NavBarPage({Key? key, this.initialPage, this.page}) : super(key: key);
+  NavBarPage({
+    Key? key,
+    this.initialPage,
+    this.page,
+    this.disableResizeToAvoidBottomInset = false,
+  }) : super(key: key);
 
   final String? initialPage;
   final Widget? page;
+  final bool disableResizeToAvoidBottomInset;
 
   @override
   _NavBarPageState createState() => _NavBarPageState();
@@ -133,7 +152,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'Home-Individual';
+  String _currentPageName = 'Home';
   late Widget? _currentPage;
 
   @override
@@ -146,56 +165,53 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
+      'UserProfile': UserProfileWidget(),
+      'Home': HomeWidget(),
       'OrderHistory': OrderHistoryWidget(),
-      'Home-Individual': HomeIndividualWidget(),
-      'auth_2_Profile': Auth2ProfileWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
     return Scaffold(
+      resizeToAvoidBottomInset: !widget.disableResizeToAvoidBottomInset,
       body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (i) => safeSetState(() {
+      bottomNavigationBar: GNav(
+        selectedIndex: currentIndex,
+        onTabChange: (i) => safeSetState(() {
           _currentPage = null;
           _currentPageName = tabs.keys.toList()[i];
         }),
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        selectedItemColor: FlutterFlowTheme.of(context).secondary,
-        unselectedItemColor: FlutterFlowTheme.of(context).accent1,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.history_outlined,
-              size: 24.0,
-            ),
-            label: FFLocalizations.of(context).getText(
-              'dfii6ug7' /* . */,
-            ),
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 26.0,
-            ),
-            label: FFLocalizations.of(context).getText(
-              '4xj4b5bm' /* Home */,
-            ),
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_2,
-              size: 24.0,
-            ),
-            label: FFLocalizations.of(context).getText(
+        color: FlutterFlowTheme.of(context).accent1,
+        activeColor: FlutterFlowTheme.of(context).secondary,
+        tabBackgroundColor: Color(0x00000000),
+        tabBorderRadius: 100.0,
+        tabMargin: EdgeInsetsDirectional.fromSTEB(16.0, 6.0, 16.0, 6.0),
+        padding: EdgeInsets.all(16.0),
+        gap: 8.0,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        duration: Duration(milliseconds: 500),
+        haptic: false,
+        tabs: [
+          GButton(
+            icon: Icons.person_sharp,
+            text: FFLocalizations.of(context).getText(
               '57jc9h1b' /* Profile */,
             ),
-            tooltip: '',
+            iconSize: 24.0,
+          ),
+          GButton(
+            icon: Icons.home,
+            text: FFLocalizations.of(context).getText(
+              '4xj4b5bm' /* Home */,
+            ),
+            iconSize: 26.0,
+          ),
+          GButton(
+            icon: Icons.history_outlined,
+            text: FFLocalizations.of(context).getText(
+              'dfii6ug7' /* Order History */,
+            ),
+            iconSize: 24.0,
           )
         ],
       ),

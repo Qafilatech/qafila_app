@@ -106,13 +106,3 @@ class FFAppState extends ChangeNotifier {
     _locationStatus = value;
   }
 }
-
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
-  }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
-}

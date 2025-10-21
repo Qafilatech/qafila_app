@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:collection/collection.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'dart:math' show pow, pi, sin;
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -15,13 +14,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 
-import 'lat_lng.dart';
 
 export 'keep_alive_wrapper.dart';
 export 'lat_lng.dart';
 export 'place.dart';
 export 'uploaded_file.dart';
 export '../app_state.dart';
+export '../app_constants.dart';
 export 'flutter_flow_model.dart';
 export 'dart:math' show min, max;
 export 'dart:typed_data' show Uint8List;
@@ -31,6 +30,7 @@ export 'package:cloud_firestore/cloud_firestore.dart'
     show DocumentReference, FirebaseFirestore;
 export 'package:page_transition/page_transition.dart';
 export 'internationalization.dart' show FFLocalizations;
+export 'nav/nav.dart';
 
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;
@@ -40,6 +40,7 @@ void _setTimeagoLocales() {
   timeago.setLocaleMessages('en_short', timeago.EnShortMessages());
   timeago.setLocaleMessages('ar', timeago.ArMessages());
   timeago.setLocaleMessages('ar_short', timeago.ArShortMessages());
+  timeago.setLocaleMessages('ur', timeago.UrMessages());
 }
 
 String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
@@ -401,48 +402,6 @@ const kTextValidatorEmailRegex =
 const kTextValidatorWebsiteRegex =
     r'(https?:\/\/)?(www\.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|(https?:\/\/)?(www\.)?(?!ww)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,10}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)';
 
-LatLng? cachedUserLocation;
-Future<LatLng> getCurrentUserLocation(
-    {required LatLng defaultLocation, bool cached = false}) async {
-  if (cached && cachedUserLocation != null) {
-    return cachedUserLocation!;
-  }
-  return queryCurrentUserLocation().then((loc) {
-    if (loc != null) {
-      cachedUserLocation = loc;
-    }
-    return loc ?? defaultLocation;
-  }).onError((error, _) {
-    print("Error querying user location: $error");
-    return defaultLocation;
-  });
-}
-
-Future<LatLng?> queryCurrentUserLocation() async {
-  final serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
-  }
-
-  var permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      return Future.error('Location permissions are denied');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-
-  final position = await Geolocator.getCurrentPosition();
-  return position.latitude != 0 && position.longitude != 0
-      ? LatLng(position.latitude, position.longitude)
-      : null;
-}
-
 extension FFTextEditingControllerExt on TextEditingController? {
   String get text => this == null ? '' : this!.text;
   set text(String newText) => this?.text = newText;
@@ -511,6 +470,19 @@ extension FFStringExt on String {
       maxChars != null && length > maxChars
           ? replaceRange(maxChars, null, replacement)
           : this;
+
+  String toCapitalization(TextCapitalization textCapitalization) {
+    switch (textCapitalization) {
+      case TextCapitalization.none:
+        return this;
+      case TextCapitalization.words:
+        return split(' ').map(toBeginningOfSentenceCase).join(' ');
+      case TextCapitalization.sentences:
+        return toBeginningOfSentenceCase(this);
+      case TextCapitalization.characters:
+        return toUpperCase();
+    }
+  }
 }
 
 extension ListFilterExt<T> on Iterable<T?> {
@@ -637,3 +609,8 @@ extension ListUniqueExt<T> on Iterable<T> {
     return distinctList;
   }
 }
+
+String getCurrentRoute(BuildContext context) =>
+    context.mounted ? MyApp.of(context).getRoute() : '';
+List<String> getCurrentRouteStack(BuildContext context) =>
+    context.mounted ? MyApp.of(context).getRouteStack() : [];
