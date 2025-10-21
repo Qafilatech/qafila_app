@@ -11,7 +11,7 @@ import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '/backend/supabase/supabase.dart';
-import '/auth/firebase_auth/auth_util.dart';
+import '/auth/custom_auth/auth_util.dart';
 
 String? orderidcreate() {
   // need a function that creates ab order ID when called. the format should be alphanumerical with the first 2 being letters and the 4 remianing to be numbers

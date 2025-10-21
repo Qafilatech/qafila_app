@@ -1,7 +1,7 @@
-import '/auth/firebase_auth/auth_util.dart';
+import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
+
 import '/components/address_edit/address_edit_widget.dart';
 import '/components/contact/contact_widget.dart';
 import '/components/empty/empty_widget.dart';
