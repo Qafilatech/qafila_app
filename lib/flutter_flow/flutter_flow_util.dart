@@ -14,14 +14,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 
-import 'lat_lng.dart';
 
 export 'keep_alive_wrapper.dart';
-export 'lat_lng.dart';
-export 'place.dart';
-export 'uploaded_file.dart';
+export 'package:ff_commons/flutter_flow/lat_lng.dart';
+export 'package:ff_commons/flutter_flow/place.dart';
+export 'package:ff_commons/flutter_flow/uploaded_file.dart';
 export '../app_state.dart';
 export '../app_constants.dart';
+export '../library_values.dart';
 export 'flutter_flow_model.dart';
 export 'dart:math' show min, max;
 export 'dart:typed_data' show Uint8List;
@@ -471,6 +471,19 @@ extension FFStringExt on String {
       maxChars != null && length > maxChars
           ? replaceRange(maxChars, null, replacement)
           : this;
+
+  String toCapitalization(TextCapitalization textCapitalization) {
+    switch (textCapitalization) {
+      case TextCapitalization.none:
+        return this;
+      case TextCapitalization.words:
+        return split(' ').map(toBeginningOfSentenceCase).join(' ');
+      case TextCapitalization.sentences:
+        return toBeginningOfSentenceCase(this);
+      case TextCapitalization.characters:
+        return toUpperCase();
+    }
+  }
 }
 
 extension ListFilterExt<T> on Iterable<T?> {

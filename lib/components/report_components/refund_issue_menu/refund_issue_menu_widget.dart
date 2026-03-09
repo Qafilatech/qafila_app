@@ -1,11 +1,8 @@
 import '/components/report_components/issue_with_order_select/issue_with_order_select_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'refund_issue_menu_model.dart';
 export 'refund_issue_menu_model.dart';
 
@@ -59,7 +56,15 @@ class _RefundIssueMenuWidgetState extends State<RefundIssueMenuWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).primaryBackground,
+              FlutterFlowTheme.of(context).secondaryBackground
+            ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
+          ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
@@ -91,8 +96,21 @@ class _RefundIssueMenuWidgetState extends State<RefundIssueMenuWidget> {
                       '6w7u9b74' /* Refund or Compensation Request */,
                     ),
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          fontFamily: 'Readex Pro',
+                          font: GoogleFonts.readexPro(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontStyle,
                         ),
                   ),
                 ],
@@ -127,7 +145,7 @@ class _RefundIssueMenuWidgetState extends State<RefundIssueMenuWidget> {
                                 title: FFLocalizations.of(context).getText(
                                   'xxrhq02v' /* Request Refund */,
                                 ),
-                                categoryTitle: widget!.categoryTitle!,
+                                categoryTitle: widget.categoryTitle!,
                                 desc:
                                     'Request a refund for issues such as damaged, missing, or incorrect items. Provide details about the delivery and the reason for the refund to help us process your request quickly.',
                               ),
@@ -160,8 +178,21 @@ class _RefundIssueMenuWidgetState extends State<RefundIssueMenuWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -196,7 +227,7 @@ class _RefundIssueMenuWidgetState extends State<RefundIssueMenuWidget> {
                                 title: FFLocalizations.of(context).getText(
                                   'fmorzlfs' /* Request Compensation */,
                                 ),
-                                categoryTitle: widget!.categoryTitle!,
+                                categoryTitle: widget.categoryTitle!,
                                 desc: FFLocalizations.of(context).getText(
                                   '2daje6ac' /* Request compensation for deliv... */,
                                 ),
@@ -230,8 +261,21 @@ class _RefundIssueMenuWidgetState extends State<RefundIssueMenuWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(

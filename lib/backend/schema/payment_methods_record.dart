@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
+
+
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -22,11 +23,6 @@ class PaymentMethodsRecord extends FirestoreRecord {
   String get paymentType => _paymentType ?? '';
   bool hasPaymentType() => _paymentType != null;
 
-  // "CardNumber" field.
-  int? _cardNumber;
-  int get cardNumber => _cardNumber ?? 0;
-  bool hasCardNumber() => _cardNumber != null;
-
   // "CardStatus" field.
   bool? _cardStatus;
   bool get cardStatus => _cardStatus ?? false;
@@ -42,20 +38,31 @@ class PaymentMethodsRecord extends FirestoreRecord {
   bool get active => _active ?? false;
   bool hasActive() => _active != null;
 
+  // "ModifiedAt" field.
+  DateTime? _modifiedAt;
+  DateTime? get modifiedAt => _modifiedAt;
+  bool hasModifiedAt() => _modifiedAt != null;
+
+  // "CardNumber" field.
+  String? _cardNumber;
+  String get cardNumber => _cardNumber ?? '';
+  bool hasCardNumber() => _cardNumber != null;
+
   // "ExpiryDate" field.
-  int? _expiryDate;
-  int get expiryDate => _expiryDate ?? 0;
+  String? _expiryDate;
+  String get expiryDate => _expiryDate ?? '';
   bool hasExpiryDate() => _expiryDate != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
     _paymentType = snapshotData['PaymentType'] as String?;
-    _cardNumber = castToType<int>(snapshotData['CardNumber']);
     _cardStatus = snapshotData['CardStatus'] as bool?;
     _createdAt = snapshotData['CreatedAt'] as DateTime?;
     _active = snapshotData['active'] as bool?;
-    _expiryDate = castToType<int>(snapshotData['ExpiryDate']);
+    _modifiedAt = snapshotData['ModifiedAt'] as DateTime?;
+    _cardNumber = snapshotData['CardNumber'] as String?;
+    _expiryDate = snapshotData['ExpiryDate'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -99,19 +106,21 @@ class PaymentMethodsRecord extends FirestoreRecord {
 
 Map<String, dynamic> createPaymentMethodsRecordData({
   String? paymentType,
-  int? cardNumber,
   bool? cardStatus,
   DateTime? createdAt,
   bool? active,
-  int? expiryDate,
+  DateTime? modifiedAt,
+  String? cardNumber,
+  String? expiryDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'PaymentType': paymentType,
-      'CardNumber': cardNumber,
       'CardStatus': cardStatus,
       'CreatedAt': createdAt,
       'active': active,
+      'ModifiedAt': modifiedAt,
+      'CardNumber': cardNumber,
       'ExpiryDate': expiryDate,
     }.withoutNulls,
   );
@@ -126,20 +135,22 @@ class PaymentMethodsRecordDocumentEquality
   @override
   bool equals(PaymentMethodsRecord? e1, PaymentMethodsRecord? e2) {
     return e1?.paymentType == e2?.paymentType &&
-        e1?.cardNumber == e2?.cardNumber &&
         e1?.cardStatus == e2?.cardStatus &&
         e1?.createdAt == e2?.createdAt &&
         e1?.active == e2?.active &&
+        e1?.modifiedAt == e2?.modifiedAt &&
+        e1?.cardNumber == e2?.cardNumber &&
         e1?.expiryDate == e2?.expiryDate;
   }
 
   @override
   int hash(PaymentMethodsRecord? e) => const ListEquality().hash([
         e?.paymentType,
-        e?.cardNumber,
         e?.cardStatus,
         e?.createdAt,
         e?.active,
+        e?.modifiedAt,
+        e?.cardNumber,
         e?.expiryDate
       ]);
 

@@ -1,17 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:provider/provider.dart';
 import 'pay_model.dart';
 export 'pay_model.dart';
 
@@ -20,10 +16,14 @@ class PayWidget extends StatefulWidget {
     super.key,
     required this.cardNumber,
     required this.expiryDates,
+    required this.editMode,
+    this.editRef,
   });
 
-  final int? cardNumber;
-  final int? expiryDates;
+  final String? cardNumber;
+  final String? expiryDates;
+  final bool? editMode;
+  final DocumentReference? editRef;
 
   @override
   State<PayWidget> createState() => _PayWidgetState();
@@ -44,21 +44,23 @@ class _PayWidgetState extends State<PayWidget> {
     _model = createModel(context, () => PayModel());
 
     _model.cardNumberTextController ??= TextEditingController(
-        text: valueOrDefault<String>(
-      widget!.cardNumber != null ? widget!.cardNumber?.toString() : '',
-      'n/a',
-    ));
+        text: widget.cardNumber != null && widget.cardNumber != ''
+            ? widget.cardNumber
+            : '');
     _model.cardNumberFocusNode ??= FocusNode();
 
+    _model.cardNumberMask = MaskTextInputFormatter(mask: '#### #### #### ####');
     _model.dateFieldTextController ??= TextEditingController(
-        text: valueOrDefault<String>(
-      widget!.expiryDates != null ? widget!.expiryDates?.toString() : '',
-      'n/a',
-    ));
+        text: widget.expiryDates != null && widget.expiryDates != ''
+            ? widget.expiryDates
+            : '');
     _model.dateFieldFocusNode ??= FocusNode();
 
+    _model.dateFieldMask = MaskTextInputFormatter(mask: '##/##');
     _model.pinFieldTextController ??= TextEditingController();
     _model.pinFieldFocusNode ??= FocusNode();
+
+    _model.pinFieldMask = MaskTextInputFormatter(mask: '####');
   }
 
   @override
@@ -74,6 +76,7 @@ class _PayWidgetState extends State<PayWidget> {
       padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 20.0),
       child: Container(
         width: double.infinity,
+        height: 350.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           boxShadow: [
@@ -131,8 +134,21 @@ class _PayWidgetState extends State<PayWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .headlineSmall
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .headlineSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineSmall
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .fontStyle,
                                   ),
                             ),
                             Padding(
@@ -145,8 +161,21 @@ class _PayWidgetState extends State<PayWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
                                     ),
                               ),
                             ),
@@ -183,16 +212,42 @@ class _PayWidgetState extends State<PayWidget> {
                       ),
                       labelStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
+                                ),
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
                               ),
                       hintText: FFLocalizations.of(context).getText(
                         'srfzt1fw' /* xxxx-xxxx-xxxx-xxxx */,
                       ),
                       hintStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
+                                ),
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
                               ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -241,8 +296,20 @@ class _PayWidgetState extends State<PayWidget> {
                               : null,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                     maxLength: 19,
                     maxLengthEnforcement: MaxLengthEnforcement.enforced,
@@ -289,8 +356,21 @@ class _PayWidgetState extends State<PayWidget> {
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                               hintText: FFLocalizations.of(context).getText(
                                 '3a7wq7gn' /* dd/yy */,
@@ -298,8 +378,21 @@ class _PayWidgetState extends State<PayWidget> {
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -350,8 +443,21 @@ class _PayWidgetState extends State<PayWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                             keyboardType: TextInputType.datetime,
                             cursorColor:
@@ -382,17 +488,44 @@ class _PayWidgetState extends State<PayWidget> {
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
+                              alignLabelWithHint: false,
                               hintText: FFLocalizations.of(context).getText(
                                 'cy9txlkl' /* CVV */,
                               ),
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -427,10 +560,10 @@ class _PayWidgetState extends State<PayWidget> {
                                   .secondaryBackground,
                               contentPadding: EdgeInsets.all(16.0),
                               suffixIcon: InkWell(
-                                onTap: () => safeSetState(
-                                  () => _model.pinFieldVisibility =
-                                      !_model.pinFieldVisibility,
-                                ),
+                                onTap: () async {
+                                  safeSetState(() => _model.pinFieldVisibility =
+                                      !_model.pinFieldVisibility);
+                                },
                                 focusNode: FocusNode(skipTraversal: true),
                                 child: Icon(
                                   _model.pinFieldVisibility
@@ -443,8 +576,21 @@ class _PayWidgetState extends State<PayWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                             maxLength: 4,
                             maxLengthEnforcement: MaxLengthEnforcement.enforced,
@@ -476,17 +622,27 @@ class _PayWidgetState extends State<PayWidget> {
                           EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          await PaymentMethodsRecord.createDoc(
-                                  currentUserReference!)
-                              .set(createPaymentMethodsRecordData(
-                            paymentType: 'VISA',
-                            cardNumber: int.tryParse(
-                                _model.cardNumberTextController.text),
-                            expiryDate: int.tryParse(
-                                _model.dateFieldTextController.text),
-                            cardStatus: false,
-                            createdAt: getCurrentTimestamp,
-                          ));
+                          if (widget.editMode!) {
+                            await widget.editRef!
+                                .update(createPaymentMethodsRecordData(
+                              paymentType: 'Visa',
+                              cardNumber: _model.cardNumberTextController.text,
+                              cardStatus: false,
+                              modifiedAt: getCurrentTimestamp,
+                              expiryDate: _model.dateFieldTextController.text,
+                            ));
+                          } else {
+                            await PaymentMethodsRecord.createDoc(
+                                    currentUserReference!)
+                                .set(createPaymentMethodsRecordData(
+                              paymentType: 'VISA',
+                              cardNumber: _model.cardNumberTextController.text,
+                              expiryDate: _model.dateFieldTextController.text,
+                              cardStatus: false,
+                              createdAt: getCurrentTimestamp,
+                            ));
+                          }
+
                           Navigator.pop(context, '');
                         },
                         text: FFLocalizations.of(context).getText(
@@ -502,12 +658,20 @@ class _PayWidgetState extends State<PayWidget> {
                           color: FlutterFlowTheme.of(context).primaryText,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Outfit',
+                                    font: GoogleFonts.outfit(
+                                      fontWeight: FontWeight.normal,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
                                   ),
                           elevation: 2.0,
                           borderSide: BorderSide(

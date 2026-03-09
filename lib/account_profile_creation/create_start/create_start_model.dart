@@ -1,23 +1,7 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
 import '/index.dart';
 import 'create_start_widget.dart' show CreateStartWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class CreateStartModel extends FlutterFlowModel<CreateStartWidget> {
   ///  State fields for stateful widgets in this page.
@@ -31,13 +15,13 @@ class CreateStartModel extends FlutterFlowModel<CreateStartWidget> {
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
-        '4qjyiiao' /* Email is required */,
+        'p9nyrmzi' /* Email is required */,
       );
     }
 
     if (!RegExp(kTextValidatorEmailRegex).hasMatch(val)) {
       return FFLocalizations.of(context).getText(
-        'ggkkmxrq' /* Incorrect email format. */,
+        'i3lgz0uc' /* Incorrect email format. */,
       );
     }
     return null;
@@ -51,13 +35,13 @@ class CreateStartModel extends FlutterFlowModel<CreateStartWidget> {
   String? _passwordTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
-        '3qs2g4bj' /* Password is required */,
+        'uu81u28s' /* Password is required */,
       );
     }
 
     if (val.length < 8) {
       return FFLocalizations.of(context).getText(
-        'uwzl5c00' /* Password needs to be longer th... */,
+        'nl088jis' /* Password needs to be longer th... */,
       );
     }
 
@@ -72,13 +56,13 @@ class CreateStartModel extends FlutterFlowModel<CreateStartWidget> {
   String? _cpasswordTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return FFLocalizations.of(context).getText(
-        'o16y7c3h' /* Confirm Password is required */,
+        'wydxflyw' /* Confirm Password is required */,
       );
     }
 
     if (val.length < 8) {
       return FFLocalizations.of(context).getText(
-        'ri04xoyq' /* Password needs to be longer th... */,
+        '4gqagk9h' /* Password needs to be longer th... */,
       );
     }
 

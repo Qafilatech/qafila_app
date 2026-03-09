@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
@@ -15,6 +14,7 @@ const kPermissionStateToBool = {
 final locationPermission = Permission.location;
 final cameraPermission = Permission.camera;
 final photoLibraryPermission = Permission.photos;
+final notificationsPermission = Permission.notification;
 
 Future<bool> getPermissionStatus(Permission setting) async {
   final status = await setting.status;

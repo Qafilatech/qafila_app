@@ -1,19 +1,22 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/report_components/report_issue_menu/report_issue_menu_widget.dart';
+import '/components/appbar_component/appbar_component_widget.dart';
+import '/components/menu_drawer/menu_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
 import '/index.dart';
+import 'package:community_testing_ryusdv/app_state.dart'
+    as community_testing_ryusdv_app_state;
+import 'package:custom_openstreetmap_vmty5u/app_state.dart'
+    as custom_openstreetmap_vmty5u_app_state;
+import 'package:that_bottom_bar_y134zt/app_state.dart'
+    as that_bottom_bar_y134zt_app_state;
+import 'package:that_bottom_bar_y134zt/custom_code/widgets/index.dart'
+    as that_bottom_bar_y134zt_custom_widgets;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'user_profile_model.dart';
@@ -43,10 +46,109 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
     _model = createModel(context, () => UserProfileModel());
 
     animationsMap.addAll({
-      'buttonOnPageLoadAnimation': AnimationInfo(
+      'rowOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
           VisibilityEffect(duration: 400.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 400.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 400.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 100.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 400.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 300.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 300.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 400.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 300.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 300.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
           FadeEffect(
             curve: Curves.easeInOut,
             delay: 400.0.ms,
@@ -63,13 +165,27 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
           ),
         ],
       ),
+      'buttonOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 600.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 600.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 600.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 60.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
     });
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
   }
 
   @override
@@ -81,6 +197,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+    context.watch<custom_openstreetmap_vmty5u_app_state.FFAppState>();
+    context.watch<community_testing_ryusdv_app_state.FFAppState>();
+    context.watch<that_bottom_bar_y134zt_app_state.FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -89,152 +210,26 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        endDrawer: Drawer(
+          elevation: 16.0,
+          child: wrapWithModel(
+            model: _model.menuDrawerModel,
+            updateCallback: () => safeSetState(() {}),
+            child: MenuDrawerWidget(),
+          ),
+        ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-              width: double.infinity,
-              height: 150.0,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    FlutterFlowTheme.of(context).primary,
-                    FlutterFlowTheme.of(context).accent1,
-                    FlutterFlowTheme.of(context).accent2
-                  ],
-                  stops: [0.0, 0.5, 1.0],
-                  begin: AlignmentDirectional(-1.0, -1.0),
-                  end: AlignmentDirectional(1.0, 1.0),
-                ),
-              ),
-              child: Container(
-                width: 100.0,
-                height: 300.0,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      valueOrDefault<Color>(
-                        Theme.of(context).brightness == Brightness.dark
-                            ? Color(0x00101518)
-                            : Color(0x00FFFFFF),
-                        Color(0x00FFFFFF),
-                      ),
-                      FlutterFlowTheme.of(context).primaryBackground
-                    ],
-                    stops: [0.0, 1.0],
-                    begin: AlignmentDirectional(0.0, -1.0),
-                    end: AlignmentDirectional(0, 1.0),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 12.0, 0.0),
-                            child: FlutterFlowIconButton(
-                              borderRadius: 8.0,
-                              icon: Icon(
-                                Icons.menu_sharp,
-                                color: FlutterFlowTheme.of(context).secondary,
-                                size: 30.0,
-                              ),
-                              onPressed: () async {
-                                scaffoldKey.currentState!.openDrawer();
-                              },
-                            ),
-                          ),
-                          Text(
-                            FFLocalizations.of(context).getText(
-                              'onbibmdq' /* Profile */,
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Poppins',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 25.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 16.0, 0.0),
-                            child: FlutterFlowIconButton(
-                              borderColor: FlutterFlowTheme.of(context).accent2,
-                              borderRadius: 12.0,
-                              borderWidth: 1.0,
-                              buttonSize: 40.0,
-                              fillColor: FlutterFlowTheme.of(context).accent4,
-                              icon: FaIcon(
-                                FontAwesomeIcons.solidBell,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 18.0,
-                              ),
-                              onPressed: () async {
-                                scaffoldKey.currentState!.openEndDrawer();
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 16.0, 0.0),
-                            child: FlutterFlowIconButton(
-                              borderColor: FlutterFlowTheme.of(context).accent2,
-                              borderRadius: 12.0,
-                              borderWidth: 1.0,
-                              buttonSize: 40.0,
-                              fillColor: FlutterFlowTheme.of(context).accent4,
-                              icon: Icon(
-                                Icons.report,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 18.0,
-                              ),
-                              onPressed: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (context) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        FocusScope.of(context).unfocus();
-                                        FocusManager.instance.primaryFocus
-                                            ?.unfocus();
-                                      },
-                                      child: Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: Container(
-                                          height: 475.0,
-                                          child: ReportIssueMenuWidget(),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => safeSetState(() {}));
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+            AuthUserStreamWidget(
+              builder: (context) => wrapWithModel(
+                model: _model.appbarComponentModel,
+                updateCallback: () => safeSetState(() {}),
+                child: AppbarComponentWidget(
+                  pageTitle: 'Profile',
+                  menuButtonAction: () async {
+                    scaffoldKey.currentState!.openEndDrawer();
+                  },
                 ),
               ),
             ),
@@ -320,9 +315,19 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            fontFamily: 'Readex Pro',
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineSmall
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineSmall
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -334,10 +339,27 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
+                                            ),
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -345,7 +367,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               ),
                             ),
                           ],
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['rowOnPageLoadAnimation']!),
                       ),
                       Padding(
                         padding:
@@ -356,10 +379,24 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                           ),
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['textOnPageLoadAnimation1']!),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -416,8 +453,25 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -436,7 +490,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               ),
                             ),
                           ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['containerOnPageLoadAnimation1']!),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -447,78 +502,119 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                           ),
                           style:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['textOnPageLoadAnimation2']!),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 0.0),
-                        child: Container(
-                          width: double.infinity,
-                          height: 60.0,
-                          decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 3.0,
-                                color: Color(0x33000000),
-                                offset: Offset(
-                                  0.0,
-                                  1.0,
-                                ),
-                              )
-                            ],
-                            borderRadius: BorderRadius.circular(8.0),
-                            shape: BoxShape.rectangle,
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              width: 1.0,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Icon(
-                                  Icons.settings_sharp,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 24.0,
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 0.0, 0.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'ft0eoa6o' /* Settings */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelLarge
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                        ),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(SettingsScreenWidget.routeName);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 60.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 3.0,
+                                  color: Color(0x33000000),
+                                  offset: Offset(
+                                    0.0,
+                                    1.0,
                                   ),
-                                ),
-                                Expanded(
-                                  child: Align(
-                                    alignment: AlignmentDirectional(0.9, 0.0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 18.0,
-                                    ),
-                                  ),
-                                ),
+                                )
                               ],
+                              borderRadius: BorderRadius.circular(8.0),
+                              shape: BoxShape.rectangle,
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 1.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Icon(
+                                    Icons.settings_sharp,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'ft0eoa6o' /* Settings */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Align(
+                                      alignment: AlignmentDirectional(0.9, 0.0),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 18.0,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['containerOnPageLoadAnimation2']!),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -575,8 +671,25 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -595,7 +708,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               ),
                             ),
                           ),
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['containerOnPageLoadAnimation3']!),
                       ),
                       Align(
                         alignment: AlignmentDirectional(0.0, 0.0),
@@ -626,8 +740,21 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                               elevation: 0.0,
                               borderSide: BorderSide(
@@ -641,6 +768,104 @@ class _UserProfileWidgetState extends State<UserProfileWidget>
                         ),
                       ),
                     ],
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: AlignmentDirectional(0.0, 1.0),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 100),
+                curve: Curves.easeInOutQuint,
+                width: MediaQuery.sizeOf(context).width,
+                height: 70.0,
+                decoration: BoxDecoration(
+                  color: Color(0x00101518),
+                ),
+                child: Align(
+                  alignment: AlignmentDirectional(0.0, 1.0),
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: 60.0,
+                    child:
+                        that_bottom_bar_y134zt_custom_widgets.ThatCurvedNavBar(
+                      width: MediaQuery.sizeOf(context).width,
+                      height: 60.0,
+                      keyValue: 'page',
+                      firstIcon: Icon(
+                        Icons.home_rounded,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
+                      secondIcon: Icon(
+                        Icons.person,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
+                      thirdIcon: Icon(
+                        Icons.history,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      backgroundColor: Color(0x00182026),
+                      buttonBackgroundColor:
+                          FlutterFlowTheme.of(context).secondary,
+                      onTap: () async {
+                        if (that_bottom_bar_y134zt_app_state.FFAppState()
+                                .pageIndex
+                                .toString() ==
+                            '0') {
+                          context.goNamed(
+                            HomeWidget.routeName,
+                            extra: <String, dynamic>{
+                              '__transition_info__': TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 300),
+                              ),
+                            },
+                          );
+
+                          return;
+                        } else {
+                          if (that_bottom_bar_y134zt_app_state.FFAppState()
+                                  .pageIndex
+                                  .toString() ==
+                              '1') {
+                            context.goNamed(
+                              UserProfileWidget.routeName,
+                              extra: <String, dynamic>{
+                                '__transition_info__': TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 300),
+                                ),
+                              },
+                            );
+
+                            return;
+                          } else {
+                            if (that_bottom_bar_y134zt_app_state.FFAppState()
+                                    .pageIndex
+                                    .toString() ==
+                                '2') {
+                              context.goNamed(
+                                OrderHistoryWidget.routeName,
+                                extra: <String, dynamic>{
+                                  '__transition_info__': TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 300),
+                                  ),
+                                },
+                              );
+
+                              return;
+                            } else {
+                              return;
+                            }
+                          }
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),

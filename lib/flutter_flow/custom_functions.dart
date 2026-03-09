@@ -5,12 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'lat_lng.dart';
-import 'place.dart';
-import 'uploaded_file.dart';
+import 'package:ff_commons/flutter_flow/lat_lng.dart';
+import 'package:ff_commons/flutter_flow/place.dart';
+import 'package:ff_commons/flutter_flow/uploaded_file.dart';
 import '/backend/backend.dart';
+import "package:community_testing_ryusdv/backend/schema/structs/index.dart"
+    as community_testing_ryusdv_data_schema;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/supabase/supabase.dart';
 import '/auth/firebase_auth/auth_util.dart';
+import "package:community_testing_ryusdv/backend/schema/structs/index.dart"
+    as community_testing_ryusdv_data_schema;
+import "package:community_testing_ryusdv/backend/schema/enums/enums.dart"
+    as community_testing_ryusdv_enums;
+import 'package:custom_openstreetmap_vmty5u/flutter_flow/custom_functions.dart'
+    as custom_openstreetmap_vmty5u_functions;
+import 'package:marketplace_random_from_list_library_m7hdw4/flutter_flow/custom_functions.dart'
+    as marketplace_random_from_list_library_m7hdw4_functions;
 
 String? orderidcreate() {
   // need a function that creates ab order ID when called. the format should be alphanumerical with the first 2 being letters and the 4 remianing to be numbers
@@ -108,13 +119,14 @@ double? routeDistanceCalc(
   LatLng? pickUpLocation,
   LatLng? dropOffLocation,
 ) {
-  // need a function to calculate the distance between two given points on the map
   if (pickUpLocation == null || dropOffLocation == null) {
     return null;
   }
 
-  // Calculate the distance between two points using the Haversine formula
   const double earthRadius = 6371.0; // in kilometers
+
+  // MATCHING SOLUTION 1: Add the tortuosity factor
+  const double roadFactor = 1.4;
 
   double lat1 = pickUpLocation.latitude;
   double lon1 = pickUpLocation.longitude;
@@ -132,23 +144,27 @@ double? routeDistanceCalc(
 
   double c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
 
-  double distance = earthRadius * c;
+  // Calculate straight distance
+  double straightDistance = earthRadius * c;
 
-  return distance; // Return distance rounded to 2 decimal places
+  // Apply road factor
+  double finalDistance = straightDistance * roadFactor;
+
+  // Round to 2 decimal places (e.g., 12.56)
+  return double.parse(finalDistance.toStringAsFixed(2));
 }
 
 int? routeDurationCalculator(
   LatLng? location1,
   LatLng? location2,
 ) {
-  // need a function to calculate the duration between two given points on a map
-  // need a function to calculate the duration between two given points on a map
   if (location1 == null || location2 == null) {
     return null;
   }
 
-  const earthRadius = 6371; // Earth's radius in kilometers
-  const averageSpeed = 100.0; // Average speed in km/h
+  const earthRadius = 6371;
+  const averageSpeed = 60.0; // km/h
+  const roadFactor = 1.4; // Tortuosity factor
 
   final lat1 = location1.latitude * (math.pi / 180);
   final lon1 = location1.longitude * (math.pi / 180);
@@ -162,11 +178,13 @@ int? routeDurationCalculator(
       math.cos(lat1) * math.cos(lat2) * math.sin(dLon / 2) * math.sin(dLon / 2);
   final c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
 
-  final distance = earthRadius * c;
-  final durationInHours = distance / averageSpeed;
-  final durationInMinutes = (durationInHours * 60).round();
+  final straightDistance = earthRadius * c;
+  final estimatedRoadDistance = straightDistance * roadFactor;
 
-  return durationInMinutes;
+  final durationInHours = estimatedRoadDistance / averageSpeed;
+
+  // Return the raw integer (minutes) to fix the error
+  return (durationInHours * 60).round();
 }
 
 List<double> latlngSplit(LatLng? location) {
@@ -194,40 +212,22 @@ double? routeDistanceCalcMulti(List<LatLng>? coordinates) {
   return double.parse((totalDistance).toStringAsFixed(2));
 }
 
-int? routeDurationCalcMulti(List<LatLng>? coordinates) {
-  // need a function to calculate the duration between multiple given  points on a map
-  // need a function to calculate the total duration of travel between multiple points on a map
-  if (coordinates == null || coordinates.isEmpty) {
+String? cardLastDigits(String cardNumber) {
+  // 1. Safe Null Check: If null or empty, return null
+  if (cardNumber == null || cardNumber.isEmpty) {
     return null;
   }
 
-  int totalDuration = 0;
+  // 2. Remove any spaces or dashes just in case
+  String cleanedCardNumber = cardNumber.replaceAll(RegExp(r'\s+|-'), '');
 
-  for (int i = 0; i < coordinates.length - 1; i++) {
-    LatLng start = coordinates[i];
-    LatLng end = coordinates[i + 1];
-
-    int duration = routeDurationCalculator(start, end) ?? 0;
-    totalDuration += duration;
+  // 3. Ensure it's long enough to have 4 digits
+  if (cleanedCardNumber.length < 4) {
+    return cleanedCardNumber; // Or return a default like "****"
   }
 
-  return totalDuration;
-}
-
-int? cardLastDigits(int? cardNumber) {
-  if (cardNumber == null) {
-    return null;
-  }
-
-  if (cardNumber < 0) {
-    cardNumber = -cardNumber; // Handle negative numbers
-  }
-
-  if (cardNumber < 10000) {
-    return cardNumber;
-  }
-
-  return cardNumber % 10000;
+  // 4. Return only the last 4 characters
+  return cleanedCardNumber.substring(cleanedCardNumber.length - 4);
 }
 
 String? getCountryCode(String? countryName) {
@@ -1042,4 +1042,100 @@ List<String>? getCountryList() {
   ];
 
   return countries;
+}
+
+DocumentReference? idExtractor(String? docRef) {
+  // i need a function that uses a string and converts it to a document reference
+  if (docRef == null || docRef.isEmpty) {
+    return null;
+  }
+  return FirebaseFirestore.instance.doc(docRef);
+}
+
+List<int>? returListIndexes(List<LatLng>? list) {
+  // return a list of indexes of a list
+  if (list == null) return null; // Return null if the input list is null
+  return List<int>.generate(
+      list.length, (index) => index); // Generate a list of indexes
+}
+
+double? riderRating(
+  double? orderReview,
+  double? driverRating,
+) {
+  // i need a function that takes the users order review and calculates the drivers overall review
+  if (orderReview == null || driverRating == null) {
+    return null; // Return null if any rating is null
+  }
+  return (orderReview + driverRating) / 2; // Calculate average rating
+}
+
+double? rideFareCalculator(
+  double gasPrice,
+  int assist,
+  String truckType,
+  double distance,
+) {
+// 1. Safe Defaults for Null Safety
+  double safeGasPrice = gasPrice ?? 0.239; // Default to M95 price
+  int safeAssist = assist ?? 0;
+  double safeDistance = distance ?? 0.0;
+  String type = (truckType ?? 'van').toLowerCase().trim();
+
+  // 2. Initialize variables for dynamic pricing
+  double baseFare = 5.000;
+  double ratePerKm = 0.250;
+
+  // 3. Realistic Omani Market Rates
+  if (type == 'van') {
+    baseFare = 5.000;
+    ratePerKm = 0.250;
+  } else if (type == 'box truck') {
+    baseFare = 10.000;
+    ratePerKm = 0.350;
+  } else if (type == 'car carrier') {
+    // Recovery vehicles usually have a solid base fee
+    baseFare = 15.000;
+    ratePerKm = 0.400;
+  } else if (type == 'dump truck') {
+    baseFare = 20.000;
+    ratePerKm = 0.450;
+  } else if (type == 'livestock truck') {
+    baseFare = 20.000;
+    ratePerKm = 0.450;
+  } else if (type == 'flatbed truck') {
+    baseFare = 25.000;
+    ratePerKm = 0.500;
+  } else if (type == 'tanker') {
+    baseFare = 25.000;
+    ratePerKm = 0.500;
+  } else if (type == 'refrigerated truck') {
+    // Running the cooling unit consumes a lot of extra fuel
+    baseFare = 30.000;
+    ratePerKm = 0.600;
+  } else if (type == 'semi-trailer truck') {
+    // Massive startup cost, loading time, and heavy fuel burn
+    baseFare = 60.000;
+    ratePerKm = 1.000;
+  }
+
+  // 4. Fuel Surcharge: Adds 10% of the gas price to the per-km rate
+  double fuelSurcharge = safeGasPrice * 0.10;
+  double totalKmRate = ratePerKm + fuelSurcharge;
+
+  // 5. Assistance Fee: Increased to 5.000 OMR
+  // Manual labor in the Oman heat is hard; 3.000 is often too low to attract helpers.
+  double assistanceFee = safeAssist * 5.000;
+
+  // 6. Total Calculation
+  double total = baseFare + (safeDistance * totalKmRate) + assistanceFee;
+
+  // 7. Minimum Fare
+  // The minimum fare should NEVER be less than the truck's specific base fare.
+  if (total < baseFare) {
+    total = baseFare;
+  }
+
+  // Return formatted to 3 decimal places for OMR
+  return double.parse(total.toStringAsFixed(3));
 }

@@ -1,33 +1,55 @@
 {
   "indexes": [
     {
-      "collectionGroup": "ride",
+      "collectionGroup": "Orders",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "orderStatus",
+          "fieldPath": "customer_id",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "created_on",
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
           "order": "DESCENDING"
         }
       ]
     },
     {
-      "collectionGroup": "ride",
+      "collectionGroup": "Orders",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "orderStatus",
+          "fieldPath": "status",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "user_name",
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Orders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "customer_id",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "created_on",
+          "fieldPath": "order_Complete_Confirm",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "created_at",
           "order": "DESCENDING"
         }
       ]

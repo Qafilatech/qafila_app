@@ -9,8 +9,6 @@ export '/account_profile_creation/forgot_password/forgot_password_widget.dart'
 export '/pages/user_profile/user_profile_widget.dart' show UserProfileWidget;
 export '/pages/edit_profile/edit_profile_widget.dart' show EditProfileWidget;
 export '/pages/order_summary/order_summary_widget.dart' show OrderSummaryWidget;
-export '/pages/delivery_screen_large/delivery_screen_large_widget.dart'
-    show DeliveryScreenLargeWidget;
 export '/pages/home/home_widget.dart' show HomeWidget;
 export '/account_profile_creation/validate_phone/validate_phone_widget.dart'
     show ValidatePhoneWidget;
@@ -21,15 +19,19 @@ export '/account_profile_creation/create_profile/create_profile_widget.dart'
 export '/account_profile_creation/onboarding/onboarding_widget.dart'
     show OnboardingWidget;
 export '/pages/terms_screen/terms_screen_widget.dart' show TermsScreenWidget;
-export '/pages/chat_menu/chat_menu_widget.dart' show ChatMenuWidget;
 export '/pages/favourites_screen/favourites_screen_widget.dart'
     show FavouritesScreenWidget;
 export '/pages/locate_ride_page/locate_ride_page_widget.dart'
     show LocateRidePageWidget;
-export '/pages/locate_ride_page_copy/locate_ride_page_copy_widget.dart'
-    show LocateRidePageCopyWidget;
 export '/pages/payment_screen/payment_screen_widget.dart'
     show PaymentScreenWidget;
 export '/pages/support_page/support_page_widget.dart' show SupportPageWidget;
 export '/account_profile_creation/terms_screen_copy/terms_screen_copy_widget.dart'
     show TermsScreenCopyWidget;
+export '/pages/invoice_screen/invoice_screen_widget.dart'
+    show InvoiceScreenWidget;
+export '/pages/settings_screen/settings_screen_widget.dart'
+    show SettingsScreenWidget;
+export '/pages/large_delivery_screen/large_delivery_screen_widget.dart'
+    show LargeDeliveryScreenWidget;
+export '/pages/loading_page/loading_page_widget.dart' show LoadingPageWidget;

@@ -1,27 +1,17 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
+import '/components/appbar_component/appbar_component_widget.dart';
+import '/components/menu_drawer/menu_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_google_map.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:math';
-import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 import 'order_summary_model.dart';
 export 'order_summary_model.dart';
 
@@ -40,13 +30,10 @@ class OrderSummaryWidget extends StatefulWidget {
   State<OrderSummaryWidget> createState() => _OrderSummaryWidgetState();
 }
 
-class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
-    with TickerProviderStateMixin {
+class _OrderSummaryWidgetState extends State<OrderSummaryWidget> {
   late OrderSummaryModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -54,29 +41,6 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
     _model = createModel(context, () => OrderSummaryModel());
 
     _model.textFieldFocusNode ??= FocusNode();
-
-    animationsMap.addAll({
-      'containerOnPageLoadAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          VisibilityEffect(duration: 1.ms),
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 400.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          ScaleEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 400.0.ms,
-            begin: Offset(3.0, 3.0),
-            end: Offset(1.0, 1.0),
-          ),
-        ],
-      ),
-    });
   }
 
   @override
@@ -88,8 +52,8 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<RideRecord>(
-      stream: RideRecord.getDocument(widget!.rideRef!),
+    return StreamBuilder<OrdersRecord>(
+      stream: OrdersRecord.getDocument(widget.rideRef!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -108,269 +72,137 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
           );
         }
 
-        final orderSummaryRideRecord = snapshot.data!;
+        final orderSummaryOrdersRecord = snapshot.data!;
 
         return Scaffold(
           key: scaffoldKey,
-          resizeToAvoidBottomInset: false,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          endDrawer: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.menuDrawerModel,
+              updateCallback: () => safeSetState(() {}),
+              child: MenuDrawerWidget(),
+            ),
+          ),
           body: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                width: double.infinity,
-                height: 150.0,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      FlutterFlowTheme.of(context).primary,
-                      FlutterFlowTheme.of(context).accent1,
-                      FlutterFlowTheme.of(context).accent2
-                    ],
-                    stops: [0.0, 0.5, 1.0],
-                    begin: AlignmentDirectional(-1.0, -1.0),
-                    end: AlignmentDirectional(1.0, 1.0),
-                  ),
+              wrapWithModel(
+                model: _model.appbarComponentModel,
+                updateCallback: () => safeSetState(() {}),
+                child: AppbarComponentWidget(
+                  pageTitle: 'Order Summary',
+                  menuButtonAction: () async {
+                    scaffoldKey.currentState!.openEndDrawer();
+                  },
                 ),
-                child: Container(
-                  width: 100.0,
-                  height: 300.0,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        valueOrDefault<Color>(
-                          Theme.of(context).brightness == Brightness.dark
-                              ? Color(0x00101518)
-                              : Color(0x00FFFFFF),
-                          Color(0x00FFFFFF),
-                        ),
-                        FlutterFlowTheme.of(context).primaryBackground
-                      ],
-                      stops: [0.0, 1.0],
-                      begin: AlignmentDirectional(0.0, -1.0),
-                      end: AlignmentDirectional(0, 1.0),
-                    ),
-                    border: Border.all(
-                      color: Colors.transparent,
-                    ),
-                  ),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 0.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 12.0, 0.0),
-                                child: FlutterFlowIconButton(
-                                  icon: Icon(
-                                    Icons.chevron_left_sharp,
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                    size: 30.0,
-                                  ),
-                                  onPressed: () async {
-                                    context.safePop();
-                                  },
-                                ),
-                              ),
-                              RichText(
-                                textScaler: MediaQuery.of(context).textScaler,
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: FFLocalizations.of(context).getText(
-                                        'vvcvtyhk' /* Order ID -  */,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleLarge
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 25.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                    TextSpan(
-                                      text: orderSummaryRideRecord.orderID,
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineSmall
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 25.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                    )
-                                  ],
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ).animateOnPageLoad(
-                  animationsMap['containerOnPageLoadAnimation']!),
+              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          child: Container(
-                            width: 350.0,
-                            height: 200.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 12.0, 0.0, 0.0),
-                              child: FlutterFlowGoogleMap(
-                                controller: _model.googleMapsController,
-                                onCameraIdle: (latLng) =>
-                                    _model.googleMapsCenter = latLng,
-                                initialLocation: _model.googleMapsCenter ??=
-                                    orderSummaryRideRecord
-                                        .coordinates.firstOrNull!,
-                                markers: orderSummaryRideRecord.coordinates
-                                    .map(
-                                      (marker) => FlutterFlowMarker(
-                                        marker.serialize(),
-                                        marker,
-                                      ),
-                                    )
-                                    .toList(),
-                                markerColor: GoogleMarkerColor.violet,
-                                mapType: MapType.normal,
-                                style: GoogleMapStyle.standard,
-                                initialZoom: 14.0,
-                                allowInteraction: false,
-                                allowZoom: false,
-                                showZoomControls: false,
-                                showLocation: true,
-                                showCompass: false,
-                                showMapToolbar: false,
-                                showTraffic: false,
-                                centerMapOnMarkerTap: true,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 26.0, 0.0, 12.0),
+                            26.0, 20.0, 26.0, 10.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  6.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                FFLocalizations.of(context).getText(
-                                  '7o6p0mg3' /* Order Status */,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
+                            Text(
+                              'Order • ${orderSummaryOrdersRecord.orderId}',
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .override(
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineMedium
+                                          .fontStyle,
                                     ),
-                              ),
+                                    fontSize: 24.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .fontStyle,
+                                  ),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 20.0, 0.0),
-                              child: Container(
-                                width: 100.0,
-                                height: 35.0,
-                                decoration: BoxDecoration(
+                            Container(
+                              width: 80.0,
+                              height: 35.0,
+                              decoration: BoxDecoration(
+                                color: () {
+                                  if (orderSummaryOrdersRecord.status ==
+                                      'Active') {
+                                    return FlutterFlowTheme.of(context).accent1;
+                                  } else if (orderSummaryOrdersRecord.status ==
+                                      'Complete') {
+                                    return FlutterFlowTheme.of(context).accent2;
+                                  } else {
+                                    return Color(0x4CC4454D);
+                                  }
+                                }(),
+                                borderRadius: BorderRadius.circular(24.0),
+                                border: Border.all(
                                   color: () {
-                                    if (orderSummaryRideRecord.orderStatus ==
+                                    if (orderSummaryOrdersRecord.status ==
                                         'Active') {
                                       return FlutterFlowTheme.of(context)
+                                          .primary;
+                                    } else if (orderSummaryOrdersRecord
+                                            .status ==
+                                        'Complete') {
+                                      return FlutterFlowTheme.of(context)
                                           .secondary;
-                                    } else if (orderSummaryRideRecord
-                                            .orderStatus ==
-                                        'On Route') {
-                                      return FlutterFlowTheme.of(context)
-                                          .warning;
                                     } else {
-                                      return FlutterFlowTheme.of(context)
-                                          .accent3;
+                                      return FlutterFlowTheme.of(context).error;
                                     }
                                   }(),
-                                  borderRadius: BorderRadius.circular(24.0),
-                                  border: Border.all(
-                                    color: () {
-                                      if (orderSummaryRideRecord.orderStatus ==
-                                          'Active') {
-                                        return FlutterFlowTheme.of(context)
-                                            .primary;
-                                      } else if (orderSummaryRideRecord
-                                              .orderStatus ==
-                                          'On Route') {
-                                        return FlutterFlowTheme.of(context)
-                                            .secondary;
-                                      } else {
-                                        return FlutterFlowTheme.of(context)
-                                            .tertiary;
-                                      }
-                                    }(),
-                                  ),
                                 ),
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      () {
-                                        if (orderSummaryRideRecord
-                                                .orderStatus ==
-                                            'Active') {
-                                          return 'Active';
-                                        } else if (orderSummaryRideRecord
-                                                .orderStatus ==
-                                            'On Route') {
-                                          return 'On Route';
-                                        } else {
-                                          return 'Completed';
-                                        }
-                                      }(),
-                                      '-',
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
+                              ),
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Text(
+                                  orderSummaryOrdersRecord.status,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
-                                  ),
+                                        color: () {
+                                          if (orderSummaryOrdersRecord.status ==
+                                              'Active') {
+                                            return FlutterFlowTheme.of(context)
+                                                .primary;
+                                          } else if (orderSummaryOrdersRecord
+                                                  .status ==
+                                              'Complete') {
+                                            return FlutterFlowTheme.of(context)
+                                                .secondary;
+                                          } else {
+                                            return FlutterFlowTheme.of(context)
+                                                .error;
+                                          }
+                                        }(),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
                                 ),
                               ),
                             ),
@@ -379,7 +211,7 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 0.0),
+                            32.0, 16.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -391,22 +223,51 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
                             Text(
-                              dateTimeFormat(
-                                "MEd",
-                                orderSummaryRideRecord.createdOn!,
-                                locale:
-                                    FFLocalizations.of(context).languageCode,
+                              valueOrDefault<String>(
+                                dateTimeFormat(
+                                  "d/M h:mm a",
+                                  orderSummaryOrdersRecord.scheduleFor,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
+                                'N/A',
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
                           ],
@@ -426,13 +287,26 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
                             Text(
                               valueOrDefault<String>(
-                                orderSummaryRideRecord.cargoType,
+                                orderSummaryOrdersRecord.cargoType,
                                 'N/A',
                               ).maybeHandleOverflow(
                                 maxChars: 32,
@@ -441,8 +315,21 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
                           ],
@@ -457,18 +344,31 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                           children: [
                             Text(
                               FFLocalizations.of(context).getText(
-                                'sczcpfvu' /* Package Type */,
+                                'hzqud3rn' /* Vehicle Type */,
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
                             Text(
                               valueOrDefault<String>(
-                                orderSummaryRideRecord.packageType,
+                                orderSummaryOrdersRecord.requiredVehicle,
                                 'N/A',
                               ).maybeHandleOverflow(
                                 maxChars: 32,
@@ -477,8 +377,21 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
                           ],
@@ -493,19 +406,42 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                           children: [
                             Text(
                               FFLocalizations.of(context).getText(
-                                'stb1f0k9' /* Assembly */,
+                                'eo1d1o4m' /* Assistance Required */,
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
                             Text(
                               valueOrDefault<String>(
-                                orderSummaryRideRecord.packageAssembly,
-                                'N/A',
+                                orderSummaryOrdersRecord.assistanceCount > 0
+                                    ? valueOrDefault<String>(
+                                        formatNumber(
+                                          orderSummaryOrdersRecord
+                                              .assistanceCount,
+                                          formatType: FormatType.decimal,
+                                          decimalType: DecimalType.automatic,
+                                        ),
+                                        'None',
+                                      )
+                                    : 'None',
+                                'None',
                               ).maybeHandleOverflow(
                                 maxChars: 32,
                                 replacement: '…',
@@ -513,44 +449,21 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 8.0, 32.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'eo1d1o4m' /* Vehicle Type */,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyLarge
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                            Text(
-                              valueOrDefault<String>(
-                                orderSummaryRideRecord.vehicleType,
-                                'N/A',
-                              ).maybeHandleOverflow(
-                                maxChars: 32,
-                                replacement: '…',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyLarge
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
                           ],
@@ -563,14 +476,13 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 24.0, 24.0, 16.0),
+                                  24.0, 16.0, 24.0, 8.0),
                               child: FlutterFlowChoiceChips(
-                                options: orderSummaryRideRecord.packageInfo
+                                options: orderSummaryOrdersRecord.handleType
                                     .map((label) => ChipData(label))
                                     .toList(),
-                                onChanged: (orderSummaryRideRecord.cargoType !=
-                                            null &&
-                                        orderSummaryRideRecord.cargoType != '')
+                                onChanged: orderSummaryOrdersRecord
+                                        .hasHandleType()
                                     ? null
                                     : (val) => safeSetState(
                                         () => _model.amentitiesValues = val),
@@ -580,16 +492,31 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                                   textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
                                         color: Colors.white,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
                                   iconColor: FlutterFlowTheme.of(context).info,
-                                  iconSize: 18.0,
+                                  iconSize: 14.0,
                                   labelPadding: EdgeInsetsDirectional.fromSTEB(
                                       12.0, 4.0, 12.0, 4.0),
                                   elevation: 4.0,
-                                  borderRadius: BorderRadius.circular(24.0),
+                                  borderRadius: BorderRadius.circular(100.0),
                                 ),
                                 unselectedChipStyle: ChipStyle(
                                   backgroundColor:
@@ -597,15 +524,30 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                                   textStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                            .primaryText,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
                                       ),
                                   iconColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  iconSize: 18.0,
-                                  labelPadding: EdgeInsets.all(6.0),
+                                  iconSize: 14.0,
+                                  labelPadding: EdgeInsets.all(2.0),
                                   elevation: 0.0,
                                 ),
                                 chipSpacing: 12.0,
@@ -625,110 +567,45 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                           ],
                         ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  valueOrDefault<String>(
-                                    formatNumber(
-                                      orderSummaryRideRecord.assistance,
-                                      formatType: FormatType.decimal,
-                                      decimalType: DecimalType.automatic,
-                                    ),
-                                    '-',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .displayMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                                Text(
-                                  FFLocalizations.of(context).getText(
-                                    'eic2ujwo' /* Assistance */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyLarge
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 50.0,
-                              child: VerticalDivider(
-                                thickness: 2.0,
-                                color: FlutterFlowTheme.of(context).alternate,
-                              ),
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  valueOrDefault<String>(
-                                    orderSummaryRideRecord.cargoAmount
-                                        .toString(),
-                                    'N/A',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .displayMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                                Text(
-                                  FFLocalizations.of(context).getText(
-                                    'llgnjig2' /* Units */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyLarge
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
                       Divider(
-                        height: 36.0,
+                        height: 30.0,
                         thickness: 1.0,
+                        indent: 26.0,
+                        endIndent: 26.0,
                         color: FlutterFlowTheme.of(context).alternate,
                       ),
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(26.0, 8.0, 0.0, 8.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            26.0, 0.0, 0.0, 10.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
                             'vkepcq6t' /* Route */,
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
+                                    fontSize: 20.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                         ),
                       ),
                       Builder(
                         builder: (context) {
                           final summaryList =
-                              orderSummaryRideRecord.coordinates.toList();
+                              orderSummaryOrdersRecord.addresses.toList();
 
                           return ListView.builder(
                             padding: EdgeInsets.zero,
+                            primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: summaryList.length,
@@ -737,7 +614,7 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                                   summaryList[summaryListIndex];
                               return Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 6.0, 32.0, 6.0),
+                                    32.0, 0.0, 32.0, 8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -753,14 +630,25 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            fontSize: 16.0,
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w300,
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                     Text(
                                       valueOrDefault<String>(
-                                        summaryListItem.toString(),
+                                        summaryListItem,
                                         'nill',
                                       ).maybeHandleOverflow(
                                         maxChars: 32,
@@ -769,9 +657,19 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ],
@@ -782,16 +680,26 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                         },
                       ),
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(26.0, 8.0, 0.0, 8.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            26.0, 16.0, 0.0, 8.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
-                            'gbgk58gw' /* Comments/Remarks */,
+                            'gbgk58gw' /* Comments */,
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyLarge.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
+                                    fontSize: 20.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                         ),
                       ),
@@ -803,7 +711,10 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                           child: TextFormField(
                             controller: _model.textController ??=
                                 TextEditingController(
-                              text: orderSummaryRideRecord.orderDetails,
+                              text: valueOrDefault<String>(
+                                orderSummaryOrdersRecord.cargoRemarks,
+                                'N/A',
+                              ),
                             ),
                             focusNode: _model.textFieldFocusNode,
                             autofocus: false,
@@ -814,8 +725,21 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                               hintText: FFLocalizations.of(context).getText(
                                 'mml1mm1w' /* TextField */,
@@ -823,8 +747,21 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -861,8 +798,21 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                             maxLines: 4,
                             cursorColor:
@@ -872,78 +822,109 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                           ),
                         ),
                       ),
-                      if (orderSummaryRideRecord.orderStatus == 'Completed')
+                      if (orderSummaryOrdersRecord.status == 'Complete')
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 14.0, 32.0, 0.0),
-                          child: Row(
+                              26.0, 16.0, 26.0, 0.0),
+                          child: Column(
                             mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                FFLocalizations.of(context).getText(
-                                  'vktoams7' /* Order Review */,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    FFLocalizations.of(context).getText(
+                                      'vktoams7' /* Order Review */,
                                     ),
-                              ),
-                              Text(
-                                formatNumber(
-                                  orderSummaryRideRecord.orderRating,
-                                  formatType: FormatType.decimal,
-                                  decimalType: DecimalType.automatic,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          font: GoogleFonts.readexPro(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
+                                          fontSize: 20.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                  Text(
+                                    valueOrDefault<String>(
+                                      formatNumber(
+                                        orderSummaryOrdersRecord.rating,
+                                        formatType: FormatType.decimal,
+                                        decimalType: DecimalType.automatic,
+                                      ),
+                                      '-',
                                     ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      if (orderSummaryRideRecord.orderStatus == 'Completed')
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 12.0),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              child: RatingBar.builder(
-                                onRatingUpdate: (newValue) async {
-                                  safeSetState(
-                                      () => _model.ratingBarValue = newValue);
-
-                                  await widget!.rideRef!
-                                      .update(createRideRecordData(
-                                    orderRating: _model.ratingBarValue?.round(),
-                                  ));
-                                },
-                                itemBuilder: (context, index) => Icon(
-                                  Icons.star_rounded,
-                                  color: FlutterFlowTheme.of(context).tertiary,
+                              Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    await widget.rideRef!
+                                        .update(createOrdersRecordData(
+                                      rating: orderSummaryOrdersRecord.rating,
+                                    ));
+                                  },
+                                  child: RatingBarIndicator(
+                                    itemBuilder: (context, index) => Icon(
+                                      Icons.star_rounded,
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                    ),
+                                    direction: Axis.horizontal,
+                                    rating: valueOrDefault<double>(
+                                      orderSummaryOrdersRecord.rating
+                                          .toDouble(),
+                                      0.0,
+                                    ),
+                                    unratedColor:
+                                        FlutterFlowTheme.of(context).accent3,
+                                    itemCount: 5,
+                                    itemSize: 42.0,
+                                  ),
                                 ),
-                                direction: Axis.horizontal,
-                                initialRating: _model.ratingBarValue ??=
-                                    orderSummaryRideRecord.orderRating
-                                        .toDouble(),
-                                unratedColor:
-                                    FlutterFlowTheme.of(context).accent3,
-                                itemCount: 5,
-                                itemSize: 42.0,
-                                glowColor:
-                                    FlutterFlowTheme.of(context).tertiary,
                               ),
-                            ),
+                            ].divide(SizedBox(height: 6.0)),
                           ),
                         ),
                       Divider(
@@ -953,7 +934,7 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 12.0, 32.0, 16.0),
+                            26.0, 16.0, 26.0, 16.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -965,54 +946,52 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
+                                    fontSize: 20.0,
                                     letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                             ),
-                          ],
-                        ),
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 0.0, 0.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              await Navigator.push(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.fade,
-                                  child: FlutterFlowExpandedImageView(
-                                    image: Image.network(
-                                      orderSummaryRideRecord.orderImage,
-                                      fit: BoxFit.contain,
-                                    ),
-                                    allowRotation: false,
-                                    tag: orderSummaryRideRecord.orderImage,
-                                    useHeroAnimation: true,
-                                  ),
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0x1A6898AB),
+                                    Color(0x2618AA99)
+                                  ],
+                                  stops: [0.0, 1.0],
+                                  begin: AlignmentDirectional(0.0, -1.0),
+                                  end: AlignmentDirectional(0, 1.0),
                                 ),
-                              );
-                            },
-                            child: Hero(
-                              tag: orderSummaryRideRecord.orderImage,
-                              transitionOnUserGestures: true,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network(
-                                  orderSummaryRideRecord.orderImage,
-                                  width: 200.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(2.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    orderSummaryOrdersRecord.orderAttachment,
+                                    width: 100.0,
+                                    height: 100.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ],
@@ -1037,7 +1016,7 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Divider(
-                      height: 20.0,
+                      height: 4.0,
                       thickness: 1.0,
                       color: FlutterFlowTheme.of(context).alternate,
                     ),
@@ -1055,8 +1034,21 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
                                 ),
                           ),
                         ],
@@ -1064,7 +1056,7 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 6.0, 24.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1076,14 +1068,22 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .fontStyle,
                                 ),
                           ),
                           Text(
                             formatNumber(
-                              orderSummaryRideRecord.orderPrice,
+                              orderSummaryOrdersRecord.paymentAmount,
                               formatType: FormatType.decimal,
                               decimalType: DecimalType.automatic,
                               currency: 'OMR ',
@@ -1091,34 +1091,62 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                             style: FlutterFlowTheme.of(context)
                                 .displaySmall
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .displaySmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .displaySmall
+                                      .fontStyle,
                                 ),
                           ),
                         ],
                       ),
                     ),
-                    if (orderSummaryRideRecord.orderStatus != 'Completed')
+                    if (orderSummaryOrdersRecord.status != 'Complete')
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 12.0, 16.0, 34.0),
                         child: FFButtonWidget(
-                          onPressed: (orderSummaryRideRecord.orderStatus ==
-                                  'Completed')
-                              ? null
-                              : () async {
-                                  context.pushNamed(
-                                    LocateRidePageWidget.routeName,
-                                    queryParameters: {
-                                      'rideDetailsReference': serializeParam(
-                                        widget!.rideRef,
-                                        ParamType.DocumentReference,
-                                      ),
-                                    }.withoutNulls,
-                                  );
-                                },
+                          onPressed: () async {
+                            _model.routeHelp = await actions.getRoadRoute(
+                              orderSummaryOrdersRecord.coordinates
+                                  .elementAtOrNull(0)!,
+                              orderSummaryOrdersRecord.coordinates
+                                  .elementAtOrNull(1)!,
+                            );
+
+                            context.pushNamed(
+                              LocateRidePageWidget.routeName,
+                              queryParameters: {
+                                'rideDetailsReference': serializeParam(
+                                  widget.rideRef,
+                                  ParamType.DocumentReference,
+                                ),
+                                'routeHelp': serializeParam(
+                                  _model.routeHelp,
+                                  ParamType.LatLng,
+                                  isList: true,
+                                ),
+                              }.withoutNulls,
+                            );
+
+                            safeSetState(() {});
+                          },
                           text: FFLocalizations.of(context).getText(
                             'v2o0fmcc' /* Track Order */,
+                          ),
+                          icon: Icon(
+                            Icons.pin_drop,
+                            size: 22.0,
                           ),
                           options: FFButtonOptions(
                             width: double.infinity,
@@ -1127,15 +1155,29 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                                 0.0, 0.0, 0.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
+                            iconColor: FlutterFlowTheme.of(context).secondary,
                             color: FlutterFlowTheme.of(context).primaryText,
                             textStyle: FlutterFlowTheme.of(context)
                                 .displaySmall
                                 .override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .fontStyle,
+                                  ),
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .displaySmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .displaySmall
+                                      .fontStyle,
                                 ),
                             elevation: 0.0,
                             borderSide: BorderSide(
@@ -1143,9 +1185,69 @@ class _OrderSummaryWidgetState extends State<OrderSummaryWidget>
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(10.0),
-                            disabledColor: FlutterFlowTheme.of(context).accent1,
-                            disabledTextColor:
-                                FlutterFlowTheme.of(context).primaryText,
+                          ),
+                        ),
+                      ),
+                    if (orderSummaryOrdersRecord.status == 'Complete')
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 12.0, 16.0, 34.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            context.pushNamed(
+                              InvoiceScreenWidget.routeName,
+                              queryParameters: {
+                                'rideref': serializeParam(
+                                  widget.rideRef,
+                                  ParamType.DocumentReference,
+                                ),
+                              }.withoutNulls,
+                            );
+                          },
+                          text: FFLocalizations.of(context).getText(
+                            '94aavkh4' /* View Invoice */,
+                          ),
+                          icon: Icon(
+                            Icons.document_scanner,
+                            size: 22.0,
+                          ),
+                          options: FFButtonOptions(
+                            width: double.infinity,
+                            height: 50.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconColor: FlutterFlowTheme.of(context).secondary,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .displaySmall
+                                .override(
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .fontStyle,
+                                  ),
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .displaySmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .displaySmall
+                                      .fontStyle,
+                                ),
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
                       ),

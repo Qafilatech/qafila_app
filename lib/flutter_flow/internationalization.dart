@@ -147,43 +147,38 @@ bool _isSupportedLocale(Locale locale) {
 final kTranslationsMap = <Map<String, Map<String, String>>>[
   // OrderHistory
   {
-    'ifwq2r9e': {
-      'en': 'Order History',
-      'ar': 'سجل الطلبات',
-      'ur': 'آرڈر کی تاریخ',
-    },
-    'rmvw7pfe': {
+    '38m2c1vb': {
       'en': 'Below are a summary of your invoices.',
       'ar': 'فيما يلي ملخص لفواتيرك.',
       'ur': 'ذیل میں آپ کی رسیدوں کا خلاصہ ہے۔',
     },
-    'qron9id9': {
-      'en': 'All',
+    'z179i6k2': {
+      'en': 'Active',
       'ar': 'الجميع',
       'ur': 'تمام',
     },
-    'm627yg1j': {
-      'en': 'Order #: ',
+    'inmrablz': {
+      'en': 'Order ID • ',
       'ar': 'طلب #:',
       'ur': 'آرڈر نمبر:',
     },
-    'xo2096au': {
-      'en': 'Active',
+    'o78ttj2r': {
+      'en': 'On Route',
       'ar': 'نشيط',
       'ur': 'فعال',
     },
-    'v2i4zhv0': {
-      'en': 'Order #: ',
+    'g66st1so': {
+      'en': 'Order ID • ',
       'ar': 'طلب #:',
       'ur': 'آرڈر نمبر:',
     },
-    'is1va2kn': {
-      'en': 'Done',
+    'ey5s3jxn': {
+      'en': 'Completed',
       'ar': 'منتهي',
       'ur': 'ہو گیا',
     },
-    'qn8vmw47': {
-      'en': 'Order #: ',
+    '10iv2tba': {
+      'en': 'Order ID • ',
       'ar': 'طلب #:',
       'ur': 'آرڈر نمبر:',
     },
@@ -195,117 +190,117 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // CreateStart
   {
-    'wxprsdvo': {
+    'uawnfm1b': {
       'en': 'Qafila',
       'ar': 'القافلة',
       'ur': 'قافلہ',
     },
-    'y2rflzdl': {
+    '8zba10to': {
       'en': '.Tech',
       'ar': '.التكنولوجيا',
       'ur': '.ٹیک',
     },
-    '8dlh3uyb': {
+    '8hl7htmx': {
       'en': 'Get Started',
       'ar': 'البدء',
       'ur': 'شروع کریں',
     },
-    'rcf1zn5l': {
+    '7p8ltlzo': {
       'en': 'Create an account by using the form below.',
       'ar': 'قم بإنشاء حساب باستخدام النموذج أدناه.',
       'ur': 'نیچے دیے گئے فارم کو استعمال کرکے ایک اکاؤنٹ بنائیں۔',
     },
-    't38n9sv1': {
+    '60seze1x': {
       'en': 'Email',
       'ar': 'بريد إلكتروني',
       'ur': 'ای میل',
     },
-    'hzqxf7mb': {
+    'g9zt9jof': {
       'en': 'Password',
       'ar': 'كلمة المرور',
       'ur': 'پاس ورڈ',
     },
-    'q0dwderc': {
+    'pwayammy': {
       'en': 'Confirm Password',
       'ar': 'تأكيد كلمة المرور',
       'ur': 'پاس ورڈ کی تصدیق کریں۔',
     },
-    '4qjyiiao': {
+    'p9nyrmzi': {
       'en': 'Email is required',
       'ar': 'البريد الإلكتروني مطلوب',
       'ur': 'ای میل درکار ہے۔',
     },
-    'ggkkmxrq': {
+    'i3lgz0uc': {
       'en': 'Incorrect email format.',
       'ar': 'تنسيق البريد الإلكتروني غير صحيح.',
       'ur': 'غلط ای میل فارمیٹ۔',
     },
-    '9qq55zpn': {
+    '0xpz7deo': {
       'en': 'Please choose an option from the dropdown',
       'ar': 'الرجاء اختيار خيار من القائمة المنسدلة',
       'ur': 'براہ کرم ڈراپ ڈاؤن سے ایک آپشن منتخب کریں۔',
     },
-    '3qs2g4bj': {
+    'uu81u28s': {
       'en': 'Password is required',
       'ar': 'كلمة المرور مطلوبة',
       'ur': 'پاس ورڈ درکار ہے۔',
     },
-    'uwzl5c00': {
+    'nl088jis': {
       'en': 'Password needs to be longer than 8 characters.',
       'ar': 'يجب أن تكون كلمة المرور أطول من 8 أحرف.',
       'ur': 'پاس ورڈ 8 حروف سے زیادہ لمبا ہونا ضروری ہے۔',
     },
-    '2p9h53t6': {
+    '12k4j7hf': {
       'en': 'Please choose an option from the dropdown',
       'ar': 'الرجاء اختيار خيار من القائمة المنسدلة',
       'ur': 'براہ کرم ڈراپ ڈاؤن سے ایک آپشن منتخب کریں۔',
     },
-    'o16y7c3h': {
+    'wydxflyw': {
       'en': 'Confirm Password is required',
       'ar': 'تأكيد كلمة المرور مطلوب',
       'ur': 'تصدیق کریں پاس ورڈ درکار ہے۔',
     },
-    'ri04xoyq': {
+    '4gqagk9h': {
       'en': 'Password needs to be longer than 8 characters.',
       'ar': 'يجب أن تكون كلمة المرور أطول من 8 أحرف.',
       'ur': 'پاس ورڈ 8 حروف سے زیادہ لمبا ہونا ضروری ہے۔',
     },
-    'ccykymeb': {
+    'gxondjss': {
       'en': 'Please choose an option from the dropdown',
       'ar': 'الرجاء اختيار خيار من القائمة المنسدلة',
       'ur': 'براہ کرم ڈراپ ڈاؤن سے ایک آپشن منتخب کریں۔',
     },
-    'bd6ha3e0': {
+    'lqpvb4jw': {
       'en': 'Create Account',
       'ar': 'إنشاء حساب',
       'ur': 'اکاؤنٹ بنائیں',
     },
-    '7fed5xct': {
+    'd18caoky': {
       'en': 'Or sign up with',
       'ar': 'أو قم بالتسجيل مع',
       'ur': 'یا اس کے ساتھ سائن اپ کریں۔',
     },
-    'p0wpobr9': {
+    '7izzd8xq': {
       'en': 'Continue with Google',
       'ar': 'متابعة مع جوجل',
       'ur': 'گوگل کے ساتھ جاری رکھیں',
     },
-    'nqthr9zo': {
+    'qw4hi4u7': {
       'en': 'Continue with Apple',
       'ar': 'متابعة مع Apple',
       'ur': 'ایپل کے ساتھ جاری رکھیں',
     },
-    '0i9sgcgh': {
+    'gjro1zkk': {
       'en': 'Already have an account? ',
       'ar': 'هل لديك حساب بالفعل؟',
       'ur': 'پہلے سے ہی اکاؤنٹ ہے؟',
     },
-    '3r8z00sh': {
+    '6z0w4x9j': {
       'en': 'Sign in here',
       'ar': 'سجل الدخول هنا',
       'ur': 'یہاں سائن ان کریں۔',
     },
-    'd7h1kjb3': {
+    '9eq8eu4z': {
       'en': 'An App Developed by QafilaTech ©',
       'ar': 'تطبيق تم تطويره بواسطة QafilaTech ©',
       'ur': 'KafilaTech © کی طرف سے تیار کردہ ایک ایپ',
@@ -318,73 +313,73 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // LoginStart
   {
-    '1ucxrnhw': {
+    'ia54wxt8': {
       'en': 'Qafila',
       'ar': 'القافلة',
       'ur': 'قافلہ',
     },
-    'xtvbhy6h': {
+    'mbe9qn3e': {
       'en': '.Tech',
       'ar': '.التكنولوجيا',
       'ur': '.ٹیک',
     },
-    'c2w0mbcb': {
+    'acgrn6cj': {
       'en': 'Welcome Back',
       'ar': 'مرحبًا بعودتك',
       'ur': 'دوبارہ خوش آمدید',
     },
-    'g6rzx862': {
+    '9za7s502': {
       'en': 'Fill out the information below in order to access your account.',
       'ar': 'قم بملء المعلومات أدناه لتتمكن من الوصول إلى حسابك.',
       'ur':
           'اپنے اکاؤنٹ تک رسائی حاصل کرنے کے لیے نیچے دی گئی معلومات کو پُر کریں۔',
     },
-    'r5rmtm8g': {
+    'hj0zkcxw': {
       'en': 'Email',
       'ar': 'بريد إلكتروني',
       'ur': 'ای میل',
     },
-    '2lzbtify': {
+    'hm75aojt': {
       'en': 'Password',
       'ar': 'كلمة المرور',
       'ur': 'پاس ورڈ',
     },
-    '3k0d27za': {
+    '7qjpj6v8': {
       'en': 'Sign In',
       'ar': 'تسجيل الدخول',
       'ur': 'سائن ان کریں۔',
     },
-    'g1f8lxz8': {
+    'qartcsti': {
       'en': 'Or sign in with',
       'ar': 'أو قم بتسجيل الدخول باستخدام',
       'ur': 'یا اس کے ساتھ سائن ان کریں۔',
     },
-    '9i86ov01': {
+    'osxv828r': {
       'en': 'Continue with Google',
       'ar': 'متابعة مع جوجل',
       'ur': 'گوگل کے ساتھ جاری رکھیں',
     },
-    'nhro0nbm': {
+    'w84ck5dz': {
       'en': 'Continue with Apple',
       'ar': 'متابعة مع Apple',
       'ur': 'ایپل کے ساتھ جاری رکھیں',
     },
-    '31cajylg': {
+    'gfq7rvcy': {
       'en': 'Don\'t have an account?  ',
       'ar': 'ليس لديك حساب؟',
       'ur': 'اکاؤنٹ نہیں ہے؟',
     },
-    'h8c3vxlt': {
+    'd1mmjvg3': {
       'en': 'Create Account',
       'ar': 'إنشاء حساب',
       'ur': 'اکاؤنٹ بنائیں',
     },
-    'yfew34e8': {
+    '9h2pfeio': {
       'en': 'Forgot password?',
       'ar': 'هل نسيت كلمة السر؟',
       'ur': 'پاس ورڈ بھول گئے؟',
     },
-    'gfrn8aeh': {
+    '25fgoz41': {
       'en': 'An App Developed by QafilaTech ©',
       'ar': 'تطبيق تم تطويره بواسطة QafilaTech ©',
       'ur': 'KafilaTech © کی طرف سے تیار کردہ ایک ایپ',
@@ -438,11 +433,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // UserProfile
   {
-    'onbibmdq': {
-      'en': 'Profile',
-      'ar': 'حساب تعريفي',
-      'ur': 'پروفائل',
-    },
     'ujv1jenq': {
       'en': 'Your Account',
       'ar': 'حسابك',
@@ -481,11 +471,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // EditProfile
   {
-    'e5tnsjsp': {
-      'en': 'Edit Profile',
-      'ar': 'تعديل الملف الشخصي',
-      'ur': 'پروفائل میں ترمیم کریں۔',
-    },
     'uq2e9a6r': {
       'en': 'Adjust the content below to get started with QafilaTech',
       'ar': 'قم بتعديل المحتوى أدناه للبدء في استخدام QafilaTech',
@@ -498,21 +483,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ur': 'تصویر تبدیل کریں۔',
     },
     'c9efwfrz': {
-      'en': 'First Name',
+      'en': 'Display Name',
       'ar': 'الاسم الأول',
       'ur': 'پہلا نام',
     },
     'jrhlrjh4': {
-      'en': 'Your full name...',
-      'ar': 'اسمك الكامل...',
-      'ur': 'آپ کا پورا نام...',
-    },
-    'ug5godf4': {
-      'en': 'Last Name',
-      'ar': 'اسم العائلة',
-      'ur': 'آخری نام',
-    },
-    'xzcas51z': {
       'en': 'Your full name...',
       'ar': 'اسمك الكامل...',
       'ur': 'آپ کا پورا نام...',
@@ -550,16 +525,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // OrderSummary
   {
-    'vvcvtyhk': {
-      'en': 'Order ID - ',
-      'ar': 'معرف الطلب -',
-      'ur': 'آرڈر کی شناخت -',
-    },
-    '7o6p0mg3': {
-      'en': 'Order Status',
-      'ar': 'حالة الطلب',
-      'ur': 'آرڈر کی حیثیت',
-    },
     '6jqi1cq0': {
       'en': 'Schedule time',
       'ar': 'جدولة الوقت',
@@ -570,18 +535,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'نوع الشحنة',
       'ur': 'کارگو کی قسم',
     },
-    'sczcpfvu': {
-      'en': 'Package Type',
-      'ar': 'نوع الحزمة',
-      'ur': 'پیکیج کی قسم',
-    },
-    'stb1f0k9': {
-      'en': 'Assembly',
-      'ar': 'حَشد',
-      'ur': 'اسمبلی',
+    'hzqud3rn': {
+      'en': 'Vehicle Type',
+      'ar': 'نوع المركبة',
+      'ur': 'گاڑی کی قسم',
     },
     'eo1d1o4m': {
-      'en': 'Vehicle Type',
+      'en': 'Assistance Required',
       'ar': 'نوع المركبة',
       'ur': 'گاڑی کی قسم',
     },
@@ -595,23 +555,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'لا يوجد وصول',
       'ur': 'کوئی رسائی نہیں۔',
     },
-    'eic2ujwo': {
-      'en': 'Assistance',
-      'ar': 'مساعدة',
-      'ur': 'امداد',
-    },
-    'llgnjig2': {
-      'en': 'Units',
-      'ar': 'الوحدات',
-      'ur': 'یونٹس',
-    },
     'vkepcq6t': {
       'en': 'Route',
       'ar': 'طريق',
       'ur': 'راستہ',
     },
     'gbgk58gw': {
-      'en': 'Comments/Remarks',
+      'en': 'Comments',
       'ar': 'التعليقات/الملاحظات',
       'ur': 'تبصرے/ریمارکس',
     },
@@ -645,403 +595,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'تتبع الطلب',
       'ur': 'ٹریک آرڈر',
     },
+    '94aavkh4': {
+      'en': 'View Invoice',
+      'ar': 'تتبع الطلب',
+      'ur': 'ٹریک آرڈر',
+    },
     '3znp6ug9': {
-      'en': 'Home',
-      'ar': 'بيت',
-      'ur': 'گھر',
-    },
-  },
-  // DeliveryScreen-large
-  {
-    'pq7mg2n4': {
-      'en': 'Specify your cargo',
-      'ar': 'حدد حمولتك',
-      'ur': 'اپنے کارگو کی وضاحت کریں۔',
-    },
-    'awhvf1et': {
-      'en': 'What are you shipping?',
-      'ar': 'ماذا تشحن؟',
-      'ur': 'آپ کیا بھیج رہے ہیں؟',
-    },
-    'l39hxc32': {
-      'en': 'Furniture',
-      'ar': 'أثاث',
-      'ur': 'فرنیچر',
-    },
-    'stk3q97x': {
-      'en': 'Electronics',
-      'ar': 'الإلكترونيات',
-      'ur': 'الیکٹرانکس',
-    },
-    't8m84jdz': {
-      'en': 'Appliances',
-      'ar': 'الأجهزة',
-      'ur': 'آلات',
-    },
-    'b9n0e8xj': {
-      'en': 'Materials',
-      'ar': 'مواد',
-      'ur': 'مواد',
-    },
-    'q4vtn0is': {
-      'en': 'Machinery',
-      'ar': 'الآلات',
-      'ur': 'مشینری',
-    },
-    '3f1pylli': {
-      'en': 'Other',
-      'ar': 'آخر',
-      'ur': 'دیگر',
-    },
-    'kxompp2u': {
-      'en': 'How is it packaged?',
-      'ar': 'كيف يتم تعبئتها؟',
-      'ur': 'یہ کیسے پیک کیا جاتا ہے؟',
-    },
-    'aa50mg9q': {
-      'en': 'Packed',
-      'ar': 'معبأة',
-      'ur': 'پیک',
-    },
-    'n3fwjnwb': {
-      'en': 'Unpackaged',
-      'ar': 'غير معبأة',
-      'ur': 'پیک کھول دیا',
-    },
-    '5t1rxggu': {
-      'en': 'How many packages?',
-      'ar': 'كم عدد الطرود؟',
-      'ur': 'کتنے پیکجز؟',
-    },
-    'wzvravq5': {
-      'en': 'Handeling Instructions',
-      'ar': 'تعليمات المناولة',
-      'ur': 'ہینڈلنگ کی ہدایات',
-    },
-    '2m6qoy8i': {
-      'en': 'Perishable',
-      'ar': 'قابلة للتلف',
-      'ur': 'فنا ہونے والا',
-    },
-    '8rpsoy5n': {
-      'en': 'Hazerdous',
-      'ar': 'خطير',
-      'ur': 'خطرناک',
-    },
-    'kqgwx99r': {
-      'en': 'Oversize/Heavy',
-      'ar': 'كبير الحجم/ثقيل',
-      'ur': 'بڑا/بھاری',
-    },
-    '6x0z1a7j': {
-      'en': 'Keep Upright/ Do Not Tilt',
-      'ar': 'حافظ على الوضع مستقيمًا/ لا تميل',
-      'ur': 'سیدھا رکھیں/ جھکاؤ نہ کریں۔',
-    },
-    'lp2xo42k': {
-      'en': 'Do Not Stack',
-      'ar': 'لا تكدس',
-      'ur': 'اسٹیک نہ کریں۔',
-    },
-    't67swnv1': {
-      'en': 'Keep Dry',
-      'ar': 'حافظ على الجفاف',
-      'ur': 'خشک رکھیں',
-    },
-    'pb525ud3': {
-      'en': 'Fragile',
-      'ar': 'قابل للكسر',
-      'ur': 'نازک',
-    },
-    '5on4kbrr': {
-      'en': '',
-      'ar': '',
-      'ur': '',
-    },
-    '8msqnpf8': {
-      'en': 'Upload a picture of your cargo',
-      'ar': 'قم بتحميل صورة لشحنتك',
-      'ur': 'اپنے کارگو کی تصویر اپ لوڈ کریں۔',
-    },
-    '6j8asixd': {
-      'en': 'Image Uploaded!',
-      'ar': 'تم تحميل الصورة!',
-      'ur': 'تصویر اپ لوڈ ہو گئی!',
-    },
-    'oma0hv2w': {
-      'en': 'Upload Image',
-      'ar': 'تحميل الصورة',
-      'ur': 'تصویر اپ لوڈ کریں۔',
-    },
-    '05c80113': {
-      'en': '1',
-      'ar': '1',
-      'ur': '1',
-    },
-    'jldodtd4': {
-      'en': 'Search Location',
-      'ar': 'موقع البحث',
-      'ur': 'مقام تلاش کریں۔',
-    },
-    '47j3ofgz': {
-      'en': 'Schedule Delivery:',
-      'ar': 'جدول التسليم:',
-      'ur': 'ڈیلیوری کا شیڈول:',
-    },
-    '5s0ds7em': {
-      'en': 'Please select...',
-      'ar': 'الرجاء الاختيار...',
-      'ur': 'براہ کرم منتخب کریں...',
-    },
-    'skbas4km': {
-      'en': 'Search for an item...',
-      'ar': 'ابحث عن العنصر...',
-      'ur': 'ایک آئٹم تلاش کریں...',
-    },
-    'pzcfk9ph': {
-      'en': 'Now',
-      'ar': 'الآن',
-      'ur': 'اب',
-    },
-    '2h7oxn3p': {
-      'en': 'Clear',
-      'ar': 'واضح',
-      'ur': 'صاف',
-    },
-    'b82gm23r': {
-      'en': 'Edit',
-      'ar': 'يحرر',
-      'ur': 'ترمیم کریں۔',
-    },
-    'ws2aar8e': {
-      'en': 'Order Summary',
-      'ar': 'ملخص الطلب',
-      'ur': 'آرڈر کا خلاصہ',
-    },
-    '8pjxy8o8': {
-      'en': 'Route details',
-      'ar': 'تفاصيل الطريق',
-      'ur': 'راستے کی تفصیلات',
-    },
-    'o3m0g0ab': {
-      'en': 'Cargo details',
-      'ar': 'تفاصيل الشحنة',
-      'ur': 'کارگو کی تفصیلات',
-    },
-    'knp55wwe': {
-      'en': 'Selected Cargo -',
-      'ar': 'البضائع المختارة -',
-      'ur': 'منتخب کارگو -',
-    },
-    'm2grua8g': {
-      'en': 'Package Type -',
-      'ar': 'نوع الحزمة -',
-      'ur': 'پیکیج کی قسم -',
-    },
-    '24ugn6kx': {
-      'en': 'Handling Instructions -',
-      'ar': 'تعليمات التعامل -',
-      'ur': 'ہینڈلنگ ہدایات -',
-    },
-    'wktoyust': {
-      'en': 'Vehicle Type -',
-      'ar': 'نوع المركبة -',
-      'ur': 'گاڑی کی قسم -',
-    },
-    '8r3p1dmg': {
-      'en': 'Assembly -',
-      'ar': 'حَشد -',
-      'ur': 'اسمبلی -',
-    },
-    'mab2ynl3': {
-      'en': 'Additional Information',
-      'ar': 'معلومات إضافية',
-      'ur': 'اضافی معلومات',
-    },
-    'tbrnxgz0': {
-      'en': '',
-      'ar': '',
-      'ur': '',
-    },
-    'zm3c3hay': {
-      'en':
-          'Please fill in any information you wold like the driver to know like pick up and drop off contact information.',
-      'ar':
-          'يرجى ملء أي معلومات ترغب في أن يعرفها السائق مثل معلومات الاتصال الخاصة بالاستلام والتسليم.',
-      'ur':
-          'براہ کرم ایسی کوئی بھی معلومات پُر کریں جو آپ چاہتے ہیں کہ ڈرائیور جاننا چاہے جیسے کہ پک اپ اور ڈراپ آف رابطے کی معلومات۔',
-    },
-    '1czs7apx': {
-      'en': 'Additional Information',
-      'ar': 'معلومات إضافية',
-      'ur': 'اضافی معلومات',
-    },
-    'h7x101pa': {
-      'en': 'What type of vehicle do you need?',
-      'ar': 'ما نوع السيارة التي تحتاجها؟',
-      'ur': 'آپ کو کس قسم کی گاڑی کی ضرورت ہے؟',
-    },
-    'midy2a9x': {
-      'en': 'Minivan',
-      'ar': 'ميني فان',
-      'ur': 'منی وین',
-    },
-    'c8mavuy9': {
-      'en': '20-30 OMR',
-      'ar': '20-30 ريال عماني',
-      'ur': '20-30 OMR',
-    },
-    '2hajqba6': {
-      'en': 'Flatbed',
-      'ar': 'شاحنة مسطحة',
-      'ur': 'فلیٹ بیڈ',
-    },
-    '0dd6f68o': {
-      'en': '30-40 OMR',
-      'ar': '30-40 ريال عماني',
-      'ur': '30-40 OMR',
-    },
-    'kkr3w3ve': {
-      'en': 'Boxtruck',
-      'ar': 'شاحنة صندوقية',
-      'ur': 'باکس ٹرک',
-    },
-    '6n5vdpzo': {
-      'en': '40-50 OMR',
-      'ar': '40-50 ريال عماني',
-      'ur': '40-50 OMR',
-    },
-    'neu3zhus': {
-      'en': 'Semi-Trailer',
-      'ar': 'نصف مقطورة',
-      'ur': 'نیم ٹریلر',
-    },
-    'l2gyva9j': {
-      'en': '50-60 ORM',
-      'ar': '50-60 أورم',
-      'ur': '50-60 ORM',
-    },
-    'pdp4k6mv': {
-      'en': '18-Wheeler',
-      'ar': 'شاحنة ذات 18 عجلة',
-      'ur': '18 وہیلر',
-    },
-    'cchbr5k8': {
-      'en': '60-70 OMR',
-      'ar': '60-70 ريال عماني',
-      'ur': '60-70 OMR',
-    },
-    'qjyym4by': {
-      'en': 'Does your cargo need to be assembled?',
-      'ar': 'هل تحتاج حمولتك إلى التجميع؟',
-      'ur': 'کیا آپ کے کارگو کو جمع کرنے کی ضرورت ہے؟',
-    },
-    '1qqnfxgi': {
-      'en': 'Assembly on Pick-up',
-      'ar': 'التجميع عند الاستلام',
-      'ur': 'پک اپ پر اسمبلی',
-    },
-    '1m8c92jr': {
-      'en': 'Assembly on Drop-off',
-      'ar': 'التجمع عند التسليم',
-      'ur': 'ڈراپ آف پر اسمبلی',
-    },
-    'lqrn6q85': {
-      'en': 'Assembly on both',
-      'ar': 'التجمع على كليهما',
-      'ur': 'دونوں پر اسمبلی',
-    },
-    'vqzf501e': {
-      'en': 'No Assembly Required',
-      'ar': 'لا يتطلب التجميع',
-      'ur': 'اسمبلی کی ضرورت نہیں۔',
-    },
-    'nbvlxpne': {
-      'en': 'Assembly on Pick-up',
-      'ar': 'التجميع عند الاستلام',
-      'ur': 'پک اپ پر اسمبلی',
-    },
-    'ydw2uysn': {
-      'en': 'How many helpers do you need?',
-      'ar': 'كم عدد المساعدين الذين تحتاجهم؟',
-      'ur': 'آپ کو کتنے مددگاروں کی ضرورت ہے؟',
-    },
-    'ovvf1ufz': {
-      'en': 'Who will be receiving the package',
-      'ar': 'من سيستلم الطرد؟',
-      'ur': 'پیکج کون وصول کرے گا۔',
-    },
-    '5sd2nogc': {
-      'en': 'Receiving Party: ',
-      'ar': 'الطرف المتلقي:',
-      'ur': 'وصول کرنے والی پارٹی:',
-    },
-    'adorqgvx': {
-      'en': 'Checkout',
-      'ar': 'الدفع',
-      'ur': 'چیک آؤٹ',
-    },
-    'n1gmfyy9': {
-      'en': 'Please choose one of the payment options',
-      'ar': 'الرجاء اختيار أحد خيارات الدفع',
-      'ur': 'براہ کرم ادائیگی کے اختیارات میں سے ایک کا انتخاب کریں۔',
-    },
-    'g4pewoc0': {
-      'en': 'Add a new card',
-      'ar': 'إضافة بطاقة جديدة',
-      'ur': 'نیا کارڈ شامل کریں۔',
-    },
-    'ieoh5hw8': {
-      'en': 'Apple Pay',
-      'ar': 'أبل باي',
-      'ur': 'ایپل پے',
-    },
-    'vfpfjp5i': {
-      'en': 'Pay w/Paypal',
-      'ar': 'الدفع عبر باي بال',
-      'ur': 'پے پال کے ساتھ ادائیگی کریں۔',
-    },
-    'eakk7oer': {
-      'en': 'Or use an option above',
-      'ar': 'أو استخدم أحد الخيارات أعلاه',
-      'ur': 'یا اوپر والا آپشن استعمال کریں۔',
-    },
-    '5jar5v66': {
-      'en': 'Delivery',
-      'ar': 'توصيل',
-      'ur': 'ڈیلیوری',
-    },
-    'rvjxgh84': {
-      'en': 'Base Price -',
-      'ar': 'السعر الأساسي -',
-      'ur': 'بنیادی قیمت -',
-    },
-    '46pfr1s1': {
-      'en': 'Service Charge -',
-      'ar': 'رسوم الخدمة -',
-      'ur': 'سروس چارج -',
-    },
-    '6j3ir5j1': {
-      'en': ' 5%',
-      'ar': '5%',
-      'ur': '5%',
-    },
-    '8ruiu9fb': {
-      'en': 'Total',
-      'ar': 'المجموع',
-      'ur': 'کل',
-    },
-    'plox68z9': {
-      'en': '',
-      'ar': '',
-      'ur': '',
-    },
-    '9kzk3esc': {
-      'en': 'Next',
-      'ar': 'التالي',
-      'ur': 'اگلا',
-    },
-    'vohj7u56': {
       'en': 'Home',
       'ar': 'بيت',
       'ur': 'گھر',
@@ -1049,130 +608,75 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // Home
   {
-    '57g47zk3': {
-      'en': 'Home',
-      'ar': 'بيت',
-      'ur': 'گھر',
-    },
-    'jo5mrmoy': {
+    'ue9bbcq7': {
       'en': 'Start ',
       'ar': 'يبدأ',
       'ur': 'شروع کریں۔',
     },
-    'ytrgborq': {
+    'gdf078fd': {
       'en': 'ordering',
       'ar': 'الطلب',
       'ur': 'آرڈر کرنا',
     },
-    'k6w7t492': {
+    'hbx62gck': {
       'en': 'Light Delivery',
       'ar': 'توصيل الضوء',
       'ur': 'لائٹ ڈیلیوری',
     },
-    '8gcg7kny': {
+    'hz28f696': {
       'en': 'Package weight <5kg.',
       'ar': 'وزن العبوة <5 كجم.',
       'ur': 'پیکیج کا وزن <5 کلوگرام۔',
     },
-    'aobe5zbo': {
+    'b6vyxhlb': {
       'en': 'Heavy Delivery',
       'ar': 'تسليم ثقيل',
       'ur': 'بھاری ترسیل',
     },
-    '3li4pz2h': {
+    'xfjfzuoc': {
       'en': 'Package weight >5kg.',
       'ar': 'وزن العبوة >5 كجم.',
       'ur': 'پیکیج وزن> 5 کلوگرام۔',
     },
-    '4wswr1n3': {
+    'jruxetny': {
+      'en': 'What\'s ',
+      'ar': 'يبدأ',
+      'ur': 'شروع کریں۔',
+    },
+    'o5djxloz': {
+      'en': 'new',
+      'ar': 'الطلب',
+      'ur': 'آرڈر کرنا',
+    },
+    'hc1xesnr': {
       'en': 'Order ',
       'ar': 'طلب',
       'ur': 'آرڈر',
     },
-    'ki1zwsc2': {
+    '7csdjzda': {
       'en': 'tracking',
       'ar': 'التتبع',
       'ur': 'ٹریکنگ',
     },
-    'indmmcz1': {
-      'en': 'Current order',
-      'ar': 'الطلب الحالي',
-      'ur': 'موجودہ آرڈر',
+    '59a8p4bx': {
+      'en': 'STATUS',
+      'ar': '',
+      'ur': '',
     },
-    'vmwk4vw4': {
-      'en': 'What\'s ',
-      'ar': 'ما هو',
-      'ur': 'کیا ہے',
+    'i0e0chca': {
+      'en': 'ETA',
+      'ar': '',
+      'ur': '',
     },
-    '40uemps6': {
-      'en': 'new',
-      'ar': 'جديد',
-      'ur': 'نیا',
-    },
-    'frjdkqto': {
+    'dif8k6o6': {
       'en': 'Favorite ',
       'ar': 'مفضل',
       'ur': 'پسندیدہ',
     },
-    'wi2ker29': {
+    'o0ljo3z1': {
       'en': 'location',
       'ar': 'موقع',
       'ur': 'مقام',
-    },
-    'klo20vzw': {
-      'en': 'Notifications',
-      'ar': 'إشعارات',
-      'ur': 'اطلاعات',
-    },
-    'xzjulkfz': {
-      'en': 'Clear',
-      'ar': 'واضح',
-      'ur': 'صاف',
-    },
-    '0hxm6emp': {
-      'en': 'Qafila',
-      'ar': 'القافلة',
-      'ur': 'قافلہ',
-    },
-    'df5vdfvp': {
-      'en': 'Tech.',
-      'ar': 'التكنولوجيا',
-      'ur': 'ٹیک',
-    },
-    'fh3rdc0y': {
-      'en': 'Platform Navigation',
-      'ar': 'التنقل عبر المنصة',
-      'ur': 'پلیٹ فارم نیویگیشن',
-    },
-    'zyg34fch': {
-      'en': 'Chats',
-      'ar': 'الدردشات',
-      'ur': 'چیٹس',
-    },
-    'nmgfrplj': {
-      'en': 'Support Center',
-      'ar': 'مركز الدعم',
-      'ur': 'سپورٹ سینٹر',
-    },
-    'z9bp8tmd': {
-      'en': 'Payment methods',
-      'ar': 'طرق الدفع',
-      'ur': 'ادائیگی کے طریقے',
-    },
-    '2a7hq04j': {
-      'en': 'Favorite Locations',
-      'ar': 'المواقع المفضلة',
-      'ur': 'پسندیدہ مقامات',
-    },
-    'ntwaiars': {
-      'en': 'Light Mode',
-      'ar': 'وضع الإضاءة',
-      'ur': 'لائٹ موڈ',
-    },
-    'up1e5uo4': {
-      'en': 'Dark Mode',
-      'ar': 'الوضع المظلم',
-      'ur': 'ڈارک موڈ',
     },
     '4xj4b5bm': {
       'en': 'Home',
@@ -1315,24 +819,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ur': 'تصویر تبدیل کریں۔',
     },
     'w4l230ls': {
-      'en': 'First Name',
+      'en': 'Display Name',
       'ar': 'الاسم الأول',
       'ur': 'پہلا نام',
     },
     'fia6j3zq': {
-      'en': 'Your full name...',
+      'en': 'Your display name here...',
       'ar': 'اسمك الكامل...',
       'ur': 'آپ کا پورا نام...',
     },
-    'tlwfa7mo': {
-      'en': 'Last Name',
-      'ar': 'اسم العائلة',
-      'ur': 'آخری نام',
-    },
-    'yaq6iwox': {
-      'en': 'Your full name...',
-      'ar': 'اسمك الكامل...',
-      'ur': 'آپ کا پورا نام...',
+    'oauhw2k6': {
+      'en': '',
+      'ar': '',
+      'ur': '',
     },
     '5a9u4s4l': {
       'en': 'Email',
@@ -1340,7 +839,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ur': 'ای میل',
     },
     'yu6ct0lq': {
-      'en': 'Your full name...',
+      'en': 'Your email address here...',
       'ar': 'اسمك الكامل...',
       'ur': 'آپ کا پورا نام...',
     },
@@ -1350,7 +849,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ur': 'فون نمبر',
     },
     'hx6oumlg': {
-      'en': 'Your full name...',
+      'en': 'Your phone number...',
       'ar': 'اسمك الكامل...',
       'ur': 'آپ کا پورا نام...',
     },
@@ -1383,35 +882,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ur': 'گھر',
     },
   },
-  // TermsScreen
-  {
-    'bcytm905': {
-      'en': 'Terms & Conditions',
-      'ar': 'الشروط والأحكام',
-      'ur': 'شرائط و ضوابط',
-    },
-  },
-  // chatMenu
-  {
-    'gls9xcje': {
-      'en': 'Chats',
-      'ar': 'الدردشات',
-      'ur': 'چیٹس',
-    },
-    'igyyldky': {
-      'en': 'Search..',
-      'ar': 'يبحث..',
-      'ur': 'تلاش کریں..',
-    },
-  },
   // FavouritesScreen
   {
-    'q8hl9lzh': {
-      'en': 'Saved Locations',
-      'ar': 'المواقع المحفوظة',
-      'ur': 'محفوظ کردہ مقامات',
-    },
-    'iv0n56z0': {
+    '8gkp8zj4': {
       'en': 'Search..',
       'ar': 'يبحث..',
       'ur': 'تلاش کریں..',
@@ -1419,11 +892,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // LocateRidePage
   {
-    'myuwohl1': {
-      'en': 'Tracking Order',
-      'ar': 'تتبع الطلب',
-      'ur': 'ٹریکنگ آرڈر',
-    },
     'mkmzome3': {
       'en': 'Found Ride',
       'ar': 'وجدت ركوب',
@@ -1435,24 +903,74 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ur': 'آرڈر بنایا گیا۔',
     },
     'vie6s4zy': {
-      'en': 'Finding Ride...',
+      'en': 'Looking for your ride...',
       'ar': 'العثور على رحلة...',
       'ur': 'سواری تلاش کر رہا ہے...',
     },
-    '9gm9rrle': {
-      'en': 'Cancel',
-      'ar': 'يلغي',
-      'ur': 'منسوخ کریں۔',
+    'nxnsjk4n': {
+      'en': 'No one accepting? Try increasing\nthe order price.',
+      'ar': '',
+      'ur': '',
     },
-    't8687lsn': {
-      'en': 'Arriving in -',
-      'ar': 'الوصول إلى -',
-      'ur': 'میں پہنچنا -',
+    'xaudwtm8': {
+      'en': '+5RO',
+      'ar': '',
+      'ur': '',
     },
-    'weoj09fm': {
-      'en': 'Cancel',
-      'ar': 'يلغي',
-      'ur': 'منسوخ کریں۔',
+    'nx9sp7yy': {
+      'en': '+10RO',
+      'ar': '',
+      'ur': '',
+    },
+    'so8kmy44': {
+      'en': '+20RO',
+      'ar': '',
+      'ur': '',
+    },
+    'mk4yty7w': {
+      'en': '+25RO',
+      'ar': '',
+      'ur': '',
+    },
+    'mad8h5o8': {
+      'en': 'You just tipped the \ndriver an additional',
+      'ar': '',
+      'ur': '',
+    },
+    'nylebqmo': {
+      'en': 'Still not getting any drivers? \nContact our call center',
+      'ar': '',
+      'ur': '',
+    },
+    '9n9zf6nr': {
+      'en': 'Support',
+      'ar': '',
+      'ur': '',
+    },
+    'jzm73znk': {
+      'en': 'Cancel order',
+      'ar': '',
+      'ur': '',
+    },
+    'myuwohl1': {
+      'en': 'Tracking Order',
+      'ar': 'تتبع الطلب',
+      'ur': 'ٹریکنگ آرڈر',
+    },
+    '8to4wkk2': {
+      'en': 'Distance to destination: ',
+      'ar': '',
+      'ur': '',
+    },
+    'oag74oua': {
+      'en': 'Estimate arrival time: ',
+      'ar': '',
+      'ur': '',
+    },
+    'k5q179u6': {
+      'en': 'Amount Paid ',
+      'ar': '',
+      'ur': '',
     },
     'rxt22h7p': {
       'en': 'Home',
@@ -1460,73 +978,25 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ur': 'گھر',
     },
   },
-  // LocateRidePageCopy
-  {
-    'zop06mar': {
-      'en': 'Tracking Order',
-      'ar': 'تتبع الطلب',
-      'ur': 'ٹریکنگ آرڈر',
-    },
-    'vfb3fhs9': {
-      'en': 'Found Ride',
-      'ar': 'وجدت ركوب',
-      'ur': 'سواری مل گئی۔',
-    },
-    'm3l2v0jf': {
-      'en': 'Order Created',
-      'ar': 'تم إنشاء الطلب',
-      'ur': 'آرڈر بنایا گیا۔',
-    },
-    'aivrx9cc': {
-      'en': 'Finding Ride...',
-      'ar': 'العثور على رحلة...',
-      'ur': 'سواری تلاش کر رہا ہے...',
-    },
-    '4q19pycl': {
-      'en': 'Cancel',
-      'ar': 'يلغي',
-      'ur': 'منسوخ کریں۔',
-    },
-    'f62130m5': {
-      'en': 'Arriving in -',
-      'ar': 'الوصول إلى -',
-      'ur': 'میں پہنچنا -',
-    },
-    '80d6mp4f': {
-      'en': 'Cancel',
-      'ar': 'يلغي',
-      'ur': 'منسوخ کریں۔',
-    },
-    'x3cqapin': {
-      'en': 'Home',
-      'ar': 'بيت',
-      'ur': 'گھر',
-    },
-  },
   // PaymentScreen
   {
-    'rzcikkh0': {
-      'en': 'Payment',
-      'ar': 'قسط',
-      'ur': 'ادائیگی',
-    },
-    'hebjlf24': {
+    'uf1l2a1g': {
       'en': 'Active ',
       'ar': 'نشيط',
       'ur': 'فعال',
     },
-    '72ob3j8t': {
+    'bawdr46e': {
       'en': 'Cards',
       'ar': 'بطاقات',
       'ur': 'کارڈز',
     },
-    'bwt3aq8m': {
+    'v1vw32sm': {
       'en': 'Visa',
       'ar': 'فيزا',
       'ur': 'ویزا',
     },
-    '6n4zexjw': {
-      'en': 'Add Payment Meethod',
+    'tin2687g': {
+      'en': 'Add Payment Method',
       'ar': 'إضافة طريقة الدفع',
       'ur': 'ادائیگی کا طریقہ شامل کریں۔',
     },
@@ -1538,21 +1008,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // supportPage
   {
-    'vnz96ubn': {
-      'en': 'Payment',
-      'ar': 'قسط',
-      'ur': 'ادائیگی',
-    },
-    'v7xgwwdq': {
-      'en': 'Welcome to support',
-      'ar': '',
-      'ur': '',
-    },
-    'p3yawfvt': {
-      'en': 'How can we help you?',
-      'ar': '',
-      'ur': '',
-    },
     '7s72rcrt': {
       'en': 'Call Us',
       'ar': '',
@@ -1601,11 +1056,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': '',
       'ur': '',
     },
-    'by1pbtd9': {
-      'en': 'Chat Now',
-      'ar': '',
-      'ur': '',
-    },
     '8q5wblrq': {
       'en': 'Home',
       'ar': '',
@@ -1614,11 +1064,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // TermsScreenCopy
   {
-    'n2qdajw7': {
-      'en': 'Terms & Conditions',
-      'ar': 'الشروط والأحكام',
-      'ur': 'شرائط و ضوابط',
-    },
     'pyeo97ef': {
       'en': 'I accept the terms & conditions',
       'ar': '',
@@ -1631,6 +1076,718 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'zlmf2pg1': {
       'en': 'Continue',
+      'ar': '',
+      'ur': '',
+    },
+  },
+  // InvoiceScreen
+  {
+    '89o306f8': {
+      'en': 'Order successfully delivered',
+      'ar': '',
+      'ur': '',
+    },
+    'un3umuwc': {
+      'en': 'Date',
+      'ar': '',
+      'ur': '',
+    },
+    'bt0ucbb9': {
+      'en': 'Invoice Due',
+      'ar': '',
+      'ur': '',
+    },
+    'q1rogder': {
+      'en': 'Customer Details',
+      'ar': '',
+      'ur': '',
+    },
+    '9z2384i9': {
+      'en': 'Name',
+      'ar': '',
+      'ur': '',
+    },
+    'lb3u2xo6': {
+      'en': 'Email',
+      'ar': '',
+      'ur': '',
+    },
+    'jepgcm0n': {
+      'en': 'Phone',
+      'ar': '',
+      'ur': '',
+    },
+    'hfu7muax': {
+      'en': 'Account Type',
+      'ar': '',
+      'ur': '',
+    },
+    '9df2yh91': {
+      'en': 'Individual',
+      'ar': '',
+      'ur': '',
+    },
+    'rj8geta1': {
+      'en': 'Order Summary',
+      'ar': '',
+      'ur': '',
+    },
+    'ekghqo15': {
+      'en': 'Cargo',
+      'ar': '',
+      'ur': '',
+    },
+    '2hc67mb2': {
+      'en': 'Order Type',
+      'ar': '',
+      'ur': '',
+    },
+    '03v1gqul': {
+      'en': 'Vehicle Type',
+      'ar': '',
+      'ur': '',
+    },
+    'l4y092ej': {
+      'en': 'Special Instructions',
+      'ar': '',
+      'ur': '',
+    },
+    '11k14my8': {
+      'en': 'Pick up',
+      'ar': '',
+      'ur': '',
+    },
+    'guoba3aw': {
+      'en': 'Drop off',
+      'ar': '',
+      'ur': '',
+    },
+    '9x0r26x0': {
+      'en': 'Subtotal',
+      'ar': '',
+      'ur': '',
+    },
+    '71x11cca': {
+      'en': 'Service Charge (5%)',
+      'ar': '',
+      'ur': '',
+    },
+    'jd0eu3kn': {
+      'en': 'VAT (5%)',
+      'ar': '',
+      'ur': '',
+    },
+    'qcytp8tf': {
+      'en': 'Total',
+      'ar': '',
+      'ur': '',
+    },
+    'qrx2tu4q': {
+      'en': 'Payment Information',
+      'ar': '',
+      'ur': '',
+    },
+    '9toyet7o': {
+      'en': 'Payment Method',
+      'ar': '',
+      'ur': '',
+    },
+    'mwsz3qai': {
+      'en': 'Visa ending in 4242',
+      'ar': '',
+      'ur': '',
+    },
+    '2smok4sa': {
+      'en': 'Payment Status',
+      'ar': '',
+      'ur': '',
+    },
+    'fbir933k': {
+      'en': 'Download PDF',
+      'ar': '',
+      'ur': '',
+    },
+    'fq8ukx9q': {
+      'en': 'View Invoice',
+      'ar': '',
+      'ur': '',
+    },
+  },
+  // SettingsScreen
+  {
+    'x8rx142z': {
+      'en': 'Settings',
+      'ar': '',
+      'ur': '',
+    },
+    '7ac1okn8': {
+      'en':
+          'Choose what notifcations you want to recieve below and we will update the settings.',
+      'ar': '',
+      'ur': '',
+    },
+    'bmz6q0gr': {
+      'en': 'Push Notifications',
+      'ar': '',
+      'ur': '',
+    },
+    'h7c2ukw1': {
+      'en':
+          'Receive Push notifications from our application on a semi regular basis.',
+      'ar': '',
+      'ur': '',
+    },
+    'l9sxxr5g': {
+      'en': 'Email Notifications',
+      'ar': '',
+      'ur': '',
+    },
+    'sjwhl2qj': {
+      'en':
+          'Receive email notifications from our marketing team about new features.',
+      'ar': '',
+      'ur': '',
+    },
+    '5e60wuk1': {
+      'en': 'Location Services',
+      'ar': '',
+      'ur': '',
+    },
+    'nlz7qkmp': {
+      'en':
+          'Allow us to track your location, this helps keep track of spending and keeps you safe.',
+      'ar': '',
+      'ur': '',
+    },
+    'dshgaomx': {
+      'en': 'Save Changes',
+      'ar': '',
+      'ur': '',
+    },
+    'fzpds3sc': {
+      'en': 'Follow us on',
+      'ar': '',
+      'ur': '',
+    },
+    'bxvxmm21': {
+      'en': 'App Versions',
+      'ar': '',
+      'ur': '',
+    },
+    'wd3xs479': {
+      'en': 'v0.0.1',
+      'ar': '',
+      'ur': '',
+    },
+    'ipf7l747': {
+      'en': 'Home',
+      'ar': 'بيت',
+      'ur': 'گھر',
+    },
+  },
+  // LargeDeliveryScreen
+  {
+    '33f51xyf': {
+      'en': 'Schedule Delivery:',
+      'ar': 'جدول التسليم:',
+      'ur': 'ڈیلیوری کا شیڈول:',
+    },
+    'p1lq513n': {
+      'en': 'Please select...',
+      'ar': 'الرجاء الاختيار...',
+      'ur': 'براہ کرم منتخب کریں...',
+    },
+    '7kug6qsk': {
+      'en': 'Search for an item...',
+      'ar': 'ابحث عن العنصر...',
+      'ur': 'ایک آئٹم تلاش کریں...',
+    },
+    '7stamqu3': {
+      'en': 'Now',
+      'ar': 'الآن',
+      'ur': 'اب',
+    },
+    'bq80hwem': {
+      'en': 'Clear',
+      'ar': 'واضح',
+      'ur': 'صاف',
+    },
+    'qsmvcbxl': {
+      'en': 'Edit',
+      'ar': 'يحرر',
+      'ur': 'ترمیم کریں۔',
+    },
+    's1j87nra': {
+      'en': 'From',
+      'ar': '',
+      'ur': '',
+    },
+    '0y2qagir': {
+      'en': 'Clear',
+      'ar': 'واضح',
+      'ur': 'صاف',
+    },
+    'zmm1pxp6': {
+      'en': 'Edit',
+      'ar': 'يحرر',
+      'ur': 'ترمیم کریں۔',
+    },
+    'o6j8u0uw': {
+      'en': 'To',
+      'ar': '',
+      'ur': '',
+    },
+    'rcisgua6': {
+      'en': 'Specify your cargo',
+      'ar': 'حدد حمولتك',
+      'ur': 'اپنے کارگو کی وضاحت کریں۔',
+    },
+    'ml5bvdv2': {
+      'en': 'What type of vehicle do you need?',
+      'ar': 'ما نوع السيارة التي تحتاجها؟',
+      'ur': 'آپ کو کس قسم کی گاڑی کی ضرورت ہے؟',
+    },
+    'ylm58n5e': {
+      'en': '*',
+      'ar': 'ما نوع السيارة التي تحتاجها؟',
+      'ur': 'آپ کو کس قسم کی گاڑی کی ضرورت ہے؟',
+    },
+    'bcczkn93': {
+      'en':
+          'Choose a vehicle based on your cargo size. Larger vehicles have different weight limits and rates.',
+      'ar': '',
+      'ur': '',
+    },
+    'p9ofmhrt': {
+      'en': 'Flatbed',
+      'ar': 'شاحنة مسطحة',
+      'ur': 'فلیٹ بیڈ',
+    },
+    'axsaq8h8': {
+      'en': '25 OMR Base',
+      'ar': '30-40 ريال عماني',
+      'ur': '30-40 OMR',
+    },
+    '2qp1h1xg': {
+      'en': 'Boxtruck',
+      'ar': 'شاحنة صندوقية',
+      'ur': 'باکس ٹرک',
+    },
+    'yqa3iw0o': {
+      'en': ' 10 OMR Base',
+      'ar': '40-50 ريال عماني',
+      'ur': '40-50 OMR',
+    },
+    'ltafkslu': {
+      'en': 'Semi-Trailer',
+      'ar': 'نصف مقطورة',
+      'ur': 'نیم ٹریلر',
+    },
+    'fp85cgs0': {
+      'en': '60 OMR Base',
+      'ar': '50-60 أورم',
+      'ur': '50-60 ORM',
+    },
+    'pwiekaf0': {
+      'en': 'Refridge',
+      'ar': 'ميني فان',
+      'ur': 'منی وین',
+    },
+    '68yednoz': {
+      'en': '30 OMR Base',
+      'ar': '20-30 ريال عماني',
+      'ur': '20-30 OMR',
+    },
+    'zkzrf3fv': {
+      'en': 'Tanker',
+      'ar': 'شاحنة ذات 18 عجلة',
+      'ur': '18 وہیلر',
+    },
+    'h7x0fxmm': {
+      'en': '25 OMR Base',
+      'ar': '60-70 ريال عماني',
+      'ur': '60-70 OMR',
+    },
+    'qs5r5a2z': {
+      'en': 'Car Carrier',
+      'ar': 'شاحنة ذات 18 عجلة',
+      'ur': '18 وہیلر',
+    },
+    'd9bvmc6g': {
+      'en': '15 OMR Base',
+      'ar': '60-70 ريال عماني',
+      'ur': '60-70 OMR',
+    },
+    '6x6ch4n3': {
+      'en': 'Dump Truck',
+      'ar': 'شاحنة ذات 18 عجلة',
+      'ur': '18 وہیلر',
+    },
+    '8z4hukfz': {
+      'en': '20 OMR Base',
+      'ar': '60-70 ريال عماني',
+      'ur': '60-70 OMR',
+    },
+    's3yqoc73': {
+      'en': 'Livestock',
+      'ar': 'شاحنة ذات 18 عجلة',
+      'ur': '18 وہیلر',
+    },
+    'ungrl3xo': {
+      'en': '20 OMR Base',
+      'ar': '60-70 ريال عماني',
+      'ur': '60-70 OMR',
+    },
+    'phae1a0y': {
+      'en': 'What type of cargo will you be shipping?',
+      'ar': 'ما نوع السيارة التي تحتاجها؟',
+      'ur': 'آپ کو کس قسم کی گاڑی کی ضرورت ہے؟',
+    },
+    '3mhrzurp': {
+      'en': '*',
+      'ar': 'ما نوع السيارة التي تحتاجها؟',
+      'ur': 'آپ کو کس قسم کی گاڑی کی ضرورت ہے؟',
+    },
+    'j4f0b94i': {
+      'en':
+          'Help us prepare by specifying what we’re moving (e.g., furniture, electronics, or perishables).',
+      'ar': '',
+      'ur': '',
+    },
+    '8mvnh52s': {
+      'en': 'Furniture',
+      'ar': 'أثاث',
+      'ur': 'فرنیچر',
+    },
+    '97vkewlj': {
+      'en': 'Electronics',
+      'ar': 'الإلكترونيات',
+      'ur': 'الیکٹرانکس',
+    },
+    'whvlln84': {
+      'en': 'Appliances',
+      'ar': 'الأجهزة',
+      'ur': 'آلات',
+    },
+    'ls54e5pi': {
+      'en': 'Materials',
+      'ar': 'مواد',
+      'ur': 'مواد',
+    },
+    'bmrozlmv': {
+      'en': 'Machinery',
+      'ar': 'الآلات',
+      'ur': 'مشینری',
+    },
+    'i7jiq7lz': {
+      'en': 'Other',
+      'ar': 'آخر',
+      'ur': 'دیگر',
+    },
+    '63pzsmf6': {
+      'en': 'Handeling Instructions',
+      'ar': 'تعليمات المناولة',
+      'ur': 'ہینڈلنگ کی ہدایات',
+    },
+    'xwwzlwg9': {
+      'en': '*',
+      'ar': 'ما نوع السيارة التي تحتاجها؟',
+      'ur': 'آپ کو کس قسم کی گاڑی کی ضرورت ہے؟',
+    },
+    'erdk7q8o': {
+      'en':
+          'Let the driver know if items are fragile, need to stay upright, or require climate control.',
+      'ar': '',
+      'ur': '',
+    },
+    '6lwxigvd': {
+      'en': 'Perishable',
+      'ar': 'قابلة للتلف',
+      'ur': 'فنا ہونے والا',
+    },
+    'n75gseu5': {
+      'en': 'Hazerdous',
+      'ar': 'خطير',
+      'ur': 'خطرناک',
+    },
+    '971eakz5': {
+      'en': 'Oversize/Heavy',
+      'ar': 'كبير الحجم/ثقيل',
+      'ur': 'بڑا/بھاری',
+    },
+    'y68f7vpb': {
+      'en': 'Keep Upright/ Do Not Tilt',
+      'ar': 'حافظ على الوضع مستقيمًا/ لا تميل',
+      'ur': 'سیدھا رکھیں/ جھکاؤ نہ کریں۔',
+    },
+    'o9ocrprg': {
+      'en': 'Do Not Stack',
+      'ar': 'لا تكدس',
+      'ur': 'اسٹیک نہ کریں۔',
+    },
+    '1lpn63zz': {
+      'en': 'Keep Dry',
+      'ar': 'حافظ على الجفاف',
+      'ur': 'خشک رکھیں',
+    },
+    '08mugill': {
+      'en': 'Fragile',
+      'ar': 'قابل للكسر',
+      'ur': 'نازک',
+    },
+    'w5cvuhmc': {
+      'en': '',
+      'ar': '',
+      'ur': '',
+    },
+    'mr9w1wbn': {
+      'en': 'How many helpers do you need?',
+      'ar': 'كم عدد المساعدين الذين تحتاجهم؟',
+      'ur': 'آپ کو کتنے مددگاروں کی ضرورت ہے؟',
+    },
+    '6xkhr3dt': {
+      'en': '*',
+      'ar': 'ما نوع السيارة التي تحتاجها؟',
+      'ur': 'آپ کو کس قسم کی گاڑی کی ضرورت ہے؟',
+    },
+    '75q2a985': {
+      'en':
+          'Select additional hands if your items are too heavy for one person to lift safely.',
+      'ar': '',
+      'ur': '',
+    },
+    'c9z9xysg': {
+      'en': 'Upload a picture of your cargo',
+      'ar': 'قم بتحميل صورة لشحنتك',
+      'ur': 'اپنے کارگو کی تصویر اپ لوڈ کریں۔',
+    },
+    'rhtfpsq1': {
+      'en': '*',
+      'ar': 'ما نوع السيارة التي تحتاجها؟',
+      'ur': 'آپ کو کس قسم کی گاڑی کی ضرورت ہے؟',
+    },
+    'htf38k55': {
+      'en':
+          'Take a photo of your items so the driver can bring the right equipment and verify the cargo\'s condition.',
+      'ar': '',
+      'ur': '',
+    },
+    '4a0uk0i7': {
+      'en': 'Upload Image',
+      'ar': 'تحميل الصورة',
+      'ur': 'تصویر اپ لوڈ کریں۔',
+    },
+    'antg7aa1': {
+      'en': 'Checkout',
+      'ar': 'الدفع',
+      'ur': 'چیک آؤٹ',
+    },
+    'stq2qfop': {
+      'en': 'Please choose one of the payment options',
+      'ar': 'الرجاء اختيار أحد خيارات الدفع',
+      'ur': 'براہ کرم ادائیگی کے اختیارات میں سے ایک کا انتخاب کریں۔',
+    },
+    'tk0muepg': {
+      'en': 'Add a new card',
+      'ar': 'إضافة بطاقة جديدة',
+      'ur': 'نیا کارڈ شامل کریں۔',
+    },
+    'f3t8qrtw': {
+      'en': 'Or use an option below',
+      'ar': 'أو استخدم أحد الخيارات أعلاه',
+      'ur': 'یا اوپر والا آپشن استعمال کریں۔',
+    },
+    '2eczyb5w': {
+      'en': 'Apple Pay',
+      'ar': 'أبل باي',
+      'ur': 'ایپل پے',
+    },
+    '4zfv8lpz': {
+      'en': 'Pay w/Paypal',
+      'ar': 'الدفع عبر باي بال',
+      'ur': 'پے پال کے ساتھ ادائیگی کریں۔',
+    },
+    'fbevwr5x': {
+      'en': 'Order Summary',
+      'ar': 'ملخص الطلب',
+      'ur': 'آرڈر کا خلاصہ',
+    },
+    'pgym4otk': {
+      'en': 'Route Details',
+      'ar': '',
+      'ur': '',
+    },
+    'xhem3muy': {
+      'en': 'FROM',
+      'ar': '',
+      'ur': '',
+    },
+    'wb71wi1w': {
+      'en': 'TO',
+      'ar': '',
+      'ur': '',
+    },
+    '19f0d5xq': {
+      'en': 'Vehicle & Cargo Details',
+      'ar': '',
+      'ur': '',
+    },
+    'vgmi5e8e': {
+      'en': 'VEHICLE TYPE',
+      'ar': '',
+      'ur': '',
+    },
+    'm8ob3f3b': {
+      'en': 'SELECTED CARGO',
+      'ar': '',
+      'ur': '',
+    },
+    '55twygyb': {
+      'en': 'Option 1',
+      'ar': '',
+      'ur': '',
+    },
+    'hepw3ro9': {
+      'en': 'Option 2',
+      'ar': '',
+      'ur': '',
+    },
+    '82qm3wni': {
+      'en': 'Option 3',
+      'ar': '',
+      'ur': '',
+    },
+    '9panqc33': {
+      'en': 'Handling Instructions',
+      'ar': '',
+      'ur': '',
+    },
+    'b7egz5dh': {
+      'en': 'Receiver Information',
+      'ar': '',
+      'ur': '',
+    },
+    '9qhr6rlo': {
+      'en':
+          'Specify who will meet the driver. We\'ll send the tracking link and arrival code to this phone number.',
+      'ar': '',
+      'ur': '',
+    },
+    '7a5wu692': {
+      'en': 'RECEIVING PERSON \n',
+      'ar': 'الطرف المتلقي:',
+      'ur': 'وصول کرنے والی پارٹی:',
+    },
+    'k4rvifr5': {
+      'en': 'RECEIVER DETAILS',
+      'ar': '',
+      'ur': '',
+    },
+    '6t9veky9': {
+      'en': 'Name',
+      'ar': '',
+      'ur': '',
+    },
+    'lj57lins': {
+      'en': 'Phone Number',
+      'ar': '',
+      'ur': '',
+    },
+    '7wnqcf1v': {
+      'en': 'Notes for Driver',
+      'ar': '',
+      'ur': '',
+    },
+    'mths3kfk': {
+      'en':
+          'Add helpful details like apartment gate codes, specific parking spots, or \'ring the doorbell\'.',
+      'ar': '',
+      'ur': '',
+    },
+    'xitk14xw': {
+      'en': 'Add any special instructions or notes for the driver...',
+      'ar': '',
+      'ur': '',
+    },
+    'f8z6bkii': {
+      'en': 'Click to search location',
+      'ar': 'موقع البحث',
+      'ur': 'مقام تلاش کریں۔',
+    },
+    'htcrjprg': {
+      'en': 'Heavy Delivery',
+      'ar': 'توصيل',
+      'ur': 'ڈیلیوری',
+    },
+    'iaf8br3q': {
+      'en': 'Base Price -',
+      'ar': 'السعر الأساسي -',
+      'ur': 'بنیادی قیمت -',
+    },
+    'atb48iwh': {
+      'en': 'Service Charge (5%) -',
+      'ar': 'رسوم الخدمة -',
+      'ur': 'سروس چارج -',
+    },
+    'xqxn5d56': {
+      'en': 'VAT (5%)',
+      'ar': 'رسوم الخدمة -',
+      'ur': 'سروس چارج -',
+    },
+    '8osaqj0m': {
+      'en': 'Total',
+      'ar': 'المجموع',
+      'ur': 'کل',
+    },
+    'ylb2myyt': {
+      'en': '',
+      'ar': '',
+      'ur': '',
+    },
+    'won6o04z': {
+      'en': 'Next',
+      'ar': 'التالي',
+      'ur': 'اگلا',
+    },
+    'p9he37oa': {
+      'en': 'Home',
+      'ar': 'بيت',
+      'ur': 'گھر',
+    },
+  },
+  // loadingPage
+  {
+    '6a99ksou': {
+      'en': 'Welcome to QafilaTech!',
+      'ar': '',
+      'ur': '',
+    },
+    'it8cfjlt': {
+      'en':
+          'Thanks for joining! Access or create your account below, and get started on your journey!',
+      'ar': '',
+      'ur': '',
+    },
+    'z44ogtxx': {
+      'en': 'Get Started',
+      'ar': '',
+      'ur': '',
+    },
+    'f61f41jx': {
+      'en': 'Home',
+      'ar': '',
+      'ur': '',
+    },
+  },
+  // favourites
+  {
+    '27w2pcea': {
+      'en': 'Pick Up',
+      'ar': '',
+      'ur': '',
+    },
+    'ic30w30e': {
+      'en': 'Drop Off',
       'ar': '',
       'ur': '',
     },
@@ -1658,7 +1815,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ur': 'ٹرک',
     },
     '1f1tloea': {
-      'en': 'Phone Number',
+      'en': 'Phone',
       'ar': 'رقم التليفون',
       'ur': 'فون نمبر',
     },
@@ -2021,25 +2178,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'يبحث...',
       'ur': 'تلاش کریں...',
     },
-    'o2ytxdp2': {
-      'en': 'Option 1',
-      'ar': 'الخيار 1',
-      'ur': 'آپشن 1',
-    },
-    '2dibue7b': {
-      'en': 'Option 2',
-      'ar': 'الخيار الثاني',
-      'ur': 'آپشن 2',
-    },
-    'zobm6pyk': {
-      'en': 'Option 3',
-      'ar': 'الخيار 3',
-      'ur': 'آپشن 3',
-    },
     'lnaqxio5': {
       'en': 'Please write a description you have of the incident.',
       'ar': 'يرجى كتابة وصف لديك للحادث.',
       'ur': 'براہ کرم اس واقعے کی تفصیل لکھیں۔',
+    },
+    '9jkwuxee': {
+      'en': 'Enter your details here...',
+      'ar': '',
+      'ur': '',
     },
     'gynbt8xq': {
       'en': 'Submit Ticket',
@@ -2243,6 +2390,171 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
           'ہماری درخواست کا آپ کا استعمال بھی ہماری رازداری کی پالیسی سے مشروط ہے۔ براہ کرم ہماری پرائیویسی پالیسی کا جائزہ لیں، جو ایپلیکیشن کو بھی کنٹرول کرتی ہے اور صارفین کو ہمارے ڈیٹا اکٹھا کرنے کے طریقوں سے آگاہ کرتی ہے۔',
     },
   },
+  // OtherOptions
+  {
+    'srqkssfu': {
+      'en': 'Options',
+      'ar': '',
+      'ur': '',
+    },
+    'sph13pmi': {
+      'en': 'Request Support',
+      'ar': '',
+      'ur': '',
+    },
+    '8v0ker9h': {
+      'en': 'Report Incident',
+      'ar': '',
+      'ur': '',
+    },
+  },
+  // PinSelect
+  {
+    'fnfmv93y': {
+      'en': 'Set Pick Up',
+      'ar': '',
+      'ur': '',
+    },
+    '1ihpmjpy': {
+      'en': 'Set Drop Off',
+      'ar': '',
+      'ur': '',
+    },
+  },
+  // MenuDrawer
+  {
+    'bmj8rr5w': {
+      'en': 'Qafila',
+      'ar': '',
+      'ur': '',
+    },
+    'xcornxcu': {
+      'en': 'Tech.',
+      'ar': '',
+      'ur': '',
+    },
+    'g5ef4nmm': {
+      'en': 'Platform Navigation',
+      'ar': '',
+      'ur': '',
+    },
+    'e80bnm5y': {
+      'en': 'Support Center',
+      'ar': '',
+      'ur': '',
+    },
+    'l0pe39f5': {
+      'en': 'Payment methods',
+      'ar': '',
+      'ur': '',
+    },
+    'h7je3729': {
+      'en': 'Favorite Locations',
+      'ar': '',
+      'ur': '',
+    },
+    'vaw0gkqh': {
+      'en': 'Report Incident',
+      'ar': '',
+      'ur': '',
+    },
+    'x9720y36': {
+      'en': 'Light Mode',
+      'ar': '',
+      'ur': '',
+    },
+    'vx2wetay': {
+      'en': 'Dark Mode',
+      'ar': '',
+      'ur': '',
+    },
+  },
+  // ReviewComponent
+  {
+    'yrrfdhzm': {
+      'en': 'How was your order?',
+      'ar': '',
+      'ur': '',
+    },
+    '7t9lt5ku': {
+      'en': 'Share your experience to help others',
+      'ar': '',
+      'ur': '',
+    },
+    '98tzisic': {
+      'en': 'Tell us more',
+      'ar': '',
+      'ur': '',
+    },
+    '0cbp8fxn': {
+      'en': 'Share your thoughts about the food, delivery, or service...',
+      'ar': '',
+      'ur': '',
+    },
+    '3iolvsi9': {
+      'en': 'Skip',
+      'ar': '',
+      'ur': '',
+    },
+    'f0xlh2rs': {
+      'en': 'Submit Review',
+      'ar': '',
+      'ur': '',
+    },
+  },
+  // AttachmentConfirmPhoto
+  {
+    'i7xt9l4s': {
+      'en': 'Cargo Inspection',
+      'ar': '',
+      'ur': '',
+    },
+    '37t66bkx': {
+      'en': 'Cargo Condition',
+      'ar': '',
+      'ur': '',
+    },
+    'mqfjkxbd': {
+      'en': 'Excellent',
+      'ar': '',
+      'ur': '',
+    },
+    '42oyh9tx': {
+      'en': 'Good',
+      'ar': '',
+      'ur': '',
+    },
+    'js2iw09p': {
+      'en': 'Fair',
+      'ar': '',
+      'ur': '',
+    },
+    'xsctw4bg': {
+      'en': 'Damaged',
+      'ar': '',
+      'ur': '',
+    },
+    'k0gbqwbk': {
+      'en': 'Additional Notes',
+      'ar': '',
+      'ur': '',
+    },
+    'ss5dxn7k': {
+      'en': 'Any damage or special observations...',
+      'ar': '',
+      'ur': '',
+    },
+    'x5c6eg47': {
+      'en': 'Report Issue',
+      'ar': '',
+      'ur': '',
+    },
+    'y4c0cofb': {
+      'en': 'Confirm Condition',
+      'ar': '',
+      'ur': '',
+    },
+  },
   // Miscellaneous
   {
     '3bgxxdbf': {
@@ -2257,6 +2569,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'bv4lr0k6': {
       'en': '',
+      'ar': '',
+      'ur': '',
+    },
+    'g9g7rnla': {
+      'en':
+          'QafilaTech needs access to your notifications to send you notifications',
       'ar': '',
       'ur': '',
     },
@@ -2382,6 +2700,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '4afllffx': {
       'en': '',
+      'ar': '',
+      'ur': '',
+    },
+    'a6d4trby': {
+      'en': 'Home',
       'ar': '',
       'ur': '',
     },

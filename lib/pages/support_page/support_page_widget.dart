@@ -1,16 +1,19 @@
-import '/components/report_components/report_issue_menu/report_issue_menu_widget.dart';
+import '/components/appbar_component/appbar_component_widget.dart';
+import '/components/menu_drawer/menu_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
+import '/index.dart';
+import 'package:community_testing_ryusdv/app_state.dart'
+    as community_testing_ryusdv_app_state;
+import 'package:custom_openstreetmap_vmty5u/app_state.dart'
+    as custom_openstreetmap_vmty5u_app_state;
+import 'package:that_bottom_bar_y134zt/app_state.dart'
+    as that_bottom_bar_y134zt_app_state;
+import 'package:that_bottom_bar_y134zt/custom_code/widgets/index.dart'
+    as that_bottom_bar_y134zt_custom_widgets;
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -44,20 +47,19 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
       'containerOnPageLoadAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
         effectsBuilder: () => [
-          VisibilityEffect(duration: 1.ms),
           FadeEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
-            duration: 400.0.ms,
+            duration: 600.0.ms,
             begin: 0.0,
             end: 1.0,
           ),
-          ScaleEffect(
+          MoveEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
-            duration: 400.0.ms,
-            begin: Offset(3.0, 3.0),
-            end: Offset(1.0, 1.0),
+            duration: 600.0.ms,
+            begin: Offset(0.0, 110.0),
+            end: Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -137,26 +139,13 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
           ),
         ],
       ),
-      'containerOnPageLoadAnimation6': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          MoveEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: Offset(0.0, 110.0),
-            end: Offset(0.0, 0.0),
-          ),
-        ],
-      ),
     });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
   }
 
   @override
@@ -168,6 +157,11 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+    context.watch<custom_openstreetmap_vmty5u_app_state.FFAppState>();
+    context.watch<community_testing_ryusdv_app_state.FFAppState>();
+    context.watch<that_bottom_bar_y134zt_app_state.FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -176,186 +170,42 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                FlutterFlowTheme.of(context).primaryBackground,
-                FlutterFlowTheme.of(context).secondaryBackground
-              ],
-              stops: [0.0, 1.0],
-              begin: AlignmentDirectional(0.0, -1.0),
-              end: AlignmentDirectional(0, 1.0),
-            ),
+        endDrawer: Drawer(
+          elevation: 16.0,
+          child: wrapWithModel(
+            model: _model.menuDrawerModel,
+            updateCallback: () => safeSetState(() {}),
+            child: MenuDrawerWidget(),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                child: Container(
-                  width: double.infinity,
-                  height: 150.0,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        FlutterFlowTheme.of(context).primary,
-                        FlutterFlowTheme.of(context).accent1,
-                        FlutterFlowTheme.of(context).accent2
-                      ],
-                      stops: [0.0, 0.5, 1.0],
-                      begin: AlignmentDirectional(-1.0, -1.0),
-                      end: AlignmentDirectional(1.0, 1.0),
-                    ),
-                  ),
-                  child: Container(
-                    width: 100.0,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          valueOrDefault<Color>(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? Color(0x00101518)
-                                : Color(0x00FFFFFF),
-                            Color(0x00FFFFFF),
-                          ),
-                          FlutterFlowTheme.of(context).primaryBackground
-                        ],
-                        stops: [0.0, 1.0],
-                        begin: AlignmentDirectional(0.0, -1.0),
-                        end: AlignmentDirectional(0, 1.0),
-                      ),
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 0.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: FlutterFlowIconButton(
-                                    borderRadius: 8.0,
-                                    icon: Icon(
-                                      Icons.chevron_left_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      size: 30.0,
-                                    ),
-                                    onPressed: () async {
-                                      context.safePop();
-                                    },
-                                  ),
-                                ),
-                                Text(
-                                  FFLocalizations.of(context).getText(
-                                    'vnz96ubn' /* Payment */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 25.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 16.0, 0.0),
-                                child: FlutterFlowIconButton(
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).accent2,
-                                  borderRadius: 12.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 40.0,
-                                  fillColor:
-                                      FlutterFlowTheme.of(context).accent4,
-                                  icon: FaIcon(
-                                    FontAwesomeIcons.solidBell,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 18.0,
-                                  ),
-                                  onPressed: () async {
-                                    scaffoldKey.currentState!.openEndDrawer();
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 16.0, 0.0),
-                                child: FlutterFlowIconButton(
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).accent2,
-                                  borderRadius: 12.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 40.0,
-                                  fillColor:
-                                      FlutterFlowTheme.of(context).accent4,
-                                  icon: Icon(
-                                    Icons.report,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 18.0,
-                                  ),
-                                  onPressed: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            FocusScope.of(context).unfocus();
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus();
-                                          },
-                                          child: Padding(
-                                            padding: MediaQuery.viewInsetsOf(
-                                                context),
-                                            child: Container(
-                                              height: 475.0,
-                                              child: ReportIssueMenuWidget(),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => safeSetState(() {}));
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ).animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation1']!),
+        ),
+        body: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            wrapWithModel(
+              model: _model.appbarComponentModel,
+              updateCallback: () => safeSetState(() {}),
+              child: AppbarComponentWidget(
+                pageTitle: 'Support',
+                menuButtonAction: () async {
+                  scaffoldKey.currentState!.openEndDrawer();
+                },
               ),
-              Expanded(
+            ),
+            Expanded(
+              child: Container(
+                width: MediaQuery.sizeOf(context).width,
+                height: MediaQuery.sizeOf(context).height,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      FlutterFlowTheme.of(context).primaryBackground,
+                      FlutterFlowTheme.of(context).secondaryBackground
+                    ],
+                    stops: [0.0, 1.0],
+                    begin: AlignmentDirectional(0.0, -1.0),
+                    end: AlignmentDirectional(0, 1.0),
+                  ),
+                ),
                 child: Padding(
                   padding:
                       EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
@@ -364,38 +214,13 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          FFLocalizations.of(context).getText(
-                            'v7xgwwdq' /* Welcome to support */,
-                          ),
-                          style:
-                              FlutterFlowTheme.of(context).labelLarge.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 4.0, 0.0, 0.0),
-                          child: Text(
-                            FFLocalizations.of(context).getText(
-                              'p3yawfvt' /* How can we help you? */,
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .headlineMedium
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 16.0, 0.0, 0.0),
+                              6.0, 0.0, 6.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -418,7 +243,7 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                       borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
                                         color: FlutterFlowTheme.of(context)
-                                            .accent2,
+                                            .alternate,
                                         width: 2.0,
                                       ),
                                     ),
@@ -434,7 +259,7 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                           Icon(
                                             Icons.local_phone,
                                             color: FlutterFlowTheme.of(context)
-                                                .primary,
+                                                .secondary,
                                             size: 36.0,
                                           ),
                                           Padding(
@@ -451,8 +276,29 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
                                           ),
@@ -461,13 +307,9 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                     ),
                                   ),
                                 ).animateOnPageLoad(animationsMap[
-                                    'containerOnPageLoadAnimation2']!),
+                                    'containerOnPageLoadAnimation1']!),
                               ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 16.0, 0.0, 0.0),
+                              Expanded(
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -497,7 +339,7 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                       borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
                                         color: FlutterFlowTheme.of(context)
-                                            .accent2,
+                                            .alternate,
                                         width: 2.0,
                                       ),
                                     ),
@@ -513,7 +355,7 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                           Icon(
                                             Icons.email_outlined,
                                             color: FlutterFlowTheme.of(context)
-                                                .primary,
+                                                .secondary,
                                             size: 36.0,
                                           ),
                                           Padding(
@@ -530,8 +372,29 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                             ),
                                           ),
@@ -540,10 +403,10 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                     ),
                                   ),
                                 ).animateOnPageLoad(animationsMap[
-                                    'containerOnPageLoadAnimation3']!),
+                                    'containerOnPageLoadAnimation2']!),
                               ),
-                            ),
-                          ].divide(SizedBox(width: 12.0)),
+                            ].divide(SizedBox(width: 12.0)),
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -555,8 +418,21 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -573,7 +449,7 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(12.0),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).accent2,
+                                color: FlutterFlowTheme.of(context).alternate,
                                 width: 2.0,
                               ),
                             ),
@@ -590,8 +466,25 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          fontFamily: 'Inter',
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
                                         ),
                                   ),
                                   Padding(
@@ -604,8 +497,114 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ).animateOnPageLoad(
+                              animationsMap['containerOnPageLoadAnimation3']!),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 0.0),
+                          child: Container(
+                            width: double.infinity,
+                            constraints: BoxConstraints(
+                              maxWidth: 500.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(12.0),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    FFLocalizations.of(context).getText(
+                                      'qzewzrzh' /* How do I download Code? */,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 4.0, 0.0, 0.0),
+                                    child: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'bz7teo3k' /* Showcase a couple of eye-catch... */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -628,62 +627,7 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(12.0),
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).accent2,
-                                width: 2.0,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(12.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    FFLocalizations.of(context).getText(
-                                      'qzewzrzh' /* How do I download Code? */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyLarge
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 4.0, 0.0, 0.0),
-                                    child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'bz7teo3k' /* Showcase a couple of eye-catch... */,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ).animateOnPageLoad(
-                              animationsMap['containerOnPageLoadAnimation5']!),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 8.0, 0.0, 0.0),
-                          child: Container(
-                            width: double.infinity,
-                            constraints: BoxConstraints(
-                              maxWidth: 500.0,
-                            ),
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(12.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).accent2,
+                                color: FlutterFlowTheme.of(context).alternate,
                                 width: 2.0,
                               ),
                             ),
@@ -700,8 +644,25 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          fontFamily: 'Inter',
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyLarge
+                                                  .fontStyle,
                                         ),
                                   ),
                                   Padding(
@@ -714,8 +675,25 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ),
@@ -723,49 +701,113 @@ class _SupportPageWidgetState extends State<SupportPageWidget>
                               ),
                             ),
                           ).animateOnPageLoad(
-                              animationsMap['containerOnPageLoadAnimation6']!),
+                              animationsMap['containerOnPageLoadAnimation5']!),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 12.0),
-                child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
-                  },
-                  text: FFLocalizations.of(context).getText(
-                    'by1pbtd9' /* Chat Now */,
-                  ),
-                  icon: Icon(
-                    Icons.support_agent_rounded,
-                    size: 15.0,
-                  ),
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 48.0,
-                    padding: EdgeInsets.all(0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Inter',
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                        ),
-                    elevation: 3.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+            ),
+            Align(
+              alignment: AlignmentDirectional(0.0, 1.0),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 100),
+                curve: Curves.easeInOutQuint,
+                width: MediaQuery.sizeOf(context).width,
+                height: 70.0,
+                decoration: BoxDecoration(
+                  color: Color(0x00101518),
+                ),
+                child: Align(
+                  alignment: AlignmentDirectional(0.0, 1.0),
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: 60.0,
+                    child:
+                        that_bottom_bar_y134zt_custom_widgets.ThatCurvedNavBar(
+                      width: MediaQuery.sizeOf(context).width,
+                      height: 60.0,
+                      keyValue: 'page',
+                      firstIcon: Icon(
+                        Icons.home_rounded,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
+                      secondIcon: Icon(
+                        Icons.person,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
+                      thirdIcon: Icon(
+                        Icons.history,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      backgroundColor: Color(0x00182026),
+                      buttonBackgroundColor:
+                          FlutterFlowTheme.of(context).secondary,
+                      onTap: () async {
+                        if (that_bottom_bar_y134zt_app_state.FFAppState()
+                                .pageIndex
+                                .toString() ==
+                            '0') {
+                          context.goNamed(
+                            HomeWidget.routeName,
+                            extra: <String, dynamic>{
+                              '__transition_info__': TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 300),
+                              ),
+                            },
+                          );
+
+                          return;
+                        } else {
+                          if (that_bottom_bar_y134zt_app_state.FFAppState()
+                                  .pageIndex
+                                  .toString() ==
+                              '1') {
+                            context.goNamed(
+                              UserProfileWidget.routeName,
+                              extra: <String, dynamic>{
+                                '__transition_info__': TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType: PageTransitionType.fade,
+                                  duration: Duration(milliseconds: 300),
+                                ),
+                              },
+                            );
+
+                            return;
+                          } else {
+                            if (that_bottom_bar_y134zt_app_state.FFAppState()
+                                    .pageIndex
+                                    .toString() ==
+                                '2') {
+                              context.goNamed(
+                                OrderHistoryWidget.routeName,
+                                extra: <String, dynamic>{
+                                  '__transition_info__': TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 300),
+                                  ),
+                                },
+                              );
+
+                              return;
+                            } else {
+                              return;
+                            }
+                          }
+                        }
+                      },
                     ),
-                    borderRadius: BorderRadius.circular(60.0),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,19 +1,16 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
 import '/index.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:lottie/lottie.dart';
 import 'onboarding_model.dart';
 export 'onboarding_model.dart';
 
@@ -100,8 +97,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      FlutterFlowTheme.of(context).alternate,
-                      FlutterFlowTheme.of(context).primaryBackground
+                      FlutterFlowTheme.of(context).primaryBackground,
+                      FlutterFlowTheme.of(context).secondaryBackground
                     ],
                     stops: [0.0, 1.0],
                     begin: AlignmentDirectional(0.0, -1.0),
@@ -109,66 +106,101 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 48.0, 0.0, 48.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 48.0),
                   child: Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     height: 100.0,
                     child: Stack(
                       children: [
-                        Align(
-                          alignment: AlignmentDirectional(0.0, -1.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 60.0, 0.0, 0.0),
-                            child: Container(
-                              width: 320.0,
-                              decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    valueOrDefault<String>(
-                                      _model.titleList.elementAtOrNull(
-                                          _model.pageViewCurrentIndex),
-                                      'Smarter Savings',
+                        Container(
+                          width: 428.9,
+                          height: 351.39,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                FlutterFlowTheme.of(context).secondary,
+                                Color(0x0018AA99)
+                              ],
+                              stops: [0.0, 1.0],
+                              begin: AlignmentDirectional(0.0, -1.0),
+                              end: AlignmentDirectional(0, 1.0),
+                            ),
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, -1.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 130.0, 0.0, 0.0),
+                              child: Container(
+                                width: 320.0,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      valueOrDefault<String>(
+                                        _model.titleList.elementAtOrNull(
+                                            _model.pageViewCurrentIndex),
+                                        'Anything Delivered, Anywhere',
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 24.0,
+                                            letterSpacing: 0.24,
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                            lineHeight: 1.3,
+                                          ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter Tight',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 24.0,
-                                          letterSpacing: 0.24,
-                                          fontWeight: FontWeight.w600,
-                                          lineHeight: 1.3,
-                                        ),
-                                  ),
-                                  Text(
-                                    valueOrDefault<String>(
-                                      _model.subtitleList.elementAtOrNull(
-                                          _model.pageViewCurrentIndex),
-                                      'Stay on top of your finances with intuitive tools and insights.',
+                                    Text(
+                                      valueOrDefault<String>(
+                                        _model.subtitleList.elementAtOrNull(
+                                            _model.pageViewCurrentIndex),
+                                        'From documents to packages, get your items moving instantly. Reliable drivers are just a tap away.',
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.inter(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            fontSize: 18.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                            lineHeight: 1.3,
+                                          ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter Tight',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                          lineHeight: 1.3,
-                                        ),
-                                  ),
-                                ].divide(SizedBox(height: 12.0)),
+                                  ].divide(SizedBox(height: 12.0)),
+                                ),
+                              ).animateOnActionTrigger(
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation']!,
                               ),
-                            ).animateOnActionTrigger(
-                              animationsMap[
-                                  'containerOnActionTriggerAnimation']!,
                             ),
                           ),
                         ),
@@ -176,145 +208,137 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              child: Container(
-                                width: double.infinity,
-                                height: 300.0,
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 200.0, 0.0, 64.0),
-                                      child: PageView(
-                                        controller:
-                                            _model.pageViewController ??=
-                                                PageController(initialPage: 1),
-                                        onPageChanged: (_) async {
-                                          if (_model.pageViewCurrentIndex ==
-                                              ((_model.totalPagesCount!) - 1)) {
-                                            _model.hideButtonText = true;
-                                            safeSetState(() {});
-                                          }
-
-                                          safeSetState(() {});
-                                          if (animationsMap[
-                                                  'containerOnActionTriggerAnimation'] !=
-                                              null) {
-                                            animationsMap[
-                                                    'containerOnActionTriggerAnimation']!
-                                                .controller
-                                                .forward(from: 0.0);
-                                          }
-                                          await Future.delayed(const Duration(
-                                              milliseconds: 100));
-                                          _model.hideButtonText = false;
-                                          safeSetState(() {});
-                                        },
-                                        scrollDirection: Axis.horizontal,
-                                        children: [
-                                          Container(
-                                            constraints: BoxConstraints(
-                                              maxWidth: 100.0,
-                                            ),
-                                            decoration: BoxDecoration(),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      48.0, 0.0, 48.0, 0.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                                child: Image.asset(
-                                                  Theme.of(context)
-                                                              .brightness ==
-                                                          Brightness.dark
-                                                      ? 'assets/images/logistic-app-4472468-3858273(1).webp'
-                                                      : 'assets/images/logistic-app-4472468-3858273(1).webp',
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            constraints: BoxConstraints(
-                                              maxWidth: 100.0,
-                                            ),
-                                            decoration: BoxDecoration(),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 0.0, 12.0, 0.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                                child: Image.asset(
-                                                  'assets/images/logistic-app-4472468-3858273(1).webp',
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            constraints: BoxConstraints(
-                                              maxWidth: 100.0,
-                                            ),
-                                            decoration: BoxDecoration(),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      48.0, 32.0, 48.0, 32.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                                child: Image.asset(
-                                                  'assets/images/Image_3.png',
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, -1.0),
-                                      child: Padding(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 50.0, 0.0, 0.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 300.0,
+                                  child: Stack(
+                                    children: [
+                                      Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 16.0),
-                                        child: smooth_page_indicator
-                                            .SmoothPageIndicator(
+                                            0.0, 200.0, 0.0, 64.0),
+                                        child: PageView(
                                           controller: _model
                                                   .pageViewController ??=
                                               PageController(initialPage: 1),
-                                          count: 3,
-                                          axisDirection: Axis.horizontal,
-                                          onDotClicked: (i) async {
-                                            await _model.pageViewController!
-                                                .animateToPage(
-                                              i,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              curve: Curves.ease,
+                                          onPageChanged: (_) async {
+                                            if (_model.pageViewCurrentIndex ==
+                                                ((_model.totalPagesCount!) -
+                                                    1)) {
+                                              _model.hideButtonText = true;
+                                              safeSetState(() {});
+                                            }
+
+                                            safeSetState(() {});
+                                            if (animationsMap[
+                                                    'containerOnActionTriggerAnimation'] !=
+                                                null) {
+                                              animationsMap[
+                                                      'containerOnActionTriggerAnimation']!
+                                                  .controller
+                                                  .forward(from: 0.0);
+                                            }
+                                            await Future.delayed(
+                                              Duration(
+                                                milliseconds: 100,
+                                              ),
                                             );
+                                            _model.hideButtonText = false;
                                             safeSetState(() {});
                                           },
-                                          effect: smooth_page_indicator
-                                              .ExpandingDotsEffect(
-                                            expansionFactor: 3.5,
-                                            spacing: 8.0,
-                                            radius: 20.0,
-                                            dotWidth: 20.0,
-                                            dotHeight: 2.0,
-                                            dotColor: Color(0xFF838383),
-                                            activeDotColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            paintStyle: PaintingStyle.fill,
+                                          scrollDirection: Axis.horizontal,
+                                          children: [
+                                            Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: 100.0,
+                                              ),
+                                              decoration: BoxDecoration(),
+                                              child: Lottie.asset(
+                                                'assets/jsons/Online_Delivery_Service_(1).json',
+                                                width: 200.0,
+                                                height: 200.0,
+                                                fit: BoxFit.contain,
+                                                animate: true,
+                                              ),
+                                            ),
+                                            Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: 100.0,
+                                              ),
+                                              decoration: BoxDecoration(),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 0.0, 16.0, 0.0),
+                                                child: Lottie.asset(
+                                                  'assets/jsons/Tracking_Order_Online_(1).json',
+                                                  width: 200.0,
+                                                  height: 200.0,
+                                                  fit: BoxFit.contain,
+                                                  animate: true,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: 100.0,
+                                              ),
+                                              decoration: BoxDecoration(),
+                                              child: Lottie.asset(
+                                                'assets/jsons/Cash_on_Delivery_(1).json',
+                                                width: 200.0,
+                                                height: 200.0,
+                                                fit: BoxFit.contain,
+                                                animate: true,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, -1.0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 16.0),
+                                          child: smooth_page_indicator
+                                              .SmoothPageIndicator(
+                                            controller: _model
+                                                    .pageViewController ??=
+                                                PageController(initialPage: 1),
+                                            count: 3,
+                                            axisDirection: Axis.horizontal,
+                                            onDotClicked: (i) async {
+                                              await _model.pageViewController!
+                                                  .animateToPage(
+                                                i,
+                                                duration:
+                                                    Duration(milliseconds: 500),
+                                                curve: Curves.ease,
+                                              );
+                                              safeSetState(() {});
+                                            },
+                                            effect: smooth_page_indicator
+                                                .ExpandingDotsEffect(
+                                              expansionFactor: 3.5,
+                                              spacing: 8.0,
+                                              radius: 20.0,
+                                              dotWidth: 20.0,
+                                              dotHeight: 2.0,
+                                              dotColor: Color(0xFF838383),
+                                              activeDotColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              paintStyle: PaintingStyle.fill,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -341,9 +365,24 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
                                         color: Colors.white,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
                                       ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(8.0),
@@ -408,11 +447,21 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          fontFamily: 'Inter Tight',
+                                          font: GoogleFonts.interTight(
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
                                           color: Colors.white,
                                           fontSize: 16.0,
                                           letterSpacing: 0.16,
                                           fontWeight: FontWeight.normal,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
                                         ),
                                     elevation: 0.0,
                                     borderSide: BorderSide(
@@ -440,7 +489,16 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                     curve: Curves.ease,
                                   );
                                   if (_model.pageViewCurrentIndex >= 2) {
-                                    context.pushNamed(HomeWidget.routeName);
+                                    context.pushNamed(
+                                      HomeWidget.routeName,
+                                      extra: <String, dynamic>{
+                                        '__transition_info__': TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.topToBottom,
+                                        ),
+                                      },
+                                    );
                                   }
                                 }
                               },
@@ -491,12 +549,31 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 fontSize: 16.0,
                                                 letterSpacing: 0.16,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
                                                 lineHeight: 1.3,
                                               ),
                                         ),
@@ -508,8 +585,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                             AlignmentDirectional(0.0, 0.0),
                                         child: Icon(
                                           Icons.arrow_forward_ios_outlined,
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
                                           size: 20.0,
                                         ),
                                       ),

@@ -1,17 +1,15 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '/flutter_flow/random_data_util.dart' as random_data;
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'issue_with_order_select_model.dart';
 export 'issue_with_order_select_model.dart';
 
@@ -21,11 +19,16 @@ class IssueWithOrderSelectWidget extends StatefulWidget {
     String? title,
     required this.categoryTitle,
     required this.desc,
-  }) : this.title = title ?? 'n/a';
+    bool? specificOrder,
+    this.orderID,
+  })  : this.title = title ?? 'n/a',
+        this.specificOrder = specificOrder ?? false;
 
   final String title;
   final String? categoryTitle;
   final String? desc;
+  final bool specificOrder;
+  final String? orderID;
 
   @override
   State<IssueWithOrderSelectWidget> createState() =>
@@ -74,7 +77,15 @@ class _IssueWithOrderSelectWidgetState
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).primaryBackground,
+              FlutterFlowTheme.of(context).secondaryBackground
+            ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
+          ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
@@ -101,10 +112,23 @@ class _IssueWithOrderSelectWidgetState
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(26.0, 16.0, 0.0, 0.0),
                 child: Text(
-                  widget!.title,
+                  widget.title,
                   style: FlutterFlowTheme.of(context).headlineSmall.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineSmall
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineSmall
+                            .fontStyle,
                       ),
                 ),
               ),
@@ -115,12 +139,22 @@ class _IssueWithOrderSelectWidgetState
                 padding: EdgeInsetsDirectional.fromSTEB(26.0, 6.0, 0.0, 0.0),
                 child: Text(
                   valueOrDefault<String>(
-                    widget!.desc,
+                    widget.desc,
                     'N/A',
                   ),
                   style: FlutterFlowTheme.of(context).labelSmall.override(
-                        fontFamily: 'Inter',
+                        font: GoogleFonts.inter(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .labelSmall
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).labelSmall.fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).labelSmall.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).labelSmall.fontStyle,
                       ),
                 ),
               ),
@@ -140,15 +174,34 @@ class _IssueWithOrderSelectWidgetState
                         '2fis7zb7' /* Please select the order ID of ... */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
                             letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
                           ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
-                    child: StreamBuilder<List<RideRecord>>(
-                      stream: queryRideRecord(),
+                    child: StreamBuilder<List<OrdersRecord>>(
+                      stream: queryOrdersRecord(
+                        queryBuilder: (ordersRecord) => ordersRecord.where(
+                          'customer_id',
+                          isEqualTo: currentUserReference,
+                        ),
+                        singleRecord: true,
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
@@ -163,26 +216,45 @@ class _IssueWithOrderSelectWidgetState
                             ),
                           );
                         }
-                        List<RideRecord> orderDropDownRideRecordList =
+                        List<OrdersRecord> orderDropDownOrdersRecordList =
                             snapshot.data!;
+                        final orderDropDownOrdersRecord =
+                            orderDropDownOrdersRecordList.isNotEmpty
+                                ? orderDropDownOrdersRecordList.first
+                                : null;
 
                         return FlutterFlowDropDown<String>(
                           controller: _model.orderDropDownValueController ??=
-                              FormFieldController<String>(null),
-                          options: orderDropDownRideRecordList
-                              .map((e) => valueOrDefault<String>(
-                                    e.orderID,
-                                    'n/a',
-                                  ))
-                              .toList(),
+                              FormFieldController<String>(
+                            _model.orderDropDownValue ??=
+                                widget.specificOrder ? widget.orderID : '',
+                          ),
+                          options: [
+                            widget.specificOrder
+                                ? widget.orderID!
+                                : orderDropDownOrdersRecord!.orderId
+                          ],
                           onChanged: (val) => safeSetState(
                               () => _model.orderDropDownValue = val),
                           width: 200.0,
                           height: 40.0,
                           textStyle:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
                                   ),
                           hintText: FFLocalizations.of(context).getText(
                             '9y8zqasg' /* Select... */,
@@ -215,8 +287,21 @@ class _IssueWithOrderSelectWidgetState
                         'lnaqxio5' /* Please write a description you... */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
+                            font: GoogleFonts.inter(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
                             letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
                           ),
                     ),
                   ),
@@ -232,15 +317,45 @@ class _IssueWithOrderSelectWidgetState
                         obscureText: false,
                         decoration: InputDecoration(
                           isDense: true,
+                          labelText: FFLocalizations.of(context).getText(
+                            '9jkwuxee' /* Enter your details here... */,
+                          ),
                           labelStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
+                          alignLabelWithHint: true,
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -271,12 +386,24 @@ class _IssueWithOrderSelectWidgetState
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          fillColor: FlutterFlowTheme.of(context).alternate,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Inter',
+                              font: GoogleFonts.inter(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
                               letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
                             ),
                         maxLines: 6,
                         cursorColor: FlutterFlowTheme.of(context).primaryText,
@@ -290,20 +417,35 @@ class _IssueWithOrderSelectWidgetState
                         EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 50.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        await IncidentsDBRecord.collection
+                        await IncidentsRecord.collection
                             .doc()
-                            .set(createIncidentsDBRecordData(
-                              incidentID: valueOrDefault<String>(
-                                functions.incidentIDCreate(),
-                                'N/A',
+                            .set(createIncidentsRecordData(
+                              incidentId: valueOrDefault<String>(
+                                random_data.randomString(
+                                  8,
+                                  8,
+                                  false,
+                                  true,
+                                  true,
+                                ),
+                                '0',
                               ),
-                              incidentCategory: widget!.categoryTitle,
-                              incidentSubCategory: widget!.title,
-                              orderID: _model.orderDropDownValue,
-                              userID: currentUserUid,
+                              orderId: functions
+                                  .idExtractor(_model.orderDropDownValue),
+                              customerId: currentUserReference,
+                              customerName: valueOrDefault<String>(
+                                currentUserDisplayName,
+                                'n/a',
+                              ),
+                              incidentCategory: widget.categoryTitle,
+                              incidentSubcategory: widget.title,
+                              description: valueOrDefault<String>(
+                                widget.desc,
+                                'n/a',
+                              ),
                               userComments: _model.textController.text,
                               createdAt: getCurrentTimestamp,
-                              incidentStatus: 'Active',
+                              status: 'Active',
                             ));
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -329,12 +471,26 @@ class _IssueWithOrderSelectWidgetState
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: FlutterFlowTheme.of(context).primaryText,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Inter',
-                                  color: Colors.white,
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
                                 ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(8.0),

@@ -1,9 +1,9 @@
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:easy_debounce/easy_debounce.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'contact_model.dart';
 export 'contact_model.dart';
 
@@ -35,6 +35,8 @@ class _ContactWidgetState extends State<ContactWidget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    _model.textFieldMask = MaskTextInputFormatter(mask: '+968########');
   }
 
   @override
@@ -51,21 +53,38 @@ class _ContactWidgetState extends State<ContactWidget> {
       child: TextFormField(
         controller: _model.textController,
         focusNode: _model.textFieldFocusNode,
+        onChanged: (_) => EasyDebounce.debounce(
+          '_model.textController',
+          Duration(milliseconds: 2000),
+          () => safeSetState(() {}),
+        ),
         autofocus: false,
         obscureText: false,
         decoration: InputDecoration(
           isDense: true,
-          labelText: widget!.labelz,
+          labelText: widget.labelz,
           labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                fontFamily: 'Inter',
+                font: GoogleFonts.inter(
+                  fontWeight:
+                      FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                ),
                 letterSpacing: 0.0,
+                fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
               ),
           hintText: FFLocalizations.of(context).getText(
             '2m3n1f5i' /* Enter contact phone number */,
           ),
           hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                fontFamily: 'Inter',
+                font: GoogleFonts.inter(
+                  fontWeight:
+                      FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                  fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                ),
                 letterSpacing: 0.0,
+                fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
               ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
@@ -99,13 +118,32 @@ class _ContactWidgetState extends State<ContactWidget> {
           fillColor: FlutterFlowTheme.of(context).secondaryBackground,
           contentPadding:
               EdgeInsetsDirectional.fromSTEB(10.0, 20.0, 10.0, 20.0),
+          suffixIcon: _model.textController!.text.isNotEmpty
+              ? InkWell(
+                  onTap: () async {
+                    _model.textController?.clear();
+                    safeSetState(() {});
+                  },
+                  child: Icon(
+                    Icons.clear,
+                    size: 22,
+                  ),
+                )
+              : null,
         ),
         style: FlutterFlowTheme.of(context).bodyMedium.override(
-              fontFamily: 'Inter',
+              font: GoogleFonts.inter(
+                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+              ),
               letterSpacing: 0.0,
+              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
             ),
         cursorColor: FlutterFlowTheme.of(context).primaryText,
+        enableInteractiveSelection: true,
         validator: _model.textControllerValidator.asValidator(context),
+        inputFormatters: [_model.textFieldMask],
       ),
     );
   }

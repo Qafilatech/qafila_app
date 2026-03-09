@@ -1,22 +1,17 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
 import '/index.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:flutter/gestures.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'verify_phone_model.dart';
 export 'verify_phone_model.dart';
 
@@ -180,10 +175,18 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .displaySmall
+                                            .fontStyle,
+                                      ),
                                       color: FlutterFlowTheme.of(context).info,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .displaySmall
+                                          .fontStyle,
                                     ),
                               ),
                               TextSpan(
@@ -193,18 +196,39 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
                                     .override(
-                                      fontFamily: 'Readex Pro',
+                                      font: GoogleFonts.readexPro(
+                                        fontWeight: FontWeight.w300,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .displaySmall
+                                            .fontStyle,
+                                      ),
                                       color: FlutterFlowTheme.of(context).info,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w300,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .displaySmall
+                                          .fontStyle,
                                     ),
                               )
                             ],
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -271,11 +295,11 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                     ValidatePhoneWidget.routeName,
                                     queryParameters: {
                                       'email': serializeParam(
-                                        widget!.email,
+                                        widget.email,
                                         ParamType.String,
                                       ),
                                       'password': serializeParam(
-                                        widget!.password,
+                                        widget.password,
                                         ParamType.String,
                                       ),
                                     }.withoutNulls,
@@ -290,8 +314,21 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                               style: FlutterFlowTheme.of(context)
                                   .displaySmall
                                   .override(
-                                    fontFamily: 'Readex Pro',
+                                    font: GoogleFonts.readexPro(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .displaySmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .displaySmall
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .displaySmall
+                                        .fontStyle,
                                   ),
                             ),
                             Padding(
@@ -317,7 +354,7 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                         style: TextStyle(),
                                       ),
                                       TextSpan(
-                                        text: widget!.phone!,
+                                        text: widget.phone!,
                                         style: TextStyle(
                                           color: FlutterFlowTheme.of(context)
                                               .secondary,
@@ -335,8 +372,25 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .override(
-                                          fontFamily: 'Inter',
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLarge
+                                                    .fontStyle,
+                                          ),
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelLarge
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelLarge
+                                                  .fontStyle,
                                           lineHeight: 1.5,
                                         ),
                                   ),
@@ -350,8 +404,21 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Inter',
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               enableActiveFill: true,
@@ -411,8 +478,25 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                       ),
                                     ),
@@ -438,8 +522,25 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                     Text(
@@ -449,8 +550,25 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                   ],
@@ -471,13 +589,30 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                     ),
                                     FFButtonWidget(
                                       onPressed: () async {
-                                        final phoneNumberVal = widget!.phone;
+                                        final phoneNumberVal = widget.phone;
                                         if (phoneNumberVal == null ||
                                             phoneNumberVal.isEmpty ||
                                             !phoneNumberVal.startsWith('+')) {
@@ -499,15 +634,15 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                               context.mounted,
                                               queryParameters: {
                                                 'email': serializeParam(
-                                                  widget!.email,
+                                                  widget.email,
                                                   ParamType.String,
                                                 ),
                                                 'password': serializeParam(
-                                                  widget!.password,
+                                                  widget.password,
                                                   ParamType.String,
                                                 ),
                                                 'phone': serializeParam(
-                                                  widget!.phone,
+                                                  widget.phone,
                                                   ParamType.String,
                                                 ),
                                               }.withoutNulls,
@@ -530,13 +665,23 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                         textStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondary,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .fontStyle,
                                             ),
                                         elevation: 0.0,
                                         borderRadius:
@@ -552,17 +697,14 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 16.0),
                                 child: FFButtonWidget(
-                                  onPressed: (_model.pinCodeController!.text ==
-                                              null ||
-                                          _model.pinCodeController!.text == '')
+                                  onPressed: (_model.pinCodeController!.text == '')
                                       ? null
                                       : () async {
                                           GoRouter.of(context)
                                               .prepareAuthEvent();
                                           final smsCodeVal =
                                               _model.pinCodeController!.text;
-                                          if (smsCodeVal == null ||
-                                              smsCodeVal.isEmpty) {
+                                          if (smsCodeVal.isEmpty) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -586,15 +728,15 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                             context.mounted,
                                             queryParameters: {
                                               'email': serializeParam(
-                                                widget!.email,
+                                                widget.email,
                                                 ParamType.String,
                                               ),
                                               'password': serializeParam(
-                                                widget!.password,
+                                                widget.password,
                                                 ParamType.String,
                                               ),
                                               'phone': serializeParam(
-                                                widget!.phone,
+                                                widget.phone,
                                                 ParamType.String,
                                               ),
                                             }.withoutNulls,
@@ -615,10 +757,27 @@ class _VerifyPhoneWidgetState extends State<VerifyPhoneWidget>
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          fontFamily: 'Inter',
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
                                         ),
                                     elevation: 3.0,
                                     borderSide: BorderSide(

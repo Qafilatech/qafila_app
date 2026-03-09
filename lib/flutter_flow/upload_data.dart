@@ -9,40 +9,12 @@ import 'package:mime_type/mime_type.dart';
 import 'package:video_player/video_player.dart';
 
 import '../auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow_util.dart';
+import 'package:ff_commons/flutter_flow/upload_data_class.dart';
+export 'package:ff_commons/flutter_flow/upload_data_class.dart';
 
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
-
-class SelectedFile {
-  const SelectedFile({
-    this.storagePath = '',
-    this.filePath,
-    required this.bytes,
-    this.dimensions,
-    this.blurHash,
-  });
-  final String storagePath;
-  final String? filePath;
-  final Uint8List bytes;
-  final MediaDimensions? dimensions;
-  final String? blurHash;
-}
-
-class MediaDimensions {
-  const MediaDimensions({
-    this.height,
-    this.width,
-  });
-  final double? height;
-  final double? width;
-}
-
-enum MediaSource {
-  photoGallery,
-  videoGallery,
-  camera,
-}
 
 Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
   required BuildContext context,
@@ -188,6 +160,7 @@ Future<List<SelectedFile>?> selectMedia({
         filePath: media.path,
         bytes: mediaBytes,
         dimensions: await dimensions,
+        originalFilename: media.name,
       );
     }));
   }
@@ -221,6 +194,7 @@ Future<List<SelectedFile>?> selectMedia({
       filePath: pickedMedia.path,
       bytes: mediaBytes,
       dimensions: await dimensions,
+      originalFilename: pickedMedia.name,
     ),
   ];
 }
@@ -271,6 +245,7 @@ Future<List<SelectedFile>?> selectFiles({
         storagePath: storagePath,
         filePath: isWeb ? null : file.path,
         bytes: file.bytes!,
+        originalFilename: file.name,
       );
     }));
   }
@@ -284,6 +259,7 @@ Future<List<SelectedFile>?> selectFiles({
       storagePath: storagePath,
       filePath: isWeb ? null : file.path,
       bytes: file.bytes!,
+      originalFilename: file.name,
     )
   ];
 }
@@ -304,7 +280,8 @@ List<SelectedFile> selectedFilesFromUploadedFiles(
               false,
               isMultiData ? index : null,
             ),
-            bytes: file.bytes!);
+            bytes: file.bytes!,
+            originalFilename: file.originalFilename);
       },
     ).toList();
 

@@ -1,22 +1,24 @@
 import 'package:provider/provider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'auth/firebase_auth/firebase_user_provider.dart';
 import 'auth/firebase_auth/auth_util.dart';
 
+import '/backend/supabase/supabase.dart';
 import 'backend/firebase/firebase_config.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'flutter_flow/nav/nav.dart';
-import 'index.dart';
+
+import 'package:custom_openstreetmap_vmty5u/app_state.dart'
+    as custom_openstreetmap_vmty5u_app_state;
+import 'package:community_testing_ryusdv/app_state.dart'
+    as community_testing_ryusdv_app_state;
+import 'package:that_bottom_bar_y134zt/app_state.dart'
+    as that_bottom_bar_y134zt_app_state;
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +27,8 @@ void main() async {
 
   await initFirebase();
 
+  await SupaFlow.initialize();
+
   await FlutterFlowTheme.initialize();
 
   await FFLocalizations.initialize();
@@ -32,8 +36,33 @@ void main() async {
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
+  final custom_openstreetmap_vmty5uAppState =
+      custom_openstreetmap_vmty5u_app_state.FFAppState();
+  await custom_openstreetmap_vmty5uAppState.initializePersistedState();
+
+  final community_testing_ryusdvAppState =
+      community_testing_ryusdv_app_state.FFAppState();
+  await community_testing_ryusdvAppState.initializePersistedState();
+
+  final that_bottom_bar_y134ztAppState =
+      that_bottom_bar_y134zt_app_state.FFAppState();
+  await that_bottom_bar_y134ztAppState.initializePersistedState();
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => appState,
+      ),
+      ChangeNotifierProvider(
+        create: (context) => custom_openstreetmap_vmty5uAppState,
+      ),
+      ChangeNotifierProvider(
+        create: (context) => community_testing_ryusdvAppState,
+      ),
+      ChangeNotifierProvider(
+        create: (context) => that_bottom_bar_y134ztAppState,
+      ),
+    ],
     child: MyApp(),
   ));
 }
@@ -67,7 +96,6 @@ class _MyAppState extends State<MyApp> {
       _router.routerDelegate.currentConfiguration.matches
           .map((e) => getRoute(e))
           .toList();
-
   late Stream<BaseAuthUser> userStream;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
@@ -133,84 +161,6 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: _themeMode,
       routerConfig: _router,
-    );
-  }
-}
-
-class NavBarPage extends StatefulWidget {
-  NavBarPage({Key? key, this.initialPage, this.page}) : super(key: key);
-
-  final String? initialPage;
-  final Widget? page;
-
-  @override
-  _NavBarPageState createState() => _NavBarPageState();
-}
-
-/// This is the private State class that goes with NavBarPage.
-class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'Home';
-  late Widget? _currentPage;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentPageName = widget.initialPage ?? _currentPageName;
-    _currentPage = widget.page;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final tabs = {
-      'UserProfile': UserProfileWidget(),
-      'Home': HomeWidget(),
-      'OrderHistory': OrderHistoryWidget(),
-    };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
-
-    return Scaffold(
-      body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: GNav(
-        selectedIndex: currentIndex,
-        onTabChange: (i) => safeSetState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        color: FlutterFlowTheme.of(context).accent1,
-        activeColor: FlutterFlowTheme.of(context).secondary,
-        tabBackgroundColor: Color(0x00000000),
-        tabBorderRadius: 100.0,
-        tabMargin: EdgeInsetsDirectional.fromSTEB(16.0, 6.0, 16.0, 6.0),
-        padding: EdgeInsets.all(16.0),
-        gap: 8.0,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        duration: Duration(milliseconds: 500),
-        haptic: false,
-        tabs: [
-          GButton(
-            icon: Icons.person_sharp,
-            text: FFLocalizations.of(context).getText(
-              '57jc9h1b' /* Profile */,
-            ),
-            iconSize: 24.0,
-          ),
-          GButton(
-            icon: Icons.home,
-            text: FFLocalizations.of(context).getText(
-              '4xj4b5bm' /* Home */,
-            ),
-            iconSize: 26.0,
-          ),
-          GButton(
-            icon: Icons.history_outlined,
-            text: FFLocalizations.of(context).getText(
-              'dfii6ug7' /* Order History */,
-            ),
-            iconSize: 24.0,
-          )
-        ],
-      ),
     );
   }
 }

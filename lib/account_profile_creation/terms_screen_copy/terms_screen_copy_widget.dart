@@ -1,36 +1,26 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/components/appbar_component/appbar_component_widget.dart';
 import '/components/terms_section/terms_section_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
 import '/index.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'terms_screen_copy_model.dart';
 export 'terms_screen_copy_model.dart';
 
 class TermsScreenCopyWidget extends StatefulWidget {
   const TermsScreenCopyWidget({
     super.key,
-    required this.firstName,
-    required this.lastName,
+    required this.displayName,
     required this.emailUser,
     required this.passwordUser,
     required this.phoneNumber,
     required this.photoURL,
   });
 
-  final String? firstName;
-  final String? lastName;
+  final String? displayName;
   final String? emailUser;
   final String? passwordUser;
   final String? phoneNumber;
@@ -43,41 +33,15 @@ class TermsScreenCopyWidget extends StatefulWidget {
   State<TermsScreenCopyWidget> createState() => _TermsScreenCopyWidgetState();
 }
 
-class _TermsScreenCopyWidgetState extends State<TermsScreenCopyWidget>
-    with TickerProviderStateMixin {
+class _TermsScreenCopyWidgetState extends State<TermsScreenCopyWidget> {
   late TermsScreenCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => TermsScreenCopyModel());
-
-    animationsMap.addAll({
-      'containerOnPageLoadAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          VisibilityEffect(duration: 1.ms),
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 400.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          ScaleEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 400.0.ms,
-            begin: Offset(3.0, 3.0),
-            end: Offset(1.0, 1.0),
-          ),
-        ],
-      ),
-    });
   }
 
   @override
@@ -101,82 +65,21 @@ class _TermsScreenCopyWidgetState extends State<TermsScreenCopyWidget>
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                child: Container(
-                  width: double.infinity,
-                  height: 150.0,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        FlutterFlowTheme.of(context).primary,
-                        FlutterFlowTheme.of(context).accent1,
-                        FlutterFlowTheme.of(context).accent2
-                      ],
-                      stops: [0.0, 0.5, 1.0],
-                      begin: AlignmentDirectional(-1.0, -1.0),
-                      end: AlignmentDirectional(1.0, 1.0),
-                    ),
-                  ),
-                  child: Container(
-                    width: 100.0,
-                    height: 300.0,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          valueOrDefault<Color>(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? Color(0x00101518)
-                                : Color(0x00FFFFFF),
-                            Color(0x00FFFFFF),
-                          ),
-                          FlutterFlowTheme.of(context).primaryBackground
-                        ],
-                        stops: [0.0, 1.0],
-                        begin: AlignmentDirectional(0.0, -1.0),
-                        end: AlignmentDirectional(0, 1.0),
-                      ),
-                    ),
-                    child: Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  FFLocalizations.of(context).getText(
-                                    'n2qdajw7' /* Terms & Conditions */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleLarge
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        fontSize: 24.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ).animateOnPageLoad(
-                    animationsMap['containerOnPageLoadAnimation']!),
-              ),
               wrapWithModel(
-                model: _model.termsSectionModel,
+                model: _model.appbarComponentModel,
                 updateCallback: () => safeSetState(() {}),
-                child: TermsSectionWidget(),
+                child: AppbarComponentWidget(
+                  pageTitle: 'Terms & Conditions',
+                  menuButtonAction: () async {},
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                child: wrapWithModel(
+                  model: _model.termsSectionModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: TermsSectionWidget(),
+                ),
               ),
               Divider(
                 thickness: 2.0,
@@ -210,8 +113,21 @@ class _TermsScreenCopyWidgetState extends State<TermsScreenCopyWidget>
                         ),
                         style:
                             FlutterFlowTheme.of(context).titleMedium.override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontStyle,
                                 ),
                       ),
                       tileColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -234,78 +150,62 @@ class _TermsScreenCopyWidgetState extends State<TermsScreenCopyWidget>
                   onPressed: _model.termsAgree
                       ? null
                       : () async {
-                          var confirmDialogResponse = await showDialog<bool>(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('Create Account?'),
-                                    content: Text(
-                                        'Are you sure you wish to continue'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, false),
-                                        child: Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(
-                                            alertDialogContext, true),
-                                        child: Text('Confirm'),
-                                      ),
-                                    ],
-                                  );
+                          var _shouldSetState = false;
+                          if (_model.checkboxListTileValue!) {
+                            _model.apiSignup =
+                                await QafilaPlatformAPIGroup.signupCall.call();
+
+                            _shouldSetState = true;
+                            if ((_model.apiSignup?.succeeded ?? true)) {
+                              context.goNamed(
+                                OnboardingWidget.routeName,
+                                extra: <String, dynamic>{
+                                  '__transition_info__': TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType:
+                                        PageTransitionType.bottomToTop,
+                                  ),
                                 },
-                              ) ??
-                              false;
-                          if (confirmDialogResponse) {
-                            GoRouter.of(context).prepareAuthEvent();
-                            if (widget!.passwordUser! !=
-                                widget!.passwordUser!) {
+                              );
+
+                              if (_shouldSetState) safeSetState(() {});
+                              return;
+                            } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Passwords don\'t match!',
+                                    'There was an error with Sign up.',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context).info,
+                                    ),
                                   ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).error,
                                 ),
                               );
+                              if (_shouldSetState) safeSetState(() {});
                               return;
                             }
-
-                            final user =
-                                await authManager.createAccountWithEmail(
-                              context,
-                              widget!.emailUser!,
-                              widget!.passwordUser!,
-                            );
-                            if (user == null) {
-                              return;
-                            }
-
-                            await UsersRecord.collection
-                                .doc(user.uid)
-                                .update(createUsersRecordData(
-                                  email: widget!.emailUser,
-                                  createdTime: getCurrentTimestamp,
-                                  userType: 'Customer',
-                                  phoneNumber: widget!.phoneNumber,
-                                  displayName: valueOrDefault<String>(
-                                    '${widget!.firstName} ${widget!.lastName}',
-                                    'n/a',
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'To continue, you must acccept the terms and onditions.',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context).info,
                                   ),
-                                  photoUrl: widget!.photoURL,
-                                ));
-
-                            await CustomersRecord.createDoc(
-                                    currentUserReference!)
-                                .set(createCustomersRecordData(
-                              photoUrl: widget!.photoURL,
-                              firstName: widget!.firstName,
-                              lastName: widget!.lastName,
-                            ));
-
-                            context.pushNamedAuth(
-                                HomeWidget.routeName, context.mounted);
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).warning,
+                              ),
+                            );
+                            if (_shouldSetState) safeSetState(() {});
+                            return;
                           }
+
+                          if (_shouldSetState) safeSetState(() {});
                         },
                   text: FFLocalizations.of(context).getText(
                     'zlmf2pg1' /* Continue */,
@@ -319,10 +219,22 @@ class _TermsScreenCopyWidgetState extends State<TermsScreenCopyWidget>
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primaryText,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Inter',
+                          font: GoogleFonts.inter(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontStyle,
+                          ),
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
                         ),
                     elevation: 0.0,
                     borderRadius: BorderRadius.circular(8.0),

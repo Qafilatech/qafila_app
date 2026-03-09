@@ -5,16 +5,11 @@ import '/components/report_components/other_issue_menu/other_issue_menu_widget.d
 import '/components/report_components/refund_issue_menu/refund_issue_menu_widget.dart';
 import '/components/report_components/tracking_issue_menu/tracking_issue_menu_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:math';
-import 'dart:ui';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'report_issue_menu_model.dart';
 export 'report_issue_menu_model.dart';
 
@@ -83,7 +78,15 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
         width: double.infinity,
         height: 500.0,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).primaryBackground,
+              FlutterFlowTheme.of(context).secondaryBackground
+            ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
+          ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
@@ -115,8 +118,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                       '3qxjsyeh' /* Report An Issue */,
                     ),
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          fontFamily: 'Readex Pro',
+                          font: GoogleFonts.readexPro(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontStyle,
                         ),
                   ),
                 ],
@@ -167,7 +183,7 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).accent1,
+                            color: FlutterFlowTheme.of(context).alternate,
                             width: 2.0,
                           ),
                         ),
@@ -185,8 +201,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -237,7 +266,7 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).accent1,
+                            color: FlutterFlowTheme.of(context).alternate,
                             width: 2.0,
                           ),
                         ),
@@ -255,8 +284,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -305,7 +347,7 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).accent1,
+                            color: FlutterFlowTheme.of(context).alternate,
                             width: 2.0,
                           ),
                         ),
@@ -323,8 +365,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -375,7 +430,7 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).accent1,
+                            color: FlutterFlowTheme.of(context).alternate,
                             width: 2.0,
                           ),
                         ),
@@ -393,8 +448,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -445,7 +513,7 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).accent1,
+                            color: FlutterFlowTheme.of(context).alternate,
                             width: 2.0,
                           ),
                         ),
@@ -463,8 +531,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -518,7 +599,7 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                               FlutterFlowTheme.of(context).secondaryBackground,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).accent1,
+                            color: FlutterFlowTheme.of(context).alternate,
                             width: 2.0,
                           ),
                         ),
@@ -536,8 +617,21 @@ class _ReportIssueMenuWidgetState extends State<ReportIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(

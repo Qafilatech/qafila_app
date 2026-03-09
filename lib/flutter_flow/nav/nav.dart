@@ -1,22 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 import '/index.dart';
+import 'package:custom_openstreetmap_vmty5u/index.dart'
+    as $custom_openstreetmap_vmty5u;
+import 'package:community_testing_ryusdv/index.dart'
+    as $community_testing_ryusdv;
+import 'package:marketplace_random_from_list_library_m7hdw4/index.dart'
+    as $marketplace_random_from_list_library_m7hdw4;
+import 'package:that_bottom_bar_y134zt/index.dart' as $that_bottom_bar_y134zt;
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -78,259 +77,301 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
-      initialLocation: '/',
-      debugLogDiagnostics: true,
-      refreshListenable: appStateNotifier,
-      navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LoginStartWidget(),
-      routes: [
-        FFRoute(
-          name: '_initialize',
-          path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LoginStartWidget(),
-          routes: [
-            FFRoute(
-              name: OrderHistoryWidget.routeName,
-              path: OrderHistoryWidget.routePath,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'OrderHistory')
-                  : NavBarPage(
-                      initialPage: 'OrderHistory',
-                      page: OrderHistoryWidget(),
-                    ),
-            ),
-            FFRoute(
-              name: CreateStartWidget.routeName,
-              path: CreateStartWidget.routePath,
-              builder: (context, params) => CreateStartWidget(),
-            ),
-            FFRoute(
-              name: LoginStartWidget.routeName,
-              path: LoginStartWidget.routePath,
-              builder: (context, params) => LoginStartWidget(),
-            ),
-            FFRoute(
-              name: ForgotPasswordWidget.routeName,
-              path: ForgotPasswordWidget.routePath,
-              builder: (context, params) => ForgotPasswordWidget(),
-            ),
-            FFRoute(
-              name: UserProfileWidget.routeName,
-              path: UserProfileWidget.routePath,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'UserProfile')
-                  : UserProfileWidget(),
-            ),
-            FFRoute(
-              name: EditProfileWidget.routeName,
-              path: EditProfileWidget.routePath,
-              builder: (context, params) => NavBarPage(
-                initialPage: '',
-                page: EditProfileWidget(),
+GoRouter createRouter(AppStateNotifier appStateNotifier) {
+  $custom_openstreetmap_vmty5u.initializeRoutes(
+    homePageWidgetName: 'custom_openstreetmap_vmty5u.HomePage',
+    homePageWidgetPath: 'homePage',
+  );
+
+  $community_testing_ryusdv.initializeRoutes(
+    notificationsWidgetName: 'community_testing_ryusdv.notifications',
+    notificationsWidgetPath: 'notifications',
+  );
+
+  $marketplace_random_from_list_library_m7hdw4.initializeRoutes(
+    homePageWidgetName: 'marketplace_random_from_list_library_m7hdw4.HomePage',
+    homePageWidgetPath: 'homerPage',
+  );
+
+  $that_bottom_bar_y134zt.initializeRoutes(
+    homePageWidgetName: 'that_bottom_bar_y134zt.HomePage',
+    homePageWidgetPath: 'home_that-bottom-bar-y134zt',
+    page2WidgetName: 'that_bottom_bar_y134zt.page2',
+    page2WidgetPath: 'page2',
+    page3WidgetName: 'that_bottom_bar_y134zt.page3',
+    page3WidgetPath: 'page3',
+  );
+
+  return GoRouter(
+    initialLocation: '/',
+    debugLogDiagnostics: true,
+    refreshListenable: appStateNotifier,
+    navigatorKey: appNavigatorKey,
+    errorBuilder: (context, state) =>
+        appStateNotifier.loggedIn ? HomeWidget() : LoginStartWidget(),
+    routes: [
+      FFRoute(
+        name: '_initialize',
+        path: '/',
+        builder: (context, _) =>
+            appStateNotifier.loggedIn ? HomeWidget() : LoginStartWidget(),
+        routes: [
+          FFRoute(
+            name: OrderHistoryWidget.routeName,
+            path: OrderHistoryWidget.routePath,
+            builder: (context, params) => OrderHistoryWidget(),
+          ),
+          FFRoute(
+            name: CreateStartWidget.routeName,
+            path: CreateStartWidget.routePath,
+            builder: (context, params) => CreateStartWidget(),
+          ),
+          FFRoute(
+            name: LoginStartWidget.routeName,
+            path: LoginStartWidget.routePath,
+            builder: (context, params) => LoginStartWidget(),
+          ),
+          FFRoute(
+            name: ForgotPasswordWidget.routeName,
+            path: ForgotPasswordWidget.routePath,
+            builder: (context, params) => ForgotPasswordWidget(),
+          ),
+          FFRoute(
+            name: UserProfileWidget.routeName,
+            path: UserProfileWidget.routePath,
+            builder: (context, params) => UserProfileWidget(),
+          ),
+          FFRoute(
+            name: EditProfileWidget.routeName,
+            path: EditProfileWidget.routePath,
+            builder: (context, params) => EditProfileWidget(),
+          ),
+          FFRoute(
+            name: OrderSummaryWidget.routeName,
+            path: OrderSummaryWidget.routePath,
+            builder: (context, params) => OrderSummaryWidget(
+              rideRef: params.getParam(
+                'rideRef',
+                ParamType.DocumentReference,
+                isList: false,
+                collectionNamePath: ['Orders'],
               ),
             ),
-            FFRoute(
-              name: OrderSummaryWidget.routeName,
-              path: OrderSummaryWidget.routePath,
-              builder: (context, params) => NavBarPage(
-                initialPage: '',
-                page: OrderSummaryWidget(
-                  rideRef: params.getParam(
-                    'rideRef',
-                    ParamType.DocumentReference,
-                    isList: false,
-                    collectionNamePath: ['ride'],
-                  ),
-                ),
+          ),
+          FFRoute(
+            name: HomeWidget.routeName,
+            path: HomeWidget.routePath,
+            builder: (context, params) => HomeWidget(),
+          ),
+          FFRoute(
+            name: ValidatePhoneWidget.routeName,
+            path: ValidatePhoneWidget.routePath,
+            builder: (context, params) => ValidatePhoneWidget(
+              email: params.getParam(
+                'email',
+                ParamType.String,
+              ),
+              password: params.getParam(
+                'password',
+                ParamType.String,
               ),
             ),
-            FFRoute(
-              name: DeliveryScreenLargeWidget.routeName,
-              path: DeliveryScreenLargeWidget.routePath,
-              builder: (context, params) => DeliveryScreenLargeWidget(
-                favCoordinates: params.getParam<LatLng>(
-                  'favCoordinates',
-                  ParamType.LatLng,
-                  isList: true,
-                ),
-                favAddress: params.getParam<String>(
-                  'favAddress',
-                  ParamType.String,
-                  isList: true,
-                ),
-                favStatus: params.getParam(
-                  'favStatus',
-                  ParamType.bool,
-                ),
-                dropCount: params.getParam(
-                  'dropCount',
-                  ParamType.int,
-                ),
+          ),
+          FFRoute(
+            name: VerifyPhoneWidget.routeName,
+            path: VerifyPhoneWidget.routePath,
+            builder: (context, params) => VerifyPhoneWidget(
+              email: params.getParam(
+                'email',
+                ParamType.String,
+              ),
+              password: params.getParam(
+                'password',
+                ParamType.String,
+              ),
+              phone: params.getParam(
+                'phone',
+                ParamType.String,
               ),
             ),
-            FFRoute(
-              name: HomeWidget.routeName,
-              path: HomeWidget.routePath,
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Home')
-                  : HomeWidget(),
-            ),
-            FFRoute(
-              name: ValidatePhoneWidget.routeName,
-              path: ValidatePhoneWidget.routePath,
-              builder: (context, params) => ValidatePhoneWidget(
-                email: params.getParam(
-                  'email',
-                  ParamType.String,
-                ),
-                password: params.getParam(
-                  'password',
-                  ParamType.String,
-                ),
+          ),
+          FFRoute(
+            name: CreateProfileWidget.routeName,
+            path: CreateProfileWidget.routePath,
+            builder: (context, params) => CreateProfileWidget(
+              email: params.getParam(
+                'email',
+                ParamType.String,
+              ),
+              password: params.getParam(
+                'password',
+                ParamType.String,
+              ),
+              phone: params.getParam(
+                'phone',
+                ParamType.String,
               ),
             ),
-            FFRoute(
-              name: VerifyPhoneWidget.routeName,
-              path: VerifyPhoneWidget.routePath,
-              builder: (context, params) => VerifyPhoneWidget(
-                email: params.getParam(
-                  'email',
-                  ParamType.String,
-                ),
-                password: params.getParam(
-                  'password',
-                  ParamType.String,
-                ),
-                phone: params.getParam(
-                  'phone',
-                  ParamType.String,
-                ),
+          ),
+          FFRoute(
+            name: OnboardingWidget.routeName,
+            path: OnboardingWidget.routePath,
+            builder: (context, params) => OnboardingWidget(),
+          ),
+          FFRoute(
+            name: TermsScreenWidget.routeName,
+            path: TermsScreenWidget.routePath,
+            builder: (context, params) => TermsScreenWidget(),
+          ),
+          FFRoute(
+            name: FavouritesScreenWidget.routeName,
+            path: FavouritesScreenWidget.routePath,
+            builder: (context, params) => FavouritesScreenWidget(),
+          ),
+          FFRoute(
+            name: LocateRidePageWidget.routeName,
+            path: LocateRidePageWidget.routePath,
+            builder: (context, params) => LocateRidePageWidget(
+              rideDetailsReference: params.getParam(
+                'rideDetailsReference',
+                ParamType.DocumentReference,
+                isList: false,
+                collectionNamePath: ['Orders'],
+              ),
+              routeHelp: params.getParam<LatLng>(
+                'routeHelp',
+                ParamType.LatLng,
+                isList: true,
               ),
             ),
-            FFRoute(
-              name: CreateProfileWidget.routeName,
-              path: CreateProfileWidget.routePath,
-              builder: (context, params) => CreateProfileWidget(
-                email: params.getParam(
-                  'email',
-                  ParamType.String,
-                ),
-                password: params.getParam(
-                  'password',
-                  ParamType.String,
-                ),
-                phone: params.getParam(
-                  'phone',
-                  ParamType.String,
-                ),
+          ),
+          FFRoute(
+            name: PaymentScreenWidget.routeName,
+            path: PaymentScreenWidget.routePath,
+            builder: (context, params) => PaymentScreenWidget(),
+          ),
+          FFRoute(
+            name: SupportPageWidget.routeName,
+            path: SupportPageWidget.routePath,
+            builder: (context, params) => SupportPageWidget(),
+          ),
+          FFRoute(
+            name: TermsScreenCopyWidget.routeName,
+            path: TermsScreenCopyWidget.routePath,
+            builder: (context, params) => TermsScreenCopyWidget(
+              displayName: params.getParam(
+                'displayName',
+                ParamType.String,
+              ),
+              emailUser: params.getParam(
+                'emailUser',
+                ParamType.String,
+              ),
+              passwordUser: params.getParam(
+                'passwordUser',
+                ParamType.String,
+              ),
+              phoneNumber: params.getParam(
+                'phoneNumber',
+                ParamType.String,
+              ),
+              photoURL: params.getParam(
+                'photoURL',
+                ParamType.String,
               ),
             ),
-            FFRoute(
-              name: OnboardingWidget.routeName,
-              path: OnboardingWidget.routePath,
-              builder: (context, params) => OnboardingWidget(),
-            ),
-            FFRoute(
-              name: TermsScreenWidget.routeName,
-              path: TermsScreenWidget.routePath,
-              builder: (context, params) => NavBarPage(
-                initialPage: '',
-                page: TermsScreenWidget(),
+          ),
+          FFRoute(
+            name: InvoiceScreenWidget.routeName,
+            path: InvoiceScreenWidget.routePath,
+            builder: (context, params) => InvoiceScreenWidget(
+              rideref: params.getParam(
+                'rideref',
+                ParamType.DocumentReference,
+                isList: false,
+                collectionNamePath: ['Orders'],
               ),
             ),
-            FFRoute(
-              name: ChatMenuWidget.routeName,
-              path: ChatMenuWidget.routePath,
-              builder: (context, params) => NavBarPage(
-                initialPage: '',
-                page: ChatMenuWidget(),
+          ),
+          FFRoute(
+            name: SettingsScreenWidget.routeName,
+            path: SettingsScreenWidget.routePath,
+            builder: (context, params) => SettingsScreenWidget(),
+          ),
+          FFRoute(
+            name: LargeDeliveryScreenWidget.routeName,
+            path: LargeDeliveryScreenWidget.routePath,
+            builder: (context, params) => LargeDeliveryScreenWidget(
+              favCoordinates: params.getParam<LatLng>(
+                'favCoordinates',
+                ParamType.LatLng,
+                isList: true,
+              ),
+              favAddress: params.getParam<String>(
+                'favAddress',
+                ParamType.String,
+                isList: true,
+              ),
+              favStatus: params.getParam(
+                'favStatus',
+                ParamType.bool,
+              ),
+              dropCount: params.getParam(
+                'dropCount',
+                ParamType.int,
+              ),
+              detectedOS: params.getParam(
+                'detectedOS',
+                ParamType.String,
               ),
             ),
-            FFRoute(
-              name: FavouritesScreenWidget.routeName,
-              path: FavouritesScreenWidget.routePath,
-              builder: (context, params) => NavBarPage(
-                initialPage: '',
-                page: FavouritesScreenWidget(),
-              ),
-            ),
-            FFRoute(
-              name: LocateRidePageWidget.routeName,
-              path: LocateRidePageWidget.routePath,
-              builder: (context, params) => LocateRidePageWidget(
-                rideDetailsReference: params.getParam(
-                  'rideDetailsReference',
-                  ParamType.DocumentReference,
-                  isList: false,
-                  collectionNamePath: ['ride'],
-                ),
-              ),
-            ),
-            FFRoute(
-              name: LocateRidePageCopyWidget.routeName,
-              path: LocateRidePageCopyWidget.routePath,
-              builder: (context, params) => LocateRidePageCopyWidget(
-                rideDetailsReference: params.getParam(
-                  'rideDetailsReference',
-                  ParamType.DocumentReference,
-                  isList: false,
-                  collectionNamePath: ['ride'],
-                ),
-              ),
-            ),
-            FFRoute(
-              name: PaymentScreenWidget.routeName,
-              path: PaymentScreenWidget.routePath,
-              builder: (context, params) => NavBarPage(
-                initialPage: '',
-                page: PaymentScreenWidget(),
-              ),
-            ),
-            FFRoute(
-              name: SupportPageWidget.routeName,
-              path: SupportPageWidget.routePath,
-              builder: (context, params) => NavBarPage(
-                initialPage: '',
-                page: SupportPageWidget(),
-              ),
-            ),
-            FFRoute(
-              name: TermsScreenCopyWidget.routeName,
-              path: TermsScreenCopyWidget.routePath,
-              builder: (context, params) => TermsScreenCopyWidget(
-                firstName: params.getParam(
-                  'firstName',
-                  ParamType.String,
-                ),
-                lastName: params.getParam(
-                  'lastName',
-                  ParamType.String,
-                ),
-                emailUser: params.getParam(
-                  'emailUser',
-                  ParamType.String,
-                ),
-                passwordUser: params.getParam(
-                  'passwordUser',
-                  ParamType.String,
-                ),
-                phoneNumber: params.getParam(
-                  'phoneNumber',
-                  ParamType.String,
-                ),
-                photoURL: params.getParam(
-                  'photoURL',
-                  ParamType.String,
-                ),
-              ),
-            )
-          ].map((r) => r.toRoute(appStateNotifier)).toList(),
-        ),
-      ].map((r) => r.toRoute(appStateNotifier)).toList(),
-    );
+          ),
+          FFRoute(
+            name: LoadingPageWidget.routeName,
+            path: LoadingPageWidget.routePath,
+            builder: (context, params) => LoadingPageWidget(),
+          ),
+          FFRoute(
+            name: $custom_openstreetmap_vmty5u.HomePageWidget.routeName,
+            path: $custom_openstreetmap_vmty5u.HomePageWidget.routePath,
+            builder: (context, params) =>
+                $custom_openstreetmap_vmty5u.HomePageWidget(),
+          ),
+          FFRoute(
+            name: $community_testing_ryusdv.NotificationsWidget.routeName,
+            path: $community_testing_ryusdv.NotificationsWidget.routePath,
+            builder: (context, params) =>
+                $community_testing_ryusdv.NotificationsWidget(),
+          ),
+          FFRoute(
+            name: $marketplace_random_from_list_library_m7hdw4
+                .HomePageWidget.routeName,
+            path: $marketplace_random_from_list_library_m7hdw4
+                .HomePageWidget.routePath,
+            builder: (context, params) =>
+                $marketplace_random_from_list_library_m7hdw4.HomePageWidget(),
+          ),
+          FFRoute(
+            name: $that_bottom_bar_y134zt.HomePageWidget.routeName,
+            path: $that_bottom_bar_y134zt.HomePageWidget.routePath,
+            builder: (context, params) =>
+                $that_bottom_bar_y134zt.HomePageWidget(),
+          ),
+          FFRoute(
+            name: $that_bottom_bar_y134zt.Page2Widget.routeName,
+            path: $that_bottom_bar_y134zt.Page2Widget.routePath,
+            builder: (context, params) => $that_bottom_bar_y134zt.Page2Widget(),
+          ),
+          FFRoute(
+            name: $that_bottom_bar_y134zt.Page3Widget.routeName,
+            path: $that_bottom_bar_y134zt.Page3Widget.routePath,
+            builder: (context, params) => $that_bottom_bar_y134zt.Page3Widget(),
+          )
+        ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      ),
+    ].map((r) => r.toRoute(appStateNotifier)).toList(),
+  );
+}
 
 extension NavParamExtensions on Map<String, String?> {
   Map<String, String> get withoutNulls => Map.fromEntries(
@@ -406,9 +447,21 @@ extension _GoRouterStateExtensions on GoRouterState {
     ..addAll(pathParameters)
     ..addAll(uri.queryParameters)
     ..addAll(extraMap);
-  TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
-      ? extraMap[kTransitionInfoKey] as TransitionInfo
-      : TransitionInfo.appDefault();
+  TransitionInfo get transitionInfo {
+    final possibleKeys = [
+      '__transition_info__',
+      '__transition_info__custom_openstreetmap_vmty5u',
+      '__transition_info__community_testing_ryusdv',
+      '__transition_info__marketplace_random_from_list_library_m7hdw4',
+      '__transition_info__that_bottom_bar_y134zt'
+    ];
+    for (final key in possibleKeys) {
+      if (extraMap.containsKey(key)) {
+        return extraMap[key] as TransitionInfo;
+      }
+    }
+    return TransitionInfo.appDefault();
+  }
 }
 
 class FFParameters {
@@ -447,6 +500,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -465,6 +519,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }
@@ -515,7 +570,7 @@ class FFRoute {
               ? Container(
                   color: Colors.transparent,
                   child: Image.asset(
-                    'assets/images/QAFILATECH.png',
+                    'assets/images/ChatGPT_Image_Dec_24,_2025,_12_49_49_PM.png',
                     fit: BoxFit.cover,
                   ),
                 )
@@ -525,6 +580,7 @@ class FFRoute {
           return transitionInfo.hasTransition
               ? CustomTransitionPage(
                   key: state.pageKey,
+                  name: state.name,
                   child: child,
                   transitionDuration: transitionInfo.duration,
                   transitionsBuilder:
@@ -542,7 +598,8 @@ class FFRoute {
                     child,
                   ),
                 )
-              : MaterialPage(key: state.pageKey, child: child);
+              : MaterialPage(
+                  key: state.pageKey, name: state.name, child: child);
         },
         routes: routes,
       );

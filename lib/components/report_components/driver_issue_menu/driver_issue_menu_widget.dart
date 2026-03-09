@@ -1,11 +1,8 @@
 import '/components/report_components/issue_with_order_select/issue_with_order_select_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'driver_issue_menu_model.dart';
 export 'driver_issue_menu_model.dart';
 
@@ -59,7 +56,15 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).primaryBackground,
+              FlutterFlowTheme.of(context).secondaryBackground
+            ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
+          ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
@@ -91,8 +96,21 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                       '1z4majx5' /* Driver/Delivery Person Issue */,
                     ),
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          fontFamily: 'Readex Pro',
+                          font: GoogleFonts.readexPro(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontStyle,
                         ),
                   ),
                 ],
@@ -128,7 +146,7 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: 'Rude or Unprofessional Behaviour',
-                                  categoryTitle: widget!.categoryTitle!,
+                                  categoryTitle: widget.categoryTitle!,
                                   desc:
                                       'Report incidents of rude or unprofessional behavior experienced during delivery. Share specific details to help us take appropriate action and improve our service.',
                                 ),
@@ -162,8 +180,21 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -199,7 +230,7 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: 'Safety Concerns',
-                                  categoryTitle: widget!.categoryTitle!,
+                                  categoryTitle: widget.categoryTitle!,
                                   desc: FFLocalizations.of(context).getText(
                                     'fp12ki8o' /* Report any safety-related issu... */,
                                   ),
@@ -234,8 +265,21 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -271,7 +315,7 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: 'Unresponsive Driver',
-                                  categoryTitle: widget!.categoryTitle!,
+                                  categoryTitle: widget.categoryTitle!,
                                   desc: FFLocalizations.of(context).getText(
                                     '0m4aibe6' /* Report drivers who are unrespo... */,
                                   ),
@@ -306,8 +350,21 @@ class _DriverIssueMenuWidgetState extends State<DriverIssueMenuWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(

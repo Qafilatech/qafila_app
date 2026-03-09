@@ -1,15 +1,10 @@
 import '/components/report_components/issue_with_order_select/issue_with_order_select_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:math';
-import 'dart:ui';
+import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'delivery_issue_menu_model.dart';
 export 'delivery_issue_menu_model.dart';
 
@@ -83,7 +78,15 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
+          gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).primaryBackground,
+              FlutterFlowTheme.of(context).secondaryBackground
+            ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
+          ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
@@ -115,8 +118,21 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                       'i6ggaksu' /* Delivery Issue */,
                     ),
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          fontFamily: 'Readex Pro',
+                          font: GoogleFonts.readexPro(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .fontStyle,
                         ),
                   ),
                 ],
@@ -142,8 +158,7 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                         Navigator.pop(context);
                         await showModalBottomSheet(
                           isScrollControlled: true,
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).primaryBackground,
+                          backgroundColor: Color(0x00182026),
                           context: context,
                           builder: (context) {
                             return Padding(
@@ -152,8 +167,9 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '1. Late Delivery Report',
-                                  categoryTitle: widget!.categoryTitle!,
-                                  desc: '',
+                                  categoryTitle: widget.categoryTitle!,
+                                  desc: 'For late delivery',
+                                  specificOrder: false,
                                 ),
                               ),
                             );
@@ -185,8 +201,21 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -222,7 +251,7 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '2. Damaged Items Report',
-                                  categoryTitle: widget!.categoryTitle!,
+                                  categoryTitle: widget.categoryTitle!,
                                   desc: FFLocalizations.of(context).getText(
                                     'p4s8o6fx' /* Report any damaged items durin... */,
                                   ),
@@ -257,8 +286,21 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -294,7 +336,7 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '3. Wrong Items Report',
-                                  categoryTitle: widget!.categoryTitle!,
+                                  categoryTitle: widget.categoryTitle!,
                                   desc: FFLocalizations.of(context).getText(
                                     'kakfnc3h' /* Report items delivered incorre... */,
                                   ),
@@ -329,8 +371,21 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -366,7 +421,7 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '4. Failed Delivery Report',
-                                  categoryTitle: widget!.categoryTitle!,
+                                  categoryTitle: widget.categoryTitle!,
                                   desc: FFLocalizations.of(context).getText(
                                     '79x5woih' /* Report unsuccessful delivery a... */,
                                   ),
@@ -401,8 +456,21 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(
@@ -438,7 +506,7 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 height: 450.0,
                                 child: IssueWithOrderSelectWidget(
                                   title: '5. Partial Delivery Report',
-                                  categoryTitle: widget!.categoryTitle!,
+                                  categoryTitle: widget.categoryTitle!,
                                   desc: FFLocalizations.of(context).getText(
                                     'zhb41b62' /* Report items that were partial... */,
                                   ),
@@ -473,8 +541,21 @@ class _DeliveryIssueMenuWidgetState extends State<DeliveryIssueMenuWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
                                     ),
                               ),
                               Icon(

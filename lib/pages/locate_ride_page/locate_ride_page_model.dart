@@ -1,27 +1,10 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/card10_rating/card10_rating_widget.dart';
-import '/components/report_components/report_issue_menu/report_issue_menu_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
-import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'locate_ride_page_widget.dart' show LocateRidePageWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class LocateRidePageModel extends FlutterFlowModel<LocateRidePageWidget> {
   ///  Local state fields for this page.
@@ -36,9 +19,28 @@ class LocateRidePageModel extends FlutterFlowModel<LocateRidePageWidget> {
 
   String? staticDurationText;
 
+  bool tipped = false;
+
+  ///  State fields for stateful widgets in this page.
+
+  // Stores action output result for [Backend Call - Read Document] action in LocateRidePage widget.
+  OrdersRecord? orderOutput;
+  // State field(s) for Timer widget.
+  final timerInitialTimeMs = 60000;
+  int timerMilliseconds = 60000;
+  String timerValue = StopWatchTimer.getDisplayTime(
+    60000,
+    hours: false,
+    milliSecond: false,
+  );
+  FlutterFlowTimerController timerController =
+      FlutterFlowTimerController(StopWatchTimer(mode: StopWatchMode.countDown));
+
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {}
+  void dispose() {
+    timerController.dispose();
+  }
 }

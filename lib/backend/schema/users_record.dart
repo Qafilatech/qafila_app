@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
+
+
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -36,26 +37,6 @@ class UsersRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
-  // "last_active_time" field.
-  DateTime? _lastActiveTime;
-  DateTime? get lastActiveTime => _lastActiveTime;
-  bool hasLastActiveTime() => _lastActiveTime != null;
-
-  // "userType" field.
-  String? _userType;
-  String get userType => _userType ?? '';
-  bool hasUserType() => _userType != null;
-
-  // "CustomeRef" field.
-  DocumentReference? _customeRef;
-  DocumentReference? get customeRef => _customeRef;
-  bool hasCustomeRef() => _customeRef != null;
-
-  // "DriverRef" field.
-  DocumentReference? _driverRef;
-  DocumentReference? get driverRef => _driverRef;
-  bool hasDriverRef() => _driverRef != null;
-
   // "display_name" field.
   String? _displayName;
   String get displayName => _displayName ?? '';
@@ -66,23 +47,13 @@ class UsersRecord extends FirestoreRecord {
   String get photoUrl => _photoUrl ?? '';
   bool hasPhotoUrl() => _photoUrl != null;
 
-  // "FavLocRef" field.
-  DocumentReference? _favLocRef;
-  DocumentReference? get favLocRef => _favLocRef;
-  bool hasFavLocRef() => _favLocRef != null;
-
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
-    _lastActiveTime = snapshotData['last_active_time'] as DateTime?;
-    _userType = snapshotData['userType'] as String?;
-    _customeRef = snapshotData['CustomeRef'] as DocumentReference?;
-    _driverRef = snapshotData['DriverRef'] as DocumentReference?;
     _displayName = snapshotData['display_name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
-    _favLocRef = snapshotData['FavLocRef'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -123,13 +94,8 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
-  DateTime? lastActiveTime,
-  String? userType,
-  DocumentReference? customeRef,
-  DocumentReference? driverRef,
   String? displayName,
   String? photoUrl,
-  DocumentReference? favLocRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -137,13 +103,8 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
-      'last_active_time': lastActiveTime,
-      'userType': userType,
-      'CustomeRef': customeRef,
-      'DriverRef': driverRef,
       'display_name': displayName,
       'photo_url': photoUrl,
-      'FavLocRef': favLocRef,
     }.withoutNulls,
   );
 
@@ -159,13 +120,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.lastActiveTime == e2?.lastActiveTime &&
-        e1?.userType == e2?.userType &&
-        e1?.customeRef == e2?.customeRef &&
-        e1?.driverRef == e2?.driverRef &&
         e1?.displayName == e2?.displayName &&
-        e1?.photoUrl == e2?.photoUrl &&
-        e1?.favLocRef == e2?.favLocRef;
+        e1?.photoUrl == e2?.photoUrl;
   }
 
   @override
@@ -174,13 +130,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.lastActiveTime,
-        e?.userType,
-        e?.customeRef,
-        e?.driverRef,
         e?.displayName,
-        e?.photoUrl,
-        e?.favLocRef
+        e?.photoUrl
       ]);
 
   @override
